@@ -89,6 +89,18 @@
   .store-header.scrolled .logo { width: clamp(154px, 9vw, 178px); }
 }
 
+@media (min-width: 1700px) {
+  .storefront {
+    width: 72vw;
+    max-width: 1900px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .storefront .store-header {
+    width: min(72vw,1900px);
+  }
+}
+
 @media (min-width: 1101px) and (max-width: 1500px) {
   .store-header .logo { width: clamp(180px, 14vw, 195px); }
   .store-header .desktop-nav { font-size: 15px; }

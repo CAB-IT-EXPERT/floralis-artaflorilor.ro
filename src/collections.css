@@ -260,15 +260,6 @@
   .collection-card { height: 285px; }
 }
 
-@media (min-width: 1280px) {
-  .collections-section .section-heading,
-  .collections-section .collections {
-    width: min(80%,1760px);
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-
 @media (max-width: 767px) {
   .collections-section { padding-top: 48px; padding-bottom: 52px; }
   .collections-section .section-heading { margin-bottom: 30px; }
