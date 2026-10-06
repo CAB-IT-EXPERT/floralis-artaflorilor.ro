@@ -1,0 +1,4121 @@
+{
+  "source": "data/source-catalog.json",
+  "products": [
+    {
+      "source_id": "4143",
+      "sku": "1",
+      "name": "Aranjament Emotie pastelata",
+      "slug": "aranjament-emotie-pastelata",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un joc delicat de texturi si nuante pastelate, conturate intr-un vas ceramic statement, in tonuri intense de azur.\r\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\r\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata..",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4143-0.webp",
+          "alt": "|",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/emotie_pastelata-removebg-preview-1.png"
+        },
+        {
+          "url": "/assets/floralis/product-4143-1.webp",
+          "alt": "|",
+          "sort_order": 1,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/emotie_pastelata-removebg-preview.png"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/emotie_pastelata-removebg-preview-1.png",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/emotie_pastelata-removebg-preview.png"
+      ],
+      "image_alt": "|"
+    },
+    {
+      "source_id": "4144",
+      "sku": "2",
+      "name": "Aranjament Poveste solara",
+      "slug": "aranjament-poveste-solara",
+      "status": "publish",
+      "price_cents": 27500,
+      "regular_price_cents": 27500,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Realizat in cutia statement de catifea “Floralis-arta florilor”, acest aranjament imbina texturi bogate de piersica, galben si verde fresh, Ideal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nCompozitie florala: Trandafiri Garden, Mini Rose, Solidago color, Lisianthus, Chamelaucium, Gerbera Spider, completate de texturi aerisite si accente fresh de verde.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata..",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4144-0.webp",
+          "alt": "Aranjament Poveste solara",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poveste_Solara.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poveste_Solara.jpeg"
+      ],
+      "image_alt": "Aranjament Poveste solara"
+    },
+    {
+      "source_id": "4145",
+      "sku": "3",
+      "name": "Fetita dintre flori",
+      "slug": "fetita-dintre-flori",
+      "status": "publish",
+      "price_cents": 27000,
+      "regular_price_cents": 27000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament cu aer de poveste, unde nuantele vibrante de roz se intalnesc cu accente delicate de bleu si texturi salbatice, intr-o compozitie artistica si jucausa, aproape desprins dintr-un basm modern.\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nCompozitie florala: Trandafiri Garden, Lisianthus, Lepidum, Sedum.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata..",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4145-0.webp",
+          "alt": "Fetita dintre flori",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Fetita_Dintre_Flori.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Fetita_Dintre_Flori.jpeg"
+      ],
+      "image_alt": "Fetita dintre flori"
+    },
+    {
+      "source_id": "4146",
+      "sku": "4",
+      "name": "Aranjament Poem in roz",
+      "slug": "aranjament-poem-in-roz",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Delicat, feminin si sofisticat, acest aranjament imbina armonios trandafirii in nuante pudrate, intr-o compozitie cu aer romantic si elegant. \n Ideal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata..",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4146-0.webp",
+          "alt": "Aranjament Poem in roz",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poem_In_Roz.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poem_In_Roz.jpeg"
+      ],
+      "image_alt": "Aranjament Poem in roz"
+    },
+    {
+      "source_id": "4147",
+      "sku": "5",
+      "name": "Aranjament Rouge floral",
+      "slug": "aranjament-rouge-floral",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Aranjamentul in nuante de rosu intens este o alegere splendita, plina de energie si romantism.\r\nCompozitie florala: Trandafiri rosii catifelati, Gerbera Spider, Lisianthus, Hyperricum, Solidago color si Limonium intr-o compozitie cu adevarat statement.\r\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\r\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4147-0.webp",
+          "alt": "Aranjament Rouge floral",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Rouge_Floral.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Rouge_Floral.jpeg"
+      ],
+      "image_alt": "Aranjament Rouge floral"
+    },
+    {
+      "source_id": "4148",
+      "sku": "6",
+      "name": "Aranjament Ritm solar",
+      "slug": "aranjament-ritm-solar",
+      "status": "publish",
+      "price_cents": 27500,
+      "regular_price_cents": 27500,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Luminos si delicat, , intr-o compozitie fresh si eleganta se impletesc cu texture diverse, toate asezate intr-o cutie de catifea ce adauga un plus de eleganta.\nCompozitie florala: Trandafiri, Alstroemeria, Frezii, Hyperricum, Santini, Solidago.\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4148-0.webp",
+          "alt": "Aranjament Ritm solar",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Ritm_Solar.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Ritm_Solar.jpeg"
+      ],
+      "image_alt": "Aranjament Ritm solar"
+    },
+    {
+      "source_id": "4149",
+      "sku": "7",
+      "name": "Aranjament Pasiune in floare",
+      "slug": "aranjament-pasiune-in-floare",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un mix floral delicat si artistic, in care nuantele pastelate de roz, galben si bleu se impletesc intr-o compozitie fresh feminine si sofisticata.\nCompozitie florala: Ranuncus, Trandafir Garden, Lisianthusul, Mini Rose, Oxipetalum, Solidago color si Tanacetum creeaza un joc delicat de texture si volume, completat de acente naturale de Eucalipt. \nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4149-0.webp",
+          "alt": "Aranjament Pasiune in floare",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Pasiune_In_Floare.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Pasiune_In_Floare.jpeg"
+      ],
+      "image_alt": "Aranjament Pasiune in floare"
+    },
+    {
+      "source_id": "4150",
+      "sku": "8",
+      "name": "Aranjament Eleganta intensa",
+      "slug": "aranjament-eleganta-intensa",
+      "status": "publish",
+      "price_cents": 50000,
+      "regular_price_cents": 50000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O compozitie florala eleganta si spectaculoasa, construita in nuante delicate de blush, peach si roz intens, unde fiecare floare adauga profunzime si rafinament intregului aranjament.\nCompozitie florala: Trandafiri Garden, Mini Rose, Hyperricum, Frezii, Dianthus, Solidago color, Panicum si Delphinum creaza un mix sofisticat, cu un aer romantic si modern in acelasi timp.\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4150-0.webp",
+          "alt": "Aranjament Eleganta intensa",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Eleganta_Intensa.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Eleganta_Intensa.jpeg"
+      ],
+      "image_alt": "Aranjament Eleganta intensa"
+    },
+    {
+      "source_id": "4151",
+      "sku": "9",
+      "name": "Aranjament Parfum de toamna",
+      "slug": "aranjament-parfum-de-toamna",
+      "status": "publish",
+      "price_cents": 100000,
+      "regular_price_cents": 100000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament cu estetica dramatica si sofisticata, inspirat de paleta bogata a toameni tarzii. Trandafirii in nuante champagne, Dalii, Hortensii, Crizantema, Antirrinium, Oak Leaves, acesorii mini dovlecei.\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4151-0.webp",
+          "alt": "Aranjament Parfum de toamna",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Parfum_De_Toamna.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Parfum_De_Toamna.jpeg"
+      ],
+      "image_alt": "Aranjament Parfum de toamna"
+    },
+    {
+      "source_id": "4152",
+      "sku": "10",
+      "name": "Aranjament Eleganta in rosu",
+      "slug": "aranjament-eleganta-in-rosu",
+      "status": "publish",
+      "price_cents": 35000,
+      "regular_price_cents": 35000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament floral sofisticat, cu un aer intens si elegant.\nCompozitie florala: Trandafiri, Ranunculus, Helleborus, Mini Rose, Lisianthus, Gerbera Spider si accente fine de Eucalipt\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4152-0.webp",
+          "alt": "Aranjament Eleganta in rosu",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Eleganta_In_Rosu.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Eleganta_In_Rosu.jpeg"
+      ],
+      "image_alt": "Aranjament Eleganta in rosu"
+    },
+    {
+      "source_id": "4153",
+      "sku": "11",
+      "name": "Aranjament Nuante imperiale",
+      "slug": "aranjament-nuante-imperiale",
+      "status": "publish",
+      "price_cents": 300000,
+      "regular_price_cents": 300000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Spectaculos si regal, acest aranjament impresioneaza printr-o paleta sofisticata de albastru imperial, bleu glaciar si alb pur.\nCompozitie florala:  Orhidee, Trandafiri, Crizantema VIP, Liliac, Hortensie, Eustoma VIP, creeaza o compozitie ampla, cu un aer couture si o prezenta imposibil de ignorat. \nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4153-0.webp",
+          "alt": "Aranjament Nuante imperiale",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Nuante_Imperiale.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Nuante_Imperiale.jpeg"
+      ],
+      "image_alt": "Aranjament Nuante imperiale"
+    },
+    {
+      "source_id": "4154",
+      "sku": "12",
+      "name": "Aranjament Poveste pastelata",
+      "slug": "aranjament-poveste-pastelata",
+      "status": "publish",
+      "price_cents": 90000,
+      "regular_price_cents": 90000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament floral cu estetica artistica si eleganta in nuante de peach si roz prafuit, creeaza o compozitie fluida, cu un aer modern si poetic.\nCompozitie florala: Ranunculus, Trandafiri Graden, Lisianthus, Gerbera, Dianthus, Chamelaucium, Ranunculus Butterfly, Helleborus, Ozothamus, perfecta pentru personae care iubesc frumusetea rafinata, detaliile editorial si florile cu personalitate subtila. \nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4154-0.webp",
+          "alt": "Aranjament Poveste pastelata",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poveste_Pastelata.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poveste_Pastelata.jpeg"
+      ],
+      "image_alt": "Aranjament Poveste pastelata"
+    },
+    {
+      "source_id": "4155",
+      "sku": "13",
+      "name": "Aranjament Poveste diafana",
+      "slug": "aranjament-poveste-diafana",
+      "status": "publish",
+      "price_cents": 65000,
+      "regular_price_cents": 65000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Delicat si feminin, acest aranjament floral surprinde printr-un mix armonios de rozuri vibrante, alb pur si texture diafame.\r\nCompozitie florala: Trandafiri, Gerbera Spider, Lisianthus, Mathiola, Lepidum, Crizantema, Salix\r\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\r\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4155-0.webp",
+          "alt": "Aranjament Poveste diafana",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poveste_Diafana.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Poveste_Diafana.jpeg"
+      ],
+      "image_alt": "Aranjament Poveste diafana"
+    },
+    {
+      "source_id": "4156",
+      "sku": "14",
+      "name": "Aranjament Dans de petale",
+      "slug": "aranjament-dans-de-petale",
+      "status": "publish",
+      "price_cents": 55000,
+      "regular_price_cents": 55000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O compozitie florala bogata, cu aer sofisticat si texture delicate, create intr-un mix armonios de nuante blush, corai si burgundy intens.\nCompozitie  florala: Hortensie, Mini Rose, Eustoma, Celosia, Frezie, Lisianthus, Gerbera Spider\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4156-0.webp",
+          "alt": "Aranjament Dans de petale",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Dans_De_Petale.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Dans_De_Petale.jpeg"
+      ],
+      "image_alt": "Aranjament Dans de petale"
+    },
+    {
+      "source_id": "4157",
+      "sku": "15",
+      "name": "Evadare exotica",
+      "slug": "evadare-exotica",
+      "status": "publish",
+      "price_cents": 80000,
+      "regular_price_cents": 80000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament floral cu personalitate puternica, inspirat din estetica tropicala si liniile sculpturale ale naturii exotice:\nCompozitie florala: Strlitzia, Anthurium.Monstera, Corilyus\nIdeal pentru o aniversare, o surpriza sau pur si simplu pentru a spune “Multumesc”.\nIn functie de stoc si de sezon, produsele pot suferi mici modificari, insa cromatica va fi pastrata.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4157-0.webp",
+          "alt": "Evadare exotica",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Evadare_Exotica.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Evadare_Exotica.jpeg"
+      ],
+      "image_alt": "Evadare exotica"
+    },
+    {
+      "source_id": "4158",
+      "sku": "16",
+      "name": "Aranjament Armonie diafana",
+      "slug": "aranjament-armonie-diafana",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un joc delicat de forme, texture si nuante pastelate, unde galbenul luminos si accentele fine de lila se imbina intr-o compozitie florala cu aer artistic si sofisticat\nCompozitie florala: Dianthus, Lisianthus, Latyrus",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "aranjamente-florale"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4158-0.webp",
+          "alt": "Aranjament Armonie diafana",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Armonie_Diafana.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Armonie_Diafana.jpeg"
+      ],
+      "image_alt": "Aranjament Armonie diafana"
+    },
+    {
+      "source_id": "4159",
+      "sku": "17",
+      "name": "Buchet mireasa roz cu eustoma si frezii",
+      "slug": "buchet-mireasa-roz-cu-eustoma-si-frezii",
+      "status": "publish",
+      "price_cents": 35000,
+      "regular_price_cents": 35000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet de mireasa cu trandfiri roz, eustoma si frezii albe\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4159-0.webp",
+          "alt": "Buchet mireasa roz cu eustoma si frezii",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Roz_Cu_Eustoma_Si_Frezii.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Roz_Cu_Eustoma_Si_Frezii.jpeg"
+      ],
+      "image_alt": "Buchet mireasa roz cu eustoma si frezii"
+    },
+    {
+      "source_id": "4160",
+      "sku": "18",
+      "name": "Buchet mireasa hortensie si eustoma",
+      "slug": "buchet-mireasa-hortensie-si-eustoma",
+      "status": "publish",
+      "price_cents": 33000,
+      "regular_price_cents": 33000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet de mireasa cu hortensii albe si eustoma verde fistic\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4160-0.webp",
+          "alt": "Buchet mireasa hortensie si eustoma",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Hortensie_Si_Eustoma.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Hortensie_Si_Eustoma.jpeg"
+      ],
+      "image_alt": "Buchet mireasa hortensie si eustoma"
+    },
+    {
+      "source_id": "4161",
+      "sku": "19",
+      "name": "Buchet de mireasa romantic",
+      "slug": "buchet-de-mireasa-romantic",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet de mireasa romantic in nuante de roz, alb si accente verzi de lepidium, perfect pentru mireasa ce-si doreste eleganta si feminitate.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4161-0.webp",
+          "alt": "Buchet de mireasa romantic",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_De_Mireasa_Romantic.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_De_Mireasa_Romantic.jpeg"
+      ],
+      "image_alt": "Buchet de mireasa romantic"
+    },
+    {
+      "source_id": "4162",
+      "sku": "20",
+      "name": "Buchet mireasa alb wild",
+      "slug": "buchet-mireasa-alb-wild",
+      "status": "publish",
+      "price_cents": 50000,
+      "regular_price_cents": 50000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet de mireasa cu frumusete naturala si aer effortless, construit in texture delicate si flori able, pentru un effect wild, diafan si extrem de elegant. Este acel tip de buchet care completeaza perfect o aparitie sofisticata, fara sa ii ia din naturalete.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4162-0.webp",
+          "alt": "Buchet mireasa alb wild",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Alb_Wild.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Alb_Wild.jpeg"
+      ],
+      "image_alt": "Buchet mireasa alb wild"
+    },
+    {
+      "source_id": "4163",
+      "sku": "21",
+      "name": "Buchet mireasa pastel",
+      "slug": "buchet-mireasa-pastel",
+      "status": "publish",
+      "price_cents": 50000,
+      "regular_price_cents": 50000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet de mireasa in nuante pastel cu bujor, dalie, oxypetalum si eucalipt, pentru o mireasa ce doreste sa emane feminitate si naturalete.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4163-0.webp",
+          "alt": "Buchet mireasa pastel",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Pastel.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Pastel.jpeg"
+      ],
+      "image_alt": "Buchet mireasa pastel"
+    },
+    {
+      "source_id": "4164",
+      "sku": "22",
+      "name": "Buchet de mireasa alb cu accente peach",
+      "slug": "buchet-de-mireasa-alb-cu-accente-peach",
+      "status": "publish",
+      "price_cents": 45000,
+      "regular_price_cents": 45000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet de mireasa delicat cu trandafirii Candlelight, care ofera acel touch soft de peach, frezii able si oxypetalum, perfect pentru o mireasa ce-si doreste un touch soft de culoare buchetului.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4164-0.webp",
+          "alt": "Buchet de mireasa alb cu accente peach",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_De_Mireasa_Alb_Cu_Accente_Peach.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_De_Mireasa_Alb_Cu_Accente_Peach.jpeg"
+      ],
+      "image_alt": "Buchet de mireasa alb cu accente peach"
+    },
+    {
+      "source_id": "4165",
+      "sku": "23",
+      "name": "Buchet de mireasa compact in nunante pastelate",
+      "slug": "buchet-de-mireasa-compact-in-nunante-pastelate",
+      "status": "publish",
+      "price_cents": 55000,
+      "regular_price_cents": 55000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet de mireasa compact in nunate pastelat, elegant si rafinat. Cu trandafiri de gradina, dalie, eustoma alissa si bujor, acest buchet emana o frumusete subtila cu un look feminin, romantic.\r\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\r\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4165-0.webp",
+          "alt": "Buchet de mireasa compact in nunante pastelate",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Bcuhet_De_Mireasa_Compact_In_Nunante_Pastelate.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Bcuhet_De_Mireasa_Compact_In_Nunante_Pastelate.jpeg"
+      ],
+      "image_alt": "Buchet de mireasa compact in nunante pastelate"
+    },
+    {
+      "source_id": "4166",
+      "sku": "24",
+      "name": "Buchet de mireasa cappuccino",
+      "slug": "buchet-de-mireasa-cappuccino",
+      "status": "publish",
+      "price_cents": 45000,
+      "regular_price_cents": 45000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchetul de mireasa este o adevarata explozie de culori, iar culorile Cappuccino dau eleganta si rafinament, pentru o mireasa ce -si doreste sa fie diferita si indrazneata.\r\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\r\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4166-0.webp",
+          "alt": "Buchet de mireasa cappuccino",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/cappucino.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/cappucino.jpg"
+      ],
+      "image_alt": "Buchet de mireasa cappuccino"
+    },
+    {
+      "source_id": "4167",
+      "sku": "25",
+      "name": "Buchet mireasa roz intens si burgundy",
+      "slug": "buchet-mireasa-roz-intens-si-burgundy",
+      "status": "publish",
+      "price_cents": 50000,
+      "regular_price_cents": 50000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un buchet spectaculos, construit in nuante vibrante de roz si accente burgundy.Bujorii, trandafirii garden si texturile delicate de waxflower si frunze decorative creeaza un efect wild-elegant, cu volum si personalitate.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4167-0.webp",
+          "alt": "Buchet mireasa roz intens si burgundy",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Roz_Intens_Si_Burgundy.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Roz_Intens_Si_Burgundy.jpeg"
+      ],
+      "image_alt": "Buchet mireasa roz intens si burgundy"
+    },
+    {
+      "source_id": "4168",
+      "sku": "26",
+      "name": "Buchet mireasa din gerbera spider si eustoma",
+      "slug": "buchet-mireasa-din-gerbera-spider-si-eustoma",
+      "status": "publish",
+      "price_cents": 27000,
+      "regular_price_cents": 27000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un buchet delicat si luminos, realizat in nuante fine de peach, blush si ivory.pentru o aparitie extrem de feminina. \nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "buchet-mireasa-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4168-0.webp",
+          "alt": "Buchet mireasa din gerbera spider si eustoma",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Din_Gerbera_Spider_Si_Eustoma.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Mireasa_Din_Gerbera_Spider_Si_Eustoma.jpeg"
+      ],
+      "image_alt": "Buchet mireasa din gerbera spider si eustoma"
+    },
+    {
+      "source_id": "4169",
+      "sku": "27",
+      "name": "Set Lumanari cununie delicate ivory & blush",
+      "slug": "set-lumanari-cununie-delicate-ivory-blush",
+      "status": "publish",
+      "price_cents": 80000,
+      "regular_price_cents": 80000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set elegant de lumanari pentru cununie, realizat in nuante fine de ivory, blush si verde natural. Trandafirii premium, florile delicate si accentele de eucalypt creeaza un décor diafan, sofisticat si atemporal, perfect pentru un evenimet cu aer romantic si rafinat.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4169-0.webp",
+          "alt": "Set Lumanari cununie delicate ivory & blush",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Set_Lumanari_Cununie_Delicate_Ivory__Blush.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Set_Lumanari_Cununie_Delicate_Ivory__Blush.jpeg"
+      ],
+      "image_alt": "Set Lumanari cununie delicate ivory & blush"
+    },
+    {
+      "source_id": "4170",
+      "sku": "28",
+      "name": "Lumanari cununie pastel romantice",
+      "slug": "lumanari-cununie-pastel-romantice",
+      "status": "publish",
+      "price_cents": 100000,
+      "regular_price_cents": 100000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari elegant si delicat, realizart in nuante fine de ivory, blush si piersica pastelata. Trandafirii premium si accentele florale soft creeaza un décor rafinat, feminine si luminos, perfect pentru o cununie cu aer romantic si sofisticat.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4170-0.webp",
+          "alt": "Lumanari cununie pastel romantice",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Pastel_Romantice.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Pastel_Romantice.jpeg"
+      ],
+      "image_alt": "Lumanari cununie pastel romantice"
+    },
+    {
+      "source_id": "4171",
+      "sku": "29",
+      "name": "Lumanari cununie romantic diafane",
+      "slug": "lumanari-cununie-romantic-diafane",
+      "status": "publish",
+      "price_cents": 70000,
+      "regular_price_cents": 70000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari de cununie cu aer delicat si elegant, realizat in nuante fine de ivory, roz pastel si verde natural. Trandafirii garden, accentele florale delicate si fundele vaporoase completeaza perfect un décor feminin si rafinat\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4171-0.webp",
+          "alt": "Lumanari cununie romantic diafane",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Romantic_Diafane.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Romantic_Diafane.jpeg"
+      ],
+      "image_alt": "Lumanari cununie romantic diafane"
+    },
+    {
+      "source_id": "4172",
+      "sku": "30",
+      "name": "Lumanari cununie wild alb",
+      "slug": "lumanari-cununie-wild-alb",
+      "status": "publish",
+      "price_cents": 80000,
+      "regular_price_cents": 80000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari de cununie cu design wild si elegant, realizat in nunante fresh de alb si verde natural. Bujorii, trandafirii garden si accentele decorative creeaza un decor sofisticat, lejer si extrem de rafinat, perfect pentru un eveniment cu stil natural si modern.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4172-0.webp",
+          "alt": "Lumanari cununie wild alb",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Wild_Alb.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Wild_Alb.jpeg"
+      ],
+      "image_alt": "Lumanari cununie wild alb"
+    },
+    {
+      "source_id": "4173",
+      "sku": "31",
+      "name": "Lumanari cununie alb elegant",
+      "slug": "lumanari-cununie-alb-elegant",
+      "status": "publish",
+      "price_cents": 80000,
+      "regular_price_cents": 80000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari de cununie realizat in nuante pure de alb si verde natural, cu un design delicat si rafinat, Trandafirii albi, eustoma si accentele fine florale creeaza un decor romantic si luminos, perfect pentru un eveniment elegant si sofisticat, \nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4173-0.webp",
+          "alt": "Lumanari cununie alb elegant",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Alb_Elegant.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Alb_Elegant.jpeg"
+      ],
+      "image_alt": "Lumanari cununie alb elegant"
+    },
+    {
+      "source_id": "4174",
+      "sku": "32",
+      "name": "Lumanari cununie alb romantice",
+      "slug": "lumanari-cununie-alb-romantice",
+      "status": "publish",
+      "price_cents": 75000,
+      "regular_price_cents": 75000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari de cununie cu aer delicat si elegant, realizat in nuante pure de alb si verde natural. Trandafirii, florile fine si fundele vaporoase creeaza un décor diafan, luminos si rafinat, perfect pentru un eveniment cu stil romantic.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4174-0.webp",
+          "alt": "Lumanari cununie alb romantice",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Alb_Romantice.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Alb_Romantice.jpeg"
+      ],
+      "image_alt": "Lumanari cununie alb romantice"
+    },
+    {
+      "source_id": "4175",
+      "sku": "33",
+      "name": "Lumanari cununie mov intens elegante",
+      "slug": "lumanari-cununie-mov-intens-elegante",
+      "status": "publish",
+      "price_cents": 70000,
+      "regular_price_cents": 70000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari de cununie cu accente mov intens si flori albe delicate, realizat intr-un stil elegant sofisticat. Trandafirii catifelati si detaliile florale fine creeaza un décor rafinat, romantic si plin de personalitate, perfect pentru un eveniment memorabil.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4175-0.webp",
+          "alt": "Lumanari cununie mov intens elegante",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Mov_Intens_Elegante.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Mov_Intens_Elegante.jpeg"
+      ],
+      "image_alt": "Lumanari cununie mov intens elegante"
+    },
+    {
+      "source_id": "4176",
+      "sku": "34",
+      "name": "Lumanari cununie orhidee si hortensie",
+      "slug": "lumanari-cununie-orhidee-si-hortensie",
+      "status": "publish",
+      "price_cents": 120000,
+      "regular_price_cents": 120000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari de cununie elegant si sofisticat, in nuante pure de alb. Hortensia, orhideele si trandafiri premium creeaza un decor luxuriant, diafan si rafinat, perfect pentru un eveniment cu aer elegant si atemporal.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4176-0.webp",
+          "alt": "Lumanari cununie orhidee si hortensie",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Orhidee_Si_Hortensie.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Orhidee_Si_Hortensie.jpeg"
+      ],
+      "image_alt": "Lumanari cununie orhidee si hortensie"
+    },
+    {
+      "source_id": "4177",
+      "sku": "35",
+      "name": "Lumanari cununie romantic pastel",
+      "slug": "lumanari-cununie-romantic-pastel",
+      "status": "publish",
+      "price_cents": 75000,
+      "regular_price_cents": 75000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un set de lumanari de cununie cu design delicat si aer diafan, realizat in nunante fine de ivory, blush sir oz pastel. Bujorii, ranunculusul si accentele florale aerate creeaza un décor elegant, feminine si sofisticat, perefect pentru un eveniment cu stil romantic si natural\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "nunta",
+        "lumanari-cununie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4177-0.webp",
+          "alt": "Lumanari cununie romantic pastel",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Romantic_Pastel.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanari_Cununie_Romantic_Pastel.jpeg"
+      ],
+      "image_alt": "Lumanari cununie romantic pastel"
+    },
+    {
+      "source_id": "4178",
+      "sku": "36",
+      "name": "Lumanare botez alba diafana",
+      "slug": "lumanare-botez-alba-diafana",
+      "status": "publish",
+      "price_cents": 60000,
+      "regular_price_cents": 60000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O lumânare de botez cu design delicat și luminos, realizată în nuanțe pure de alb și decorată cu hortensie, orhidee și accente florale fine. Elegantă, diafană și atent lucrată în cele mai mici detalii, este alegerea perfectă pentru un botez rafinat, plin de emoție și frumusețe aparte.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "lumanari-botez"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4178-0.webp",
+          "alt": "Lumanare botez alba diafana",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Alba_Diafana.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Alba_Diafana.jpeg"
+      ],
+      "image_alt": "Lumanare botez alba diafana"
+    },
+    {
+      "source_id": "4179",
+      "sku": "37",
+      "name": "Lumanare botez bleu delicat",
+      "slug": "lumanare-botez-bleu-delicat",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O lumânare de botez fresh și delicată, realizată în nuanțe fine de bleu, alb și verde natural. Trandafirii garden și accentele florale aerate creează un decor luminos, elegant și rafinat, perfect pentru un botez cu aer modern și diafan.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "lumanari-botez"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4179-0.webp",
+          "alt": "Lumanare botez bleu delicat",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Bleu_Delicat.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Bleu_Delicat.jpeg"
+      ],
+      "image_alt": "Lumanare botez bleu delicat"
+    },
+    {
+      "source_id": "4180",
+      "sku": "38",
+      "name": "Lumanare botez roz delicat",
+      "slug": "lumanare-botez-roz-delicat",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O lumânare de botez cu aer delicat și vesel, realizată în nuanțe fine de roz pastel și accente florale atent alese. Florile premium și texturile aerate creează un decor luminos, elegant și plin de gingășie, perfect pentru un botez de poveste.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "lumanari-botez"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4180-0.webp",
+          "alt": "Lumanare botez roz delicat",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Roz_Delicat.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Roz_Delicat.jpeg"
+      ],
+      "image_alt": "Lumanare botez roz delicat"
+    },
+    {
+      "source_id": "4181",
+      "sku": "39",
+      "name": "Lumanare botez",
+      "slug": "lumanare-botez",
+      "status": "publish",
+      "price_cents": 55000,
+      "regular_price_cents": 55000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O lumânare de botez delicată și elegantă, realizată în nuanțe fine de roz pastel, piersică și ivory. Florile premium și accentele decorative aerate creează un decor luminos, rafinat și plin de gingășie, perfect pentru un botez cu aer diafan și de poveste.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "lumanari-botez"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4181-0.webp",
+          "alt": "Lumanare botez",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez.jpeg"
+      ],
+      "image_alt": "Lumanare botez"
+    },
+    {
+      "source_id": "4182",
+      "sku": "40",
+      "name": "Lumanare botez alba",
+      "slug": "lumanare-botez-alba",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O lumânare de botez cu design simplu și elegant, realizată din ceară naturală și decorată cu flori albe delicate și accente de eucalipt. Luminoasă, rafinată și atent lucrată în cele mai mici detalii, este perfectă pentru un botez cu aer natural, cald și delicat.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "lumanari-botez"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4182-0.webp",
+          "alt": "Lumanare botez alba",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Alba.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Alba.jpeg"
+      ],
+      "image_alt": "Lumanare botez alba"
+    },
+    {
+      "source_id": "4183",
+      "sku": "41",
+      "name": "Lumanare botez bleu natur",
+      "slug": "lumanare-botez-bleu-natur",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O lumânare de botez delicată și luminoasă, realizată în nuanțe fresh de bleu, alb și verde natural. Accentele florale fine și detaliile rustice creează un decor elegant, jucăuș și plin de gingășie, perfect pentru botezul unui băiețel.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "lumanari-botez"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4183-0.webp",
+          "alt": "Lumanare botez bleu natur",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Bleu_Natur.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Lumanare_Botez_Bleu_Natur.jpeg"
+      ],
+      "image_alt": "Lumanare botez bleu natur"
+    },
+    {
+      "source_id": "4184",
+      "sku": "42",
+      "name": "Lumanare botez albastru modern",
+      "slug": "lumanare-botez-albastru-modern",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "O lumânare de botez cu design modern și texturi naturale, realizată în nuanțe elegante de bleu închis, alb și verde soft. Formele organice și accentele din eucalipt oferă un decor sofisticat, fresh și atent lucrat în cele mai mici detalii.\r\nIn functie de sezon si disponibilitatea florilor, compozitia poate suferi mici ajustari, iar preturile pot varia.\r\nIn cazul in care anumite flori nu sunt disponibile in sezonul respective, iti garantam ca vor fi inlocuite cu alte flori similar ca aspect si caracteristici, pentru a pastra aceeasi cromatica.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "lumanari-botez"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4184-0.webp",
+          "alt": "Lumanare botez albastru modern",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260505_224153-1.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260505_224153-1.jpeg"
+      ],
+      "image_alt": "Lumanare botez albastru modern"
+    },
+    {
+      "source_id": "4185",
+      "sku": "43",
+      "name": "Aranjament cristelnita Imperial White",
+      "slug": "aranjament-cristelnita-imperial-white",
+      "status": "publish",
+      "price_cents": 100000,
+      "regular_price_cents": 100000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Cristelniță decorată elegant în nuanțe pure de alb și verde natural, cu trandafiri, lisianthus și accente curgătoare de iederă. \nUn decor rafinat, luminos și atent lucrat în cele mai mici detalii, perfect pentru un botez elegant și plin de emoție.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "cristelnita"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4185-0.webp",
+          "alt": "Aranjament cristelnita Imperial White",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Imperial_White.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Imperial_White.jpeg"
+      ],
+      "image_alt": "Aranjament cristelnita Imperial White"
+    },
+    {
+      "source_id": "4186",
+      "sku": "44",
+      "name": "Aranjament cristelnita nude elegant",
+      "slug": "aranjament-cristelnita-nude-elegant",
+      "status": "publish",
+      "price_cents": 90000,
+      "regular_price_cents": 90000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Cristelniță decorată în nuanțe delicate de nude, roz prăfuit și ivory, cu flori premium și verdeață naturală bogată. \nUn decor elegant, armonios și atent lucrat în cele mai mici detalii, perfect pentru un botez rafinat și plin de căldură.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "cristelnita"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4186-0.webp",
+          "alt": "Aranjament cristelnita nude elegant",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Nude_Elegant.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Nude_Elegant.jpeg"
+      ],
+      "image_alt": "Aranjament cristelnita nude elegant"
+    },
+    {
+      "source_id": "4187",
+      "sku": "45",
+      "name": "Aranjament cristelnita roz pastel",
+      "slug": "aranjament-cristelnita-roz-pastel",
+      "status": "publish",
+      "price_cents": 250000,
+      "regular_price_cents": 250000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Cristelniță decorată luxuriant în nuanțe fine de roz pastel, alb și piersică soft, cu hortensii și flori delicate atent alese. \nUn decor diafan, luminos și elegant, creat pentru un botez cu aer delicat și de poveste.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "cristelnita"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4187-0.webp",
+          "alt": "Aranjament cristelnita roz pastel",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Roz_Pastel.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Roz_Pastel.jpeg"
+      ],
+      "image_alt": "Aranjament cristelnita roz pastel"
+    },
+    {
+      "source_id": "4188",
+      "sku": "46",
+      "name": "Aranjament cristelnita orhidee albastra",
+      "slug": "aranjament-cristelnita-orhidee-albastra",
+      "status": "publish",
+      "price_cents": 150000,
+      "regular_price_cents": 150000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Cristelniță decorată în nuanțe vibrante de bleu, galben unt și ivory, cu flori premium și accente curgătoare de iederă.\r\nUn decor fresh, luminos și plin de personalitate, perfect pentru un botez vesel și elegant.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "cristelnita"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4188-0.webp",
+          "alt": "|",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260511_190600.jpg"
+        },
+        {
+          "url": "/assets/floralis/product-4188-1.webp",
+          "alt": "|",
+          "sort_order": 1,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Orhidee_Albastra.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260511_190600.jpg",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Cristelnita_Orhidee_Albastra.jpg"
+      ],
+      "image_alt": "|"
+    },
+    {
+      "source_id": "4189",
+      "sku": "47",
+      "name": "Aranjament cristelnita galben cu alb",
+      "slug": "aranjament-cristelnita-galben-cu-alb",
+      "status": "publish",
+      "price_cents": 65000,
+      "regular_price_cents": 65000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Realizat în nuanțe luminoase de galben și alb, cu flori premium și detalii delicate atent alese.\r\nUn decor vesel, fresh și elegant, perfect pentru un botez de băiețel cu aer cald și plin de gingășie.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "cristelnita"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4189-0.webp",
+          "alt": "Aranjament cristelnita galben cu alb",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260511_190855.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260511_190855.jpg"
+      ],
+      "image_alt": "Aranjament cristelnita galben cu alb"
+    },
+    {
+      "source_id": "4190",
+      "sku": "48",
+      "name": "Aranjament cristelnita floare albastra",
+      "slug": "aranjament-cristelnita-floare-albastra",
+      "status": "publish",
+      "price_cents": 120000,
+      "regular_price_cents": 120000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Cristelniță decorată delicat în nuanțe de galben solar, alb și albastru intens, completată de verdeață naturală bogată.\r\nUn decor fresh, jucăuș și elegant, creat pentru un botez plin de culoare și energie frumoasă.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "botez",
+        "cristelnita"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4190-0.webp",
+          "alt": "Aranjament cristelnita floare albastra",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260511_190700.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260511_190700.jpg"
+      ],
+      "image_alt": "Aranjament cristelnita floare albastra"
+    },
+    {
+      "source_id": "4191",
+      "sku": "49",
+      "name": "Clopotel de septembrie roz",
+      "slug": "clopotel-de-septembrie-roz",
+      "status": "publish",
+      "price_cents": 15000,
+      "regular_price_cents": 15000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament floral in nuante calde si pastelate, create intr-o cutie tip “gift bag” cu tematica “ Back to School”. Gerbera galbena, Eustoma si florile fine transforma acest cadou intr-o surpriza eleganta pentru inceputul de an scolar.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "back-to-school"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4191-0.webp",
+          "alt": "Clopotel de septembrie roz",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Clopotel_De_Septembrie_Roz.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Clopotel_De_Septembrie_Roz.jpeg"
+      ],
+      "image_alt": "Clopotel de septembrie roz"
+    },
+    {
+      "source_id": "4192",
+      "sku": "50",
+      "name": "Clopotel de septembrie bleu",
+      "slug": "clopotel-de-septembrie-bleu",
+      "status": "publish",
+      "price_cents": 15000,
+      "regular_price_cents": 15000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament floral vesel si colorant, realizat pentru emotia inceputului de scoala. Gerbera, accentele bleu si florile delicate creeaza un mix fresh si plin de energie, perfect pentru a fi oferit profeorilor si educatoarelor.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "back-to-school"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4192-0.webp",
+          "alt": "Clopotel de septembrie bleu",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Clopotel_De_Septembrie_Bleu.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Clopotel_De_Septembrie_Bleu.jpeg"
+      ],
+      "image_alt": "Clopotel de septembrie bleu"
+    },
+    {
+      "source_id": "4193",
+      "sku": "51",
+      "name": "Emotii de septembrie roz",
+      "slug": "emotii-de-septembrie-roz",
+      "status": "publish",
+      "price_cents": 18000,
+      "regular_price_cents": 18000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjment floral delicat si expresiv, realizat in tonuri pastelate si accente vibrante, special create pentru emotia de inceput de an scolar.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "back-to-school"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4193-0.webp",
+          "alt": "Emotii de septembrie roz",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Emotii_De_Septembrie_Roz.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Emotii_De_Septembrie_Roz.jpeg"
+      ],
+      "image_alt": "Emotii de septembrie roz"
+    },
+    {
+      "source_id": "4194",
+      "sku": "52",
+      "name": "Emotii de septembrie bleu",
+      "slug": "emotii-de-septembrie-bleu",
+      "status": "publish",
+      "price_cents": 18000,
+      "regular_price_cents": 18000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjment floral delicat si expresiv, ealizat in tonuri pastelate si accente vibrante, special create pentru emotia de inceput de an scolar.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "back-to-school"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4194-0.webp",
+          "alt": "Emotii de septembrie bleu",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Emotii_De_Septembrie_Bleu.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Emotii_De_Septembrie_Bleu.jpeg"
+      ],
+      "image_alt": "Emotii de septembrie bleu"
+    },
+    {
+      "source_id": "4195",
+      "sku": "53",
+      "name": "Creioane colorate roz",
+      "slug": "creioane-colorate-roz",
+      "status": "publish",
+      "price_cents": 25000,
+      "regular_price_cents": 25000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament floral vesel si creativ, realizat intr-un suport decorative “handmade” inspirat din universal copilariei si al inceputului de an scolar. Perfect pentru a fi oferit cu drag profesorilor sau educatoarelor.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "back-to-school"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4195-0.webp",
+          "alt": "Creioane colorate roz",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Creioane_Colorate_Roz.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Creioane_Colorate_Roz.jpeg"
+      ],
+      "image_alt": "Creioane colorate roz"
+    },
+    {
+      "source_id": "4196",
+      "sku": "54",
+      "name": "Creioane colorate galbene",
+      "slug": "creioane-colorate-galbene",
+      "status": "publish",
+      "price_cents": 25000,
+      "regular_price_cents": 25000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un mix floral vibrant si expresiv,in nuante calde de galben, bordo si verde intens, realizat intr-un suport decorative “handmade” inspirat din universal copilariei si al inceputului de an scolar.  Texturile bogate transforma acest aranjament intr-un cadou memorabil, modern si plin de personalitate.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "back-to-school"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4196-0.webp",
+          "alt": "Creioane colorate galbene",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Creioane_Colorate_Galbene.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Creioane_Colorate_Galbene.jpeg"
+      ],
+      "image_alt": "Creioane colorate galbene"
+    },
+    {
+      "source_id": "4197",
+      "sku": "55",
+      "name": "Creioane colorate bleu",
+      "slug": "creioane-colorate-bleu",
+      "status": "publish",
+      "price_cents": 25000,
+      "regular_price_cents": 25000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un mix floral vibrant si expresiv,in nuante bleu,ivory si verde intens, realizat intr-un suport decorative “handmade” inspirat din universal copilariei si al inceputului de an scolar. Texturile bogate transforma acest aranjament intr-un cadou memorabil,modern si plin de personalitate.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "back-to-school"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4197-0.webp",
+          "alt": "Creioane colorate bleu",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Creioane_Colorate_Bleu.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Creioane_Colorate_Bleu.jpeg"
+      ],
+      "image_alt": "Creioane colorate bleu"
+    },
+    {
+      "source_id": "4198",
+      "sku": "56",
+      "name": "Praline artizanale “Guilty Pleasure”- Selectie clasica",
+      "slug": "praline-artizanale-guilty-pleasure-selectie-clasica",
+      "status": "publish",
+      "price_cents": 9000,
+      "regular_price_cents": 9000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Mix de 12 praline cuprinde crema de cafea, alune de padure su caramel sarat. Gramaj: 150 g",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "bomboane"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4198-0.webp",
+          "alt": "Praline artizanale “Guilty Pleasure”- Selectie clasica",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Selectie_Clasica.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no",
+        "alergeni": "a:5:{i:0;s:2:\"07\";i:1;s:2:\"08\";i:2;s:2:\"01\";i:3;s:2:\"06\";i:4;s:2:\"03\";}",
+        "ingrediente": "Ciocolata cu lapte 32.63% (zahar, unt de cacao, LAPTE praf integral, pasta de cacao, emulsifiant (lecitina din SOIA), aroma de vanilie naturala. Cacao: minim 33.5%), ciocolata neagra 20.78% (pasta de cacao, zahar, unt de cacao, emulsifiant (lecitine din SOIA), aroma de vanilie naturala. Cacao: minim 54.5%), crema alba 15.48% (zahar, grasimi vegetale (palmier, floarea soarelui, unt de shea, rapita, palmier) in proportii variate, LAPTE praf integral, LAPTE praf degresat, emulsifiant (lecitina dinSOIA), aroma de vanilie naturala (10.08% crema cu fistic (crema crocanta cu fistic (zahar, ulei de floarea soarelui, faina de GRAU, unt de cacao, grasimi vegetale (samburi de palmier, palmier), MIGDALE, LAPTE praf integral, ZER praf, FISTIC pasta 0.85%, LACTOZA, materie grasa LACTATA anhidra, emulsifiant (lecitine din SOIA), ulei de UNT, LAPTE praf degresat, MIGDALE amare blansate, malt de ORZ, sare, ulei de MIGDALE, aroma de vanilie naturala, arome naturale, FISTIC 1.15%), 9% pasta cu alune.",
+        "declaratia_nutritionala": "Valori nutritionale\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nGrasimi\r\n35.72 g/100 g\r\n\r\n\r\n\r\n\r\nValoare energetica kJ\r\n554.33 kcal/100 g\r\n\r\n\r\nGlucide\r\n50.72 g/100 g\r\n\r\n\r\nFibre\r\n2.15 g/100 g\r\n\r\n\r\nSare\r\n1.41 g/100 g\r\n\r\n\r\nProteine\r\n5.45 g/100 g\r\n\r\n\r\nGrasimi saturate\r\n15.98 g/100 g"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Selectie_Clasica.jpeg"
+      ],
+      "image_alt": "Praline artizanale “Guilty Pleasure”- Selectie clasica"
+    },
+    {
+      "source_id": "4199",
+      "sku": "57",
+      "name": "Praline artizanale “Guilty Pleasure”- Selectie fructata",
+      "slug": "praline-artizanale-guilty-pleasure-selectie-fructata",
+      "status": "publish",
+      "price_cents": 9000,
+      "regular_price_cents": 9000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Mix de 12 praline fructate cu crema de capsuni, fructul pasiunii, lamaie si bezea. Gramaj: 150g",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "bomboane"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4199-0.webp",
+          "alt": "Praline artizanale “Guilty Pleasure”- Selectie fructata",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Selectie_Fructata.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no",
+        "alergeni": "a:5:{i:0;s:2:\"07\";i:1;s:2:\"01\";i:2;s:2:\"03\";i:3;s:2:\"06\";i:4;s:2:\"08\";}",
+        "ingrediente": "Ciocolata cu lapte 32.63% (zahar, unt de cacao, LAPTE praf integral, pasta de cacao, emulsifiant (lecitina din SOIA), aroma de vanilie naturala. Cacao: minim 33.5%), ciocolata neagra 20.78% (pasta de cacao, zahar, unt de cacao, emulsifiant (lecitine din SOIA), aroma de vanilie naturala. Cacao: minim 54.5%), crema alba 15.48% (zahar, grasimi vegetale (palmier, floarea soarelui, unt de shea, rapita, palmier) in proportii variate, LAPTE praf integral, LAPTE praf degresat, emulsifiant (lecitina dinSOIA), aroma de vanilie naturala (10.08% crema cu fistic (crema crocanta cu fistic (zahar, ulei de floarea soarelui, faina de GRAU, unt de cacao, grasimi vegetale (samburi de palmier, palmier), MIGDALE, LAPTE praf integral, ZER praf, FISTIC pasta 0.85%, LACTOZA, materie grasa LACTATA anhidra, emulsifiant (lecitine din SOIA), ulei de UNT, LAPTE praf degresat, MIGDALE amare blansate, malt de ORZ, sare, ulei de MIGDALE, aroma de vanilie naturala, arome naturale, FISTIC 1.15%), 9% pasta cu alune.",
+        "declaratia_nutritionala": "Valori nutritionale\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nGrasimi\r\n39.35 g/100 g\r\n\r\n\r\n\r\n\r\nValoare energetica kJ\r\n580.19 kcal/100 g\r\n\r\n\r\nGlucide\r\n51.94 g/100 g\r\n\r\n\r\nFibre\r\n2.25 g/100 g\r\n\r\n\r\nSare\r\n1.64 g/100 g\r\n\r\n\r\nProteine\r\n3.90 g/100 g\r\n\r\n\r\nGrasimi saturate\r\n21.47 g/100 g"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Selectie_Fructata.jpeg"
+      ],
+      "image_alt": "Praline artizanale “Guilty Pleasure”- Selectie fructata"
+    },
+    {
+      "source_id": "4200",
+      "sku": "58",
+      "name": "Praline artizanale “Guilty Pleasure” – Red & White Bliss",
+      "slug": "praline-artizanale-guilty-pleasure-red-white-bliss",
+      "status": "publish",
+      "price_cents": 7000,
+      "regular_price_cents": 7000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Mix de 4 praline cu crema fructul pasiunii,zmeura si capsuna. Cantitate neta: 45",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "bomboane"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4200-0.webp",
+          "alt": "Praline artizanale “Guilty Pleasure” – Red & White Bliss",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Red__White_Bliss.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no",
+        "alergeni": "a:5:{i:0;s:2:\"01\";i:1;s:2:\"03\";i:2;s:2:\"07\";i:3;s:2:\"08\";i:4;s:2:\"06\";}",
+        "ingrediente": "40% ciocolata neagra (masa de cacao, zahar, unt de cacao, emulsifiant: lecitina din SOIA ( E322), aroma de vanilie, continut minim de cacao 58%), 10% ciocolata alba (zahar, unt de cacao, LAPTE praf integral, emulsifiant: lecitina din SOIA, aroma de vanilie, continut de cacao 30%), 5% ciocolata cu lapte (zahar, unt de cacao, LAPTE praf integral, masa de cacao, emulsifiant: lecitina din SOIA(E322), aroma de vanilie, continut minim de cacao 35%), 15% crema din fructul pasiunii [zahar, biscuit crocant (faina de GRAU, zahar, unt, apa, LAPTE praf degresat, malt din orz, sare), ulei vegetal de floarea soarelui, cocos, unt de cacao, zer pudra, LACTOZA, suc de fructul pasiunii concentrat, agenti de îngrosare:pectine, colorant beta caroten, zaharoza, emulsifiant: lecitina din SOIA, aroma naturala de vanilie], 15% crema din fructe rosii [ciocolata alba 28%, ulei vegetal (ulei de floarea soarelui, palmier), zahar, biscuiti maruntiti fin 15%, praf de zer, zmeura deshidratata 2.8%, capsuna liofilizata 1%, sirop de glucoza, acid citric], 15% crema de lamaie si bezea [ciocolata alba 26%, uleiuri vegetale (palmier, floarea soarelui, cocos), biscuiti maruntiti fin, bezea 8%, (zahar, amidon de GRAU , pudra de OUA), suc de lamaie, arome naturale, colorant (E161)]. Poate contine urme de ALTE FRUCTE CU COAJA LEMNOASA, OUA. Informatiile scrise cu majuscule sunt destinate persoanelor cu intolerante sau alergice.",
+        "declaratia_nutritionala": "Valori nutriționale per 100 g\r\n\r\n\r\n\r\nValoare energetică\r\n2343 kJ/563 kCal\r\n\r\n\r\nGrăsimi\r\n36.79 g\r\n\r\n\r\ninclusiv acizi grași saturați\r\n20.43 g\r\n\r\n\r\nGlucide\r\n44 g\r\n\r\n\r\ndin care zaharuri\r\n43.36 g\r\n\r\n\r\nProteine\r\n4.78 g\r\n\r\n\r\nSare\r\n0.96 g\r\n\r\n\r\nFibre\r\n3.05 g"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Red__White_Bliss.jpeg"
+      ],
+      "image_alt": "Praline artizanale “Guilty Pleasure” – Red & White Bliss"
+    },
+    {
+      "source_id": "4201",
+      "sku": "59",
+      "name": "Praline artizanale “Guilty Pleasure” – Passion Fruits",
+      "slug": "praline-artizanale-guilty-pleasure-passion-fruits",
+      "status": "publish",
+      "price_cents": 7000,
+      "regular_price_cents": 7000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Mix de 4 praline cu fructi rosii,caramel,fructul pasiunii si lamiae cu bezea. Cantitate: 50g",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "bomboane"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4201-0.webp",
+          "alt": "Praline artizanale “Guilty Pleasure” – Passion Fruits",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Passion_Fruits.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no",
+        "alergeni": "a:5:{i:0;s:2:\"01\";i:1;s:2:\"07\";i:2;s:2:\"03\";i:3;s:2:\"06\";i:4;s:2:\"08\";}",
+        "ingrediente": "Ciocolata cu lapte 32.63% (zahar, unt de cacao, LAPTE praf integral, pasta de cacao, emulsifiant (lecitina din SOIA), aroma de vanilie naturala. Cacao: minim 33.5%), ciocolata neagra 20.78% (pasta de cacao, zahar, unt de cacao, emulsifiant (lecitine din SOIA), aroma de vanilie naturala. Cacao: minim 54.5%), crema alba 15.48% (zahar, grasimi vegetale (palmier, floarea soarelui, unt de shea, rapita, palmier) in proportii variate, LAPTE praf integral, LAPTE praf degresat, emulsifiant (lecitina dinSOIA), aroma de vanilie naturala (10.08% crema cu fistic (crema crocanta cu fistic (zahar, ulei de floarea soarelui, faina de GRAU, unt de cacao, grasimi vegetale (samburi de palmier, palmier), MIGDALE, LAPTE praf integral, ZER praf, FISTIC pasta 0.85%, LACTOZA, materie grasa LACTATA anhidra, emulsifiant (lecitine din SOIA), ulei de UNT, LAPTE praf degresat, MIGDALE amare blansate, malt de ORZ, sare, ulei de MIGDALE, aroma de vanilie naturala, arome naturale, FISTIC 1.15%), 9% pasta cu alune.",
+        "declaratia_nutritionala": "Valori nutritionale\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\nGrasimi\r\n39.35 g/100 g\r\n\r\n\r\n\r\n\r\nValoare energetica kJ\r\n580.19 kcal/100 g\r\n\r\n\r\nGlucide\r\n51.94 g/100 g\r\n\r\n\r\nFibre\r\n2.25 g/100 g\r\n\r\n\r\nSare\r\n1.64 g/100 g\r\n\r\n\r\nProteine\r\n3.90 g/100 g\r\n\r\n\r\nGrasimi saturate\r\n21.47 g/100 g"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Praline_Artizanale_Guilty_Pleasure_Passion_Fruits.jpeg"
+      ],
+      "image_alt": "Praline artizanale “Guilty Pleasure” – Passion Fruits"
+    },
+    {
+      "source_id": "4202",
+      "sku": "60",
+      "name": "Punga cadou eleganta praline",
+      "slug": "punga-cadou-eleganta-praline",
+      "status": "publish",
+      "price_cents": 1500,
+      "regular_price_cents": 1500,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "bomboane"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4202-0.webp",
+          "alt": "Punga cadou eleganta praline",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Punga_Cadou_Eleganta_Praline.png"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Punga_Cadou_Eleganta_Praline.png"
+      ],
+      "image_alt": "Punga cadou eleganta praline"
+    },
+    {
+      "source_id": "4203",
+      "sku": "61",
+      "name": "Solo Quinta",
+      "slug": "solo-quinta",
+      "status": "publish",
+      "price_cents": 15000,
+      "regular_price_cents": 15000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Vin rosu",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "vin-sampanie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4203-0.webp",
+          "alt": "Solo Quinta",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Solo_Quinta.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no",
+        "alergeni": "a:1:{i:0;s:2:\"12\";}"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Solo_Quinta.jpeg"
+      ],
+      "image_alt": "Solo Quinta"
+    },
+    {
+      "source_id": "4204",
+      "sku": "62",
+      "name": "Whispering Angel",
+      "slug": "whispering-angel",
+      "status": "publish",
+      "price_cents": 15000,
+      "regular_price_cents": 15000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Vin roze",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "vin-sampanie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4204-0.webp",
+          "alt": "Whispering Angel",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Whispering_Angel.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no",
+        "alergeni": "a:1:{i:0;s:2:\"12\";}"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Whispering_Angel.jpeg"
+      ],
+      "image_alt": "Whispering Angel"
+    },
+    {
+      "source_id": "4205",
+      "sku": "63",
+      "name": "Moet",
+      "slug": "moet",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Rose Imperial",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "vin-sampanie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4205-0.webp",
+          "alt": "Moet",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Moet.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no",
+        "alergeni": "a:1:{i:0;s:2:\"12\";}"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Moet.jpeg"
+      ],
+      "image_alt": "Moet"
+    },
+    {
+      "source_id": "4206",
+      "sku": "64",
+      "name": "Punga cadou eleganta vin",
+      "slug": "punga-cadou-eleganta-vin",
+      "status": "publish",
+      "price_cents": 1500,
+      "regular_price_cents": 1500,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "vin-sampanie"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4206-0.webp",
+          "alt": "|",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_111802.jpg"
+        },
+        {
+          "url": "/assets/floralis/product-4206-1.webp",
+          "alt": "|",
+          "sort_order": 1,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Punga_Cadou_Eleganta_Vin.png"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_111802.jpg",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Punga_Cadou_Eleganta_Vin.png"
+      ],
+      "image_alt": "|"
+    },
+    {
+      "source_id": "4207",
+      "sku": "65",
+      "name": "Felicitare Welcome baby",
+      "slug": "felicitare-welcome-baby",
+      "status": "publish",
+      "price_cents": 1500,
+      "regular_price_cents": 1500,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "cadouri-accesorii"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4207-0.webp",
+          "alt": "|||",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113535.jpg"
+        },
+        {
+          "url": "/assets/floralis/product-4207-1.webp",
+          "alt": "|||",
+          "sort_order": 1,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113512.jpg"
+        },
+        {
+          "url": "/assets/floralis/product-4207-2.webp",
+          "alt": "|||",
+          "sort_order": 2,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113450.jpg"
+        },
+        {
+          "url": "/assets/floralis/product-4207-3.webp",
+          "alt": "|||",
+          "sort_order": 3,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113248.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113535.jpg",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113512.jpg",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113450.jpg",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_113248.jpg"
+      ],
+      "image_alt": "|||"
+    },
+    {
+      "source_id": "4208",
+      "sku": "66",
+      "name": "Felicitare Happy Birthday",
+      "slug": "felicitare-happy-birthday",
+      "status": "publish",
+      "price_cents": 2000,
+      "regular_price_cents": 2000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "cadouri-accesorii"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4208-0.webp",
+          "alt": "|",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_101651.jpg"
+        },
+        {
+          "url": "/assets/floralis/product-4208-1.webp",
+          "alt": "|",
+          "sort_order": 1,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_101923.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_101651.jpg",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_101923.jpg"
+      ],
+      "image_alt": "|"
+    },
+    {
+      "source_id": "4209",
+      "sku": "67",
+      "name": "Urs plus maro",
+      "slug": "urs-plus-maro",
+      "status": "publish",
+      "price_cents": 10000,
+      "regular_price_cents": 10000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Ursulet de plus maro cu inima rosie. Dimensiune: 25 cm",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "cadouri-accesorii"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4209-0.webp",
+          "alt": "|",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_111933.jpg"
+        },
+        {
+          "url": "/assets/floralis/product-4209-1.webp",
+          "alt": "|",
+          "sort_order": 1,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_112021.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_111933.jpg",
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_112021.jpg"
+      ],
+      "image_alt": "|"
+    },
+    {
+      "source_id": "4210",
+      "sku": "68",
+      "name": "Urs plus bej",
+      "slug": "urs-plus-bej",
+      "status": "publish",
+      "price_cents": 10000,
+      "regular_price_cents": 10000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Ursulet de plus bej cu inima rosie. Dimensiune: 25 cm",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "cadouri-accesorii"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4210-0.webp",
+          "alt": "Urs plus bej",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_112021.jpg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Photoroom_20260513_112021.jpg"
+      ],
+      "image_alt": "Urs plus bej"
+    },
+    {
+      "source_id": "4308",
+      "sku": "69",
+      "name": "Aranjament Craciun – Poveste roz de iarna",
+      "slug": "aranjament-craciun-poveste-roz-de-iarna",
+      "status": "publish",
+      "price_cents": 35000,
+      "regular_price_cents": 35000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv delicat și jucăuș, creat din conifere naturale și accente roz strălucitoare, completat de decorațiuni inspirate din universul magic al copilăriei. O compoziție plină de farmec, perfectă pentru un decor de sărbătoare cald, vesel și elegant.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4308-0.webp",
+          "alt": "Aranjament Craciun – Poveste roz de iarna",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_Roz_De_Iarna.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_Roz_De_Iarna.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun – Poveste roz de iarna"
+    },
+    {
+      "source_id": "4309",
+      "sku": "70",
+      "name": "Aranjament Craciun -Basm verde de iarna",
+      "slug": "aranjament-craciun-basm-verde-de-iarna",
+      "status": "publish",
+      "price_cents": 35000,
+      "regular_price_cents": 35000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv bogat, realizat din conifere naturale, accente verde-smarald și decorațiuni inspirate din magia sărbătorilor. Detaliile jucăușe, fructele uscate și lumânările elegante transformă compoziția într-un decor cald, spectaculos și plin de farmec de iarnă.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4309-0.webp",
+          "alt": "Aranjament Craciun -Basm verde de iarna",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Basm_Verde_De_Iarna.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Basm_Verde_De_Iarna.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun -Basm verde de iarna"
+    },
+    {
+      "source_id": "4310",
+      "sku": "71",
+      "name": "Aranjament Craciun Poveste aurie",
+      "slug": "aranjament-craciun-poveste-aurie",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv elegant, realizat din conifere naturale, accente aurii și decorațiuni inspirate din magia sărbătorilor. Cerbul decorativ, lumânările aurii și detaliile calde transformă compoziția într-un decor sofisticat, cozy și plin de farmec de iarnă.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4310-0.webp",
+          "alt": "Aranjament Craciun Poveste aurie",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_Aurie.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_Aurie.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun Poveste aurie"
+    },
+    {
+      "source_id": "4311",
+      "sku": "72",
+      "name": "Aranjament Craciun Renul fermecat",
+      "slug": "aranjament-craciun-renul-fermecat",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv plin de farmec, realizat din conifere naturale și accente în nuanțe de verde, auriu și roșu festiv. Decorat cu globuri elegante, fructe uscate și un ren simpatic, compoziția aduce atmosfera caldă și magică a sărbătorilor în orice decor.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4311-0.webp",
+          "alt": "Aranjament Craciun Renul fermecat",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Renul_Fermecat.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Renul_Fermecat.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun Renul fermecat"
+    },
+    {
+      "source_id": "4312",
+      "sku": "73",
+      "name": "Aranjament Craciun brad fermecat",
+      "slug": "aranjament-craciun-brad-fermecat",
+      "status": "publish",
+      "price_cents": 40000,
+      "regular_price_cents": 40000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un brăduț festiv realizat manual,din conifere naturale, decorat cu globuri roșii, accente jucăușe și detalii inspirate din magia sărbătorilor. O compoziție veselă și cozy, perfectă pentru a aduce spiritul Crăciunului în orice colț al casei.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4312-0.webp",
+          "alt": "Aranjament Craciun brad fermecat",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Brad_Fermecat.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Brad_Fermecat.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun brad fermecat"
+    },
+    {
+      "source_id": "4313",
+      "sku": "74",
+      "name": "Aranjament Craciun inger de zapada",
+      "slug": "aranjament-craciun-inger-de-zapada",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv elegant, realizat din conifere naturale, accente albe și detalii inspirate din farmecul iernii. Lumânările fine, globurile sidefate și figurina delicată transformă compoziția într-un decor cald, rafinat și plin de magie de sărbătoare.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4313-0.webp",
+          "alt": "Aranjament Craciun inger de zapada",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Inger_De_Zapada.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Inger_De_Zapada.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun inger de zapada"
+    },
+    {
+      "source_id": "4314",
+      "sku": "75",
+      "name": "Aranjament Craciun Poveste rosie",
+      "slug": "aranjament-craciun-poveste-rosie",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv în nuanțe intense de roșu, creat din conifere naturale și decorat cu globuri, fructe uscate și accente jucăușe de sărbătoare. O compoziție cozy și veselă, perfectă pentru atmosfera caldă a Crăciunului.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4314-0.webp",
+          "alt": "Aranjament Craciun Poveste rosie",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_Rosie.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_Rosie.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun Poveste rosie"
+    },
+    {
+      "source_id": "4315",
+      "sku": "76",
+      "name": "Aranjament Craciun argintiu",
+      "slug": "aranjament-craciun-argintiu",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv elegant, realizat din conifere naturale și accente în nuanțe de argintiu și alb sidefat. Globurile delicate, lumânarea metalizată și figurina angelică creează un decor rafinat, cu un aer magic și luminos de iarnă.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4315-0.webp",
+          "alt": "Aranjament Craciun argintiu",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Argintiu.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Argintiu.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun argintiu"
+    },
+    {
+      "source_id": "4316",
+      "sku": "77",
+      "name": "Aranjament Craciun farmec auriu",
+      "slug": "aranjament-craciun-farmec-auriu",
+      "status": "publish",
+      "price_cents": 30000,
+      "regular_price_cents": 30000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv, realizat din conifere naturale și accente aurii strălucitoare, completat de fructe uscate și detalii delicate de Crăciun. O compoziție caldă, luminoasă și plină de farmec de sărbătoare.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4316-0.webp",
+          "alt": "Aranjament Craciun farmec auriu",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Farmec_Auriu.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Farmec_Auriu.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun farmec auriu"
+    },
+    {
+      "source_id": "4317",
+      "sku": "78",
+      "name": "Aranjament Craciun balet de iarna",
+      "slug": "aranjament-craciun-balet-de-iarna",
+      "status": "publish",
+      "price_cents": 25000,
+      "regular_price_cents": 25000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv elegant, realizat din conifere naturale și accente strălucitoare, inspirat din delicatețea unui basm de iarnă. Figurina grațioasă și detaliile cristaline transformă compoziția într-un decor rafinat și spectaculos.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4317-0.webp",
+          "alt": "Aranjament Craciun balet de iarna",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Balet_De_Iarna.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Balet_De_Iarna.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun balet de iarna"
+    },
+    {
+      "source_id": "4318",
+      "sku": "79",
+      "name": "Aranjament Craciun rubin si smarald",
+      "slug": "aranjament-craciun-rubin-si-smarald",
+      "status": "publish",
+      "price_cents": 25000,
+      "regular_price_cents": 25000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv vibrant, în nuanțe de verde și roșu rubiniu, decorat cu globuri elegante și accente citrice. O compoziție fresh și sofisticată, perfectă pentru atmosfera caldă a sărbătorilor.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4318-0.webp",
+          "alt": "Aranjament Craciun rubin si smarald",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Rubin_Si_Smarald.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Rubin_Si_Smarald.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun rubin si smarald"
+    },
+    {
+      "source_id": "4319",
+      "sku": "80",
+      "name": "Aranjament Craciun noapte de catifea",
+      "slug": "aranjament-craciun-noapte-de-catifea",
+      "status": "publish",
+      "price_cents": 25000,
+      "regular_price_cents": 25000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv sofisticat, realizat din conifere naturale și accente elegante în nuanțe de negru, auriu și burgundy. O compoziție statement, cu un aer modern și rafinat, perfectă pentru decoruri de sărbătoare elegante.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4319-0.webp",
+          "alt": "Aranjament Craciun noapte de catifea",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Noapte_De_Catifea.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Noapte_De_Catifea.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun noapte de catifea"
+    },
+    {
+      "source_id": "4320",
+      "sku": "81",
+      "name": "Aranjament Craciun poveste de Craciun",
+      "slug": "aranjament-craciun-poveste-de-craciun",
+      "status": "publish",
+      "price_cents": 80000,
+      "regular_price_cents": 80000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un aranjament festiv bogat, inspirat din farmecul sărbătorilor nordice, realizat din conifere naturale, fructe uscate și accente în tonuri de roșu festiv și auriu. O compoziție cozy, caldă și plină de magie de iarnă.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4320-0.webp",
+          "alt": "Aranjament Craciun poveste de Craciun",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_De_Craciun.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Aranjament_Craciun_Poveste_De_Craciun.jpeg"
+      ],
+      "image_alt": "Aranjament Craciun poveste de Craciun"
+    },
+    {
+      "source_id": "4321",
+      "sku": "82",
+      "name": "Buchet farmec de sarbatoare",
+      "slug": "buchet-farmec-de-sarbatoare",
+      "status": "publish",
+      "price_cents": 35000,
+      "regular_price_cents": 35000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Buchet festiv realizat din conifere naturale, ilex și accente roșii elegante, într-o compoziție bogată și cozy, inspirată de magia Crăciunului tradițional.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4321-0.webp",
+          "alt": "Buchet farmec de sarbatoare",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Farmec_De_Sarbatoare.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Farmec_De_Sarbatoare.jpeg"
+      ],
+      "image_alt": "Buchet farmec de sarbatoare"
+    },
+    {
+      "source_id": "4322",
+      "sku": "83",
+      "name": "Buchet iarna aramie",
+      "slug": "buchet-iarna-aramie",
+      "status": "publish",
+      "price_cents": 35000,
+      "regular_price_cents": 35000,
+      "sale_price_cents": null,
+      "stock": null,
+      "stock_status": "instock",
+      "manage_stock": 0,
+      "featured": 0,
+      "description": "",
+      "short_description": "Un buchet festiv în tonuri calde de arămiu și verde natural, realizat din conifere, conuri și decorațiuni elegante, pentru un decor de sărbătoare sofisticat și primitor.",
+      "tax_status": "taxable",
+      "tax_class": "standard",
+      "categories": [
+        "craciun"
+      ],
+      "images": [
+        {
+          "url": "/assets/floralis/product-4322-0.webp",
+          "alt": "Buchet iarna aramie",
+          "sort_order": 0,
+          "original_url": "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Iarna_Aramie.jpeg"
+        }
+      ],
+      "source_fields": {
+        "Backorders": "no",
+        "Sold Individually": "no"
+      },
+      "image_sources": [
+        "https://floralis-artaflorilor.ro/wp-content/uploads/2026/05/Buchet_Iarna_Aramie.jpeg"
+      ],
+      "image_alt": "Buchet iarna aramie"
+    }
+  ],
+  "categories": [
+    {
+      "name": "Aranjamente florale",
+      "slug": "aranjamente-florale",
+      "parent_slug": null
+    },
+    {
+      "name": "Back to School",
+      "slug": "back-to-school",
+      "parent_slug": null
+    },
+    {
+      "name": "Bomboane",
+      "slug": "bomboane",
+      "parent_slug": null
+    },
+    {
+      "name": "Botez",
+      "slug": "botez",
+      "parent_slug": null
+    },
+    {
+      "name": "Cadouri & Accesorii",
+      "slug": "cadouri-accesorii",
+      "parent_slug": null
+    },
+    {
+      "name": "Craciun",
+      "slug": "craciun",
+      "parent_slug": null
+    },
+    {
+      "name": "Nunta",
+      "slug": "nunta",
+      "parent_slug": null
+    },
+    {
+      "name": "Vin / Sampanie",
+      "slug": "vin-sampanie",
+      "parent_slug": null
+    },
+    {
+      "name": "Cristelnita",
+      "slug": "cristelnita",
+      "parent_slug": "botez"
+    },
+    {
+      "name": "Lumanari botez",
+      "slug": "lumanari-botez",
+      "parent_slug": "botez"
+    },
+    {
+      "name": "Buchet mireasa / Cununie",
+      "slug": "buchet-mireasa-cununie",
+      "parent_slug": "nunta"
+    },
+    {
+      "name": "Lumanari cununie",
+      "slug": "lumanari-cununie",
+      "parent_slug": "nunta"
+    }
+  ],
+  "media": [
+    {
+      "url": "/assets/floralis/product-4143-0.webp",
+      "name": "Aranjament Emotie pastelata",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4145-0.webp",
+      "name": "Fetita dintre flori",
+      "alt": "Fetita dintre flori",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4144-0.webp",
+      "name": "Aranjament Poveste solara",
+      "alt": "Aranjament Poveste solara",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4146-0.webp",
+      "name": "Aranjament Poem in roz",
+      "alt": "Aranjament Poem in roz",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4143-1.webp",
+      "name": "Aranjament Emotie pastelata",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4147-0.webp",
+      "name": "Aranjament Rouge floral",
+      "alt": "Aranjament Rouge floral",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4148-0.webp",
+      "name": "Aranjament Ritm solar",
+      "alt": "Aranjament Ritm solar",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4149-0.webp",
+      "name": "Aranjament Pasiune in floare",
+      "alt": "Aranjament Pasiune in floare",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4150-0.webp",
+      "name": "Aranjament Eleganta intensa",
+      "alt": "Aranjament Eleganta intensa",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4151-0.webp",
+      "name": "Aranjament Parfum de toamna",
+      "alt": "Aranjament Parfum de toamna",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4152-0.webp",
+      "name": "Aranjament Eleganta in rosu",
+      "alt": "Aranjament Eleganta in rosu",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4153-0.webp",
+      "name": "Aranjament Nuante imperiale",
+      "alt": "Aranjament Nuante imperiale",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4154-0.webp",
+      "name": "Aranjament Poveste pastelata",
+      "alt": "Aranjament Poveste pastelata",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4155-0.webp",
+      "name": "Aranjament Poveste diafana",
+      "alt": "Aranjament Poveste diafana",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4156-0.webp",
+      "name": "Aranjament Dans de petale",
+      "alt": "Aranjament Dans de petale",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4157-0.webp",
+      "name": "Evadare exotica",
+      "alt": "Evadare exotica",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4158-0.webp",
+      "name": "Aranjament Armonie diafana",
+      "alt": "Aranjament Armonie diafana",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4159-0.webp",
+      "name": "Buchet mireasa roz cu eustoma si frezii",
+      "alt": "Buchet mireasa roz cu eustoma si frezii",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4160-0.webp",
+      "name": "Buchet mireasa hortensie si eustoma",
+      "alt": "Buchet mireasa hortensie si eustoma",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4161-0.webp",
+      "name": "Buchet de mireasa romantic",
+      "alt": "Buchet de mireasa romantic",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4162-0.webp",
+      "name": "Buchet mireasa alb wild",
+      "alt": "Buchet mireasa alb wild",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4164-0.webp",
+      "name": "Buchet de mireasa alb cu accente peach",
+      "alt": "Buchet de mireasa alb cu accente peach",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4165-0.webp",
+      "name": "Buchet de mireasa compact in nunante pastelate",
+      "alt": "Buchet de mireasa compact in nunante pastelate",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4166-0.webp",
+      "name": "Buchet de mireasa cappuccino",
+      "alt": "Buchet de mireasa cappuccino",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4163-0.webp",
+      "name": "Buchet mireasa pastel",
+      "alt": "Buchet mireasa pastel",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4167-0.webp",
+      "name": "Buchet mireasa roz intens si burgundy",
+      "alt": "Buchet mireasa roz intens si burgundy",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4168-0.webp",
+      "name": "Buchet mireasa din gerbera spider si eustoma",
+      "alt": "Buchet mireasa din gerbera spider si eustoma",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4169-0.webp",
+      "name": "Set Lumanari cununie delicate ivory & blush",
+      "alt": "Set Lumanari cununie delicate ivory & blush",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4170-0.webp",
+      "name": "Lumanari cununie pastel romantice",
+      "alt": "Lumanari cununie pastel romantice",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4171-0.webp",
+      "name": "Lumanari cununie romantic diafane",
+      "alt": "Lumanari cununie romantic diafane",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4172-0.webp",
+      "name": "Lumanari cununie wild alb",
+      "alt": "Lumanari cununie wild alb",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4174-0.webp",
+      "name": "Lumanari cununie alb romantice",
+      "alt": "Lumanari cununie alb romantice",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4173-0.webp",
+      "name": "Lumanari cununie alb elegant",
+      "alt": "Lumanari cununie alb elegant",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4175-0.webp",
+      "name": "Lumanari cununie mov intens elegante",
+      "alt": "Lumanari cununie mov intens elegante",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4176-0.webp",
+      "name": "Lumanari cununie orhidee si hortensie",
+      "alt": "Lumanari cununie orhidee si hortensie",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4177-0.webp",
+      "name": "Lumanari cununie romantic pastel",
+      "alt": "Lumanari cununie romantic pastel",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4178-0.webp",
+      "name": "Lumanare botez alba diafana",
+      "alt": "Lumanare botez alba diafana",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4179-0.webp",
+      "name": "Lumanare botez bleu delicat",
+      "alt": "Lumanare botez bleu delicat",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4180-0.webp",
+      "name": "Lumanare botez roz delicat",
+      "alt": "Lumanare botez roz delicat",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4181-0.webp",
+      "name": "Lumanare botez",
+      "alt": "Lumanare botez",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4182-0.webp",
+      "name": "Lumanare botez alba",
+      "alt": "Lumanare botez alba",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4184-0.webp",
+      "name": "Lumanare botez albastru modern",
+      "alt": "Lumanare botez albastru modern",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4183-0.webp",
+      "name": "Lumanare botez bleu natur",
+      "alt": "Lumanare botez bleu natur",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4186-0.webp",
+      "name": "Aranjament cristelnita nude elegant",
+      "alt": "Aranjament cristelnita nude elegant",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4187-0.webp",
+      "name": "Aranjament cristelnita roz pastel",
+      "alt": "Aranjament cristelnita roz pastel",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4188-0.webp",
+      "name": "Aranjament cristelnita orhidee albastra",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4185-0.webp",
+      "name": "Aranjament cristelnita Imperial White",
+      "alt": "Aranjament cristelnita Imperial White",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4188-1.webp",
+      "name": "Aranjament cristelnita orhidee albastra",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4189-0.webp",
+      "name": "Aranjament cristelnita galben cu alb",
+      "alt": "Aranjament cristelnita galben cu alb",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4190-0.webp",
+      "name": "Aranjament cristelnita floare albastra",
+      "alt": "Aranjament cristelnita floare albastra",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4191-0.webp",
+      "name": "Clopotel de septembrie roz",
+      "alt": "Clopotel de septembrie roz",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4192-0.webp",
+      "name": "Clopotel de septembrie bleu",
+      "alt": "Clopotel de septembrie bleu",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4193-0.webp",
+      "name": "Emotii de septembrie roz",
+      "alt": "Emotii de septembrie roz",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4194-0.webp",
+      "name": "Emotii de septembrie bleu",
+      "alt": "Emotii de septembrie bleu",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4195-0.webp",
+      "name": "Creioane colorate roz",
+      "alt": "Creioane colorate roz",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4196-0.webp",
+      "name": "Creioane colorate galbene",
+      "alt": "Creioane colorate galbene",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4198-0.webp",
+      "name": "Praline artizanale “Guilty Pleasure”- Selectie clasica",
+      "alt": "Praline artizanale “Guilty Pleasure”- Selectie clasica",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4199-0.webp",
+      "name": "Praline artizanale “Guilty Pleasure”- Selectie fructata",
+      "alt": "Praline artizanale “Guilty Pleasure”- Selectie fructata",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4197-0.webp",
+      "name": "Creioane colorate bleu",
+      "alt": "Creioane colorate bleu",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4200-0.webp",
+      "name": "Praline artizanale “Guilty Pleasure” – Red & White Bliss",
+      "alt": "Praline artizanale “Guilty Pleasure” – Red & White Bliss",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4201-0.webp",
+      "name": "Praline artizanale “Guilty Pleasure” – Passion Fruits",
+      "alt": "Praline artizanale “Guilty Pleasure” – Passion Fruits",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4202-0.webp",
+      "name": "Punga cadou eleganta praline",
+      "alt": "Punga cadou eleganta praline",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4203-0.webp",
+      "name": "Solo Quinta",
+      "alt": "Solo Quinta",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4204-0.webp",
+      "name": "Whispering Angel",
+      "alt": "Whispering Angel",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4205-0.webp",
+      "name": "Moet",
+      "alt": "Moet",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4206-0.webp",
+      "name": "Punga cadou eleganta vin",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4206-1.webp",
+      "name": "Punga cadou eleganta vin",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4207-0.webp",
+      "name": "Felicitare Welcome baby",
+      "alt": "|||",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4207-1.webp",
+      "name": "Felicitare Welcome baby",
+      "alt": "|||",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4207-2.webp",
+      "name": "Felicitare Welcome baby",
+      "alt": "|||",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4207-3.webp",
+      "name": "Felicitare Welcome baby",
+      "alt": "|||",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4208-0.webp",
+      "name": "Felicitare Happy Birthday",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4209-0.webp",
+      "name": "Urs plus maro",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4208-1.webp",
+      "name": "Felicitare Happy Birthday",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4209-1.webp",
+      "name": "Urs plus maro",
+      "alt": "|",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4210-0.webp",
+      "name": "Urs plus bej",
+      "alt": "Urs plus bej",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4308-0.webp",
+      "name": "Aranjament Craciun – Poveste roz de iarna",
+      "alt": "Aranjament Craciun – Poveste roz de iarna",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4309-0.webp",
+      "name": "Aranjament Craciun -Basm verde de iarna",
+      "alt": "Aranjament Craciun -Basm verde de iarna",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4310-0.webp",
+      "name": "Aranjament Craciun Poveste aurie",
+      "alt": "Aranjament Craciun Poveste aurie",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4311-0.webp",
+      "name": "Aranjament Craciun Renul fermecat",
+      "alt": "Aranjament Craciun Renul fermecat",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4312-0.webp",
+      "name": "Aranjament Craciun brad fermecat",
+      "alt": "Aranjament Craciun brad fermecat",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4313-0.webp",
+      "name": "Aranjament Craciun inger de zapada",
+      "alt": "Aranjament Craciun inger de zapada",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4314-0.webp",
+      "name": "Aranjament Craciun Poveste rosie",
+      "alt": "Aranjament Craciun Poveste rosie",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4315-0.webp",
+      "name": "Aranjament Craciun argintiu",
+      "alt": "Aranjament Craciun argintiu",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4316-0.webp",
+      "name": "Aranjament Craciun farmec auriu",
+      "alt": "Aranjament Craciun farmec auriu",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4317-0.webp",
+      "name": "Aranjament Craciun balet de iarna",
+      "alt": "Aranjament Craciun balet de iarna",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4319-0.webp",
+      "name": "Aranjament Craciun noapte de catifea",
+      "alt": "Aranjament Craciun noapte de catifea",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4320-0.webp",
+      "name": "Aranjament Craciun poveste de Craciun",
+      "alt": "Aranjament Craciun poveste de Craciun",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4318-0.webp",
+      "name": "Aranjament Craciun rubin si smarald",
+      "alt": "Aranjament Craciun rubin si smarald",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4321-0.webp",
+      "name": "Buchet farmec de sarbatoare",
+      "alt": "Buchet farmec de sarbatoare",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/product-4322-0.webp",
+      "name": "Buchet iarna aramie",
+      "alt": "Buchet iarna aramie",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-1d2be5c6209e.webp",
+      "name": "cropped-frame-2225164381.png",
+      "alt": "branding",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-e521f20b2abb.webp",
+      "name": "amenajare-terasa-e1778742996680.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-7379e6aac323.webp",
+      "name": "aranjament-cristelnita-orhidee-albastra.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-661cc49394b4.webp",
+      "name": "galerie-decor-floral-02.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-093d7cef8288.webp",
+      "name": "galerie-decor-floral-03.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-570a7f000941.webp",
+      "name": "galerie-decor-floral-04.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-c83cd3b791b7.webp",
+      "name": "galerie-decor-floral-05.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-d41fdc51fc61.webp",
+      "name": "galerie-decor-floral-06.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-d5a0a102660d.webp",
+      "name": "galerie-decor-floral-07.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-cb675b6a9896.webp",
+      "name": "galerie-decor-floral-08.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-eb7ca528c7fd.webp",
+      "name": "galerie-decor-floral-09.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-d3cf404d3622.webp",
+      "name": "galerie-decor-floral-10.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-a7f773911b28.webp",
+      "name": "galerie-decor-floral-11.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-cd0301132119.webp",
+      "name": "galerie-decor-floral-12.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-1c28483ce21c.webp",
+      "name": "galerie-decor-floral-13.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-5b86e343faa3.webp",
+      "name": "galerie-decor-floral-14.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-89bf25dc8dd5.webp",
+      "name": "galerie-decor-floral-15.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-81d675f18c22.webp",
+      "name": "galerie-decor-floral-img-1889.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-b613330c87ff.webp",
+      "name": "galerie-decor-floral-img-1894.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-9dee49ea0e62.webp",
+      "name": "galerie-decor-floral-img-1898.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-5fac24a5b0a7.webp",
+      "name": "galerie-decor-floral-img-1901.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-71a0ddf2a41a.webp",
+      "name": "galerie-decor-floral-img-1905.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-e5170e333909.webp",
+      "name": "galerie-decor-floral.jpg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-ee71539f9bda.webp",
+      "name": "galerie-foto-02.jpeg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-9036aabedb36.webp",
+      "name": "galerie-foto.jpeg",
+      "alt": "Decor floral Floralis",
+      "type": "image"
+    },
+    {
+      "url": "/assets/floralis/export-bb030fca2f37.webp",
+      "name": "la-floralis-arta-florilor-gasesti-mai-mult-decat-o-florarie-gasesti-o-atmosfera-cozy-feminina-si-primitoare-un.jpg",
+      "alt": "page:despre-noi",
+      "type": "image"
+    }
+  ],
+  "pages": [
+    {
+      "title": "HOME",
+      "slug": "home",
+      "source_url": "https://floralis-artaflorilor.ro/",
+      "body": "Acasa - Floralis Arta Florilor\n\nComanda acum online!\n\nFlori pentru suflet!\n\nCele mai comandate\n\nAranjamente pentru\n\nevenimente\n\nTransformăm momentele speciale in amintiri de neuitat.\nBotezuri, aniversări, evenimente corporate, cu atenție la detalli și flori proaspete.\nSpune-ne povestea ta, noi o inflorim!\n\nProduse recomandate\n\nFloralis - Arta Florilor Tunari, Ilfov\n\nFloralis – Arta Florilor este un loc creat din pasiune pentru flori, frumos și emoțiile pe care acestea le transmit. Din 2017, transformăm fiecare buchet și fiecare aranjament floral într-o experiență elegantă, caldă și memorabilă.\nCu o experiență vastă în design floral și decoruri pentru evenimente, punem accent pe calitate, prospețime și atenția la fiecare detaliu. Alegem cu grijă florile, texturile și combinațiile cromatice, pentru ca fiecare creație să aibă un aer natural, rafinat și armonios.\n\nComenzi personalizate\n\nLa Floralis – Arta Florilor găsești mai mult decât o florărie. Găsești o atmosferă cozy, feminină și primitoare, unde fiecare client este întâmpinat cu grijă, implicare și dorința sinceră de a crea ceva special.\nRealizăm buchete, aranjamente florale și decoruri personalizate pentru orice ocazie — de la gesturi simple și elegante, până la nunți, botezuri și evenimente importante. Pentru noi, fiecare comandă spune o poveste și merită creată cu suflet.\n\nBuchet mireasa / Cununie\n\nLumanari cununie\n\nLumanari botez\n\nBack to School\n\nGalerie Foto\n\nVezi oferta noastra"
+    },
+    {
+      "title": "DESPRE NOI",
+      "slug": "despre-noi",
+      "source_url": "https://floralis-artaflorilor.ro/despre-noi/",
+      "body": "Despre noi - Floralis Arta Florilor\n\nDespre noi\n\nFloralis – Arta Florilor este un loc creat din pasiune pentru flori, frumos și emoțiile pe care acestea le transmit. Din 2017, transformăm fiecare buchet și fiecare aranjament floral într-o experiență elegantă, caldă și memorabilă.\nCu o experiență vastă în design floral și decoruri pentru evenimente, punem accent pe calitate, prospețime și atenția la fiecare detaliu. Alegem cu grijă florile, texturile și combinațiile cromatice, pentru ca fiecare creație să aibă un aer natural, rafinat și armonios.\nLa Floralis – Arta Florilor găsești mai mult decât o florărie. Găsești o atmosferă cozy, feminină și primitoare, unde fiecare client este întâmpinat cu grijă, implicare și dorința sinceră de a crea ceva special.\nRealizăm buchete, aranjamente florale și decoruri personalizate pentru orice ocazie — de la gesturi simple și elegante, până la nunți, botezuri și evenimente importante. Pentru noi, fiecare comandă spune o poveste și merită creată cu suflet.\nSunt Ana Smoaca Uhlov, cofondatoarea Floralis – Arta Florilor , iar pentru mine florile au însemnat întotdeauna mai mult decât un simplu domeniu — au fost o pasiune transformată, în timp, într-un mod de a crea emoție, frumusețe și atmosferă. Din 2017, creez alături de Floralis – Arta Florilor buchete, aranjamente și decoruri florale realizate cu suflet, atenție la detalii și drag pentru estetică. Dețin diplomă de designer floral și iubesc tot ceea ce înseamnă creativitate, texturi, armonie și combinații florale cu personalitate. Pun foarte mult accent pe calitate, pe flori fresh și pe experiența pe care o oferim fiecărui client. Îmi place să creez într-o atmosferă cozy, feminină și elegantă, iar fiecare lucrare este realizată cu implicare, pasiune și mult suflet. Cred că frumusețea stă în detalii, iar florile au puterea de a transforma cele mai simple momente în amintiri speciale."
+    },
+    {
+      "title": "DECOR FLORAL",
+      "slug": "decor-floral",
+      "source_url": "https://floralis-artaflorilor.ro/decor-floral/",
+      "body": "Decor floral - Floralis Arta Florilor\n\nDecor floral\n\nDecorurile florale pentru nunți și botezuri sunt realizate exclusiv pe bază de comandă, în funcție de dorințele și viziunea fiecărui client. Stabilim împreună stilul evenimentului, paleta cromatică, tipurile de flori, dimensiunea decorurilor și atmosfera dorită, pentru ca fiecare detaliu să reflecte perfect povestea evenimentului.\nÎn funcție de aceste aspecte, se stabilește și bugetul final, astfel încât fiecare decor să fie personalizat armonios, atât estetic, cât și ca investiție. Fie că este vorba despre un decor elegant, diafan, modern sau luxuriant, fiecare creație florală este atent gândită și realizată cu grijă pentru detalii și emoție."
+    },
+    {
+      "title": "CONTACT",
+      "slug": "contact",
+      "source_url": "https://floralis-artaflorilor.ro/contact/",
+      "body": "Contact - Floralis Arta Florilor\n\nContact\n\nContactează-ne\n0720823194\nSună acum\nVizitează-ne\nCalea Bucuresti Nr.9 Tunari/Ilfov\nVezi locația\nNume\n\nNume\n\nEmail\n\nEmail\n\nMesaj Sunt de acord cu politica de confidentialitate si GDPR: Termeni si conditii\n\nMesaj\nSunt de acord cu politica de confidentialitate si GDPR: Termeni si conditii"
+    },
+    {
+      "title": "CARIERA",
+      "slug": "cariera",
+      "source_url": "https://floralis-artaflorilor.ro/cariera/",
+      "body": "cariera - Floralis Arta Florilor\n\ncariera"
+    },
+    {
+      "title": "PRODUSE",
+      "slug": "produse",
+      "source_url": "https://floralis-artaflorilor.ro/produse/",
+      "body": "Produse - Floralis Arta Florilor\n\nProduse\n\nAranjamente florale\n\nNunta\n\nBotez\n\nBack to School\n\nCraciun\n\nBomboane\n\nCadouri & Accesorii\n\nVin / Sampanie"
+    },
+    {
+      "title": "SHOP",
+      "slug": "shop",
+      "source_url": "https://floralis-artaflorilor.ro/shop/",
+      "body": "Shop - Comandă online în Tunari, Ilfov.\n\nShop"
+    },
+    {
+      "title": "BLOG",
+      "slug": "blog",
+      "source_url": "https://floralis-artaflorilor.ro/blog/",
+      "body": "Blog - Floralis Arta Florilor\n\nBlog\n\nLorem Ipsum 2\n\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ‘Content here, content here’, making it look like readable English. Many […]\nCiteste mai multe\n\nPostat la data de: 23/10/2023 (10/03/2026)\ndev.admin\nLasa un comentariu"
+    },
+    {
+      "title": "ARANJAMENTE FLORALE",
+      "slug": "categorie-produs/aranjamente-florale",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/aranjamente-florale/",
+      "body": "Aranjamente florale - Floralis Arta Florilor\n\nAranjamente florale"
+    },
+    {
+      "title": "BACK TO SCHOOL",
+      "slug": "categorie-produs/back-to-school",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/back-to-school/",
+      "body": "Back to School - Floralis Arta Florilor\n\nBack to School"
+    },
+    {
+      "title": "BOMBOANE",
+      "slug": "categorie-produs/bomboane",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/bomboane/",
+      "body": "Bomboane - Floralis Arta Florilor\n\nBomboane"
+    },
+    {
+      "title": "BOTEZ",
+      "slug": "categorie-produs/botez",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/botez/",
+      "body": "Botez - Floralis Arta Florilor\n\nBotez"
+    },
+    {
+      "title": "CRISTELNITA",
+      "slug": "categorie-produs/botez/cristelnita",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/botez/cristelnita/",
+      "body": "Cristelnita - Floralis Arta Florilor\n\nCristelnita"
+    },
+    {
+      "title": "LUMANARI BOTEZ",
+      "slug": "categorie-produs/botez/lumanari-botez",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/botez/lumanari-botez/",
+      "body": "Lumanari botez - Floralis Arta Florilor\n\nLumanari botez"
+    },
+    {
+      "title": "CADOURI & ACCESORII",
+      "slug": "categorie-produs/cadouri-accesorii",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/cadouri-accesorii/",
+      "body": "Cadouri & Accesorii - Floralis Arta Florilor\n\nCadouri & Accesorii"
+    },
+    {
+      "title": "CRACIUN",
+      "slug": "categorie-produs/craciun",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/craciun/",
+      "body": "Craciun - Floralis Arta Florilor\n\nCraciun"
+    },
+    {
+      "title": "NUNTA",
+      "slug": "categorie-produs/nunta",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/nunta/",
+      "body": "Nunta - Floralis Arta Florilor\n\nNunta"
+    },
+    {
+      "title": "BUCHET MIREASA / CUNUNIE",
+      "slug": "categorie-produs/nunta/buchet-mireasa-cununie",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/nunta/buchet-mireasa-cununie/",
+      "body": "Buchet mireasa / Cununie - Floralis Arta Florilor\n\nBuchet mireasa / Cununie"
+    },
+    {
+      "title": "LUMANARI CUNUNIE",
+      "slug": "categorie-produs/nunta/lumanari-cununie",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/nunta/lumanari-cununie/",
+      "body": "Lumanari cununie - Floralis Arta Florilor\n\nLumanari cununie"
+    },
+    {
+      "title": "VIN / SAMPANIE",
+      "slug": "categorie-produs/vin-sampanie",
+      "source_url": "https://floralis-artaflorilor.ro/categorie-produs/vin-sampanie/",
+      "body": "Vin / Sampanie - Floralis Arta Florilor\n\nVin / Sampanie"
+    },
+    {
+      "title": "CATEGORIE: UNCATEGORIZED",
+      "slug": "category/uncategorized",
+      "source_url": "https://floralis-artaflorilor.ro/category/uncategorized/",
+      "body": "Uncategorized - Floralis Arta Florilor\n\nCategorie: Uncategorized\n\nLorem Ipsum 2\n\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ‘Content here, content here’, making it look like readable English. Many […]\nCiteste mai multe\n\nPostat la data de: 23/10/2023 (10/03/2026)\ndev.admin\nLasa un comentariu"
+    },
+    {
+      "title": "PITESTI,ARGES",
+      "slug": "locations/pitestiarges",
+      "source_url": "https://floralis-artaflorilor.ro/locations/pitestiarges/",
+      "body": "Pitesti,Arges - Floralis Arta Florilor\n\nPitesti,Arges\n\nPostat la data de: 11/09/2023\ndev.admin"
+    },
+    {
+      "title": "LOREM IPSUM 2",
+      "slug": "lorem-ipsum-2",
+      "source_url": "https://floralis-artaflorilor.ro/lorem-ipsum-2/",
+      "body": "Lorem Ipsum 2 - Floralis Arta Florilor\n\nDATA:\n2023-10-23T07:29:58+00:00\n\nLorem Ipsum 2\n\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using ‘Content here, content here’, making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for ‘lorem ipsum’ will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).\n\nPostat la data de: 23/10/2023 (10/03/2026)\ndev.admin"
+    },
+    {
+      "title": "LOREM IPSUM",
+      "slug": "lorem-ipsum",
+      "source_url": "https://floralis-artaflorilor.ro/lorem-ipsum/",
+      "body": "Lorem Ipsum - Floralis Arta Florilor\n\nDATA:\n2023-10-23T07:28:52+00:00\n\nLorem Ipsum\n\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.\n\nPostat la data de: 23/10/2023 (10/03/2026)\ndev.admin"
+    },
+    {
+      "title": "REZERVARI",
+      "slug": "rezervari",
+      "source_url": "https://floralis-artaflorilor.ro/rezervari/",
+      "body": "Rezervari - Floralis Arta Florilor\n\nRezervari\n\nIti multumim pentru rezervare!\n\nTe vom contacta in cateva minute.\nSe trimite rezervarea...\nCompletati toate campurile.\n\nData rezervarii\nOra\nNumar de persoane\nPrenume\nNume\nTelefon\nEmail\nDetalii\nSunt de acord cu politica de confidentialitate si GDPR: Termeni si conditii\n\nCTA:\nRezerva masa"
+    },
+    {
+      "title": "TRANSPORT SI LIVRARE",
+      "slug": "transport-si-livrare",
+      "source_url": "https://floralis-artaflorilor.ro/transport-si-livrare/",
+      "body": "Transport si livrare - Floralis Arta Florilor\n\nTransport si livrare"
+    },
+    {
+      "title": "MODALITATI DE PLATA",
+      "slug": "modalitati-de-plata",
+      "source_url": "https://floralis-artaflorilor.ro/modalitati-de-plata/",
+      "body": "Modalitati de plata - Floralis Arta Florilor\n\nModalitati de plata"
+    },
+    {
+      "title": "ALERGENI",
+      "slug": "alergeni",
+      "source_url": "https://floralis-artaflorilor.ro/alergeni/",
+      "body": "Alergeni - Floralis Arta Florilor\n\nAlergeni"
+    },
+    {
+      "title": "TERMENI SI CONDITII",
+      "slug": "termeni-si-conditii",
+      "source_url": "https://floralis-artaflorilor.ro/termeni-si-conditii/",
+      "body": "Termeni si conditii - Floralis Arta Florilor\n\nTermeni si conditii\n\nTERMENI SI CONDITII\nPentru utilizarea site-ului si aplicabile vanzarii\n\nI. Introducere\n\nWebsite-ul [https://floralis-artaflorilor.ro/ este operat de Societatea Floralis Arta Florilor SRL , avand urmatoarele date de identificare:\n\n- Sediu in: Jud. Ilfov, Ors. Voluntari, Bld. Pipera, Nr.48c, Cladire C1. Parter. Camera 2\n- Numar de inregistrare la Registrul Comertului: J2017003023237 ,\n- Cod fiscal: RO37782470\n- Contact: floralis.artaflorilor@yahoo.com\n\n(denumita in continuare “Vanzatorul”);\nPrezentele conditii (denumitie in continuare “T&C”) reglementeaza atat modalitatea de utilizare a website-ului, cat si achizitionarea produselor/serviciilor prin intermediul acestora.\nPolitica de retur, politica de confidentialitate si de utilizare cookie, precum si oricare alte documente la care se face referire pe parcurs, constituie parte integranta din T&C si se considera acceptate de catre dvs. prin acceptarea T&C.\nPrin utilizarea website-ului, prin logarea in cadrul acestora si prin accesarea produselor/serviciilor oferite de Vanzator, acceptați T&C detaliate mai jos, cu toate consecintele care decurg din acceptarea acestora.\nVanzatorul isi rezerva dreptul de a modifica T&C cu respectarea urmatoarelor conditii:\n\n- Modificare fara notificare prealabila, care va opera pentru comenzile finalizate ulterior publicarii;\n- Adaugarea unor noi reguli si restrictii privind produsele/serviciile comandate, fara notificare prealabila, care se vor aplica doar comenzilor initiate ulterior publicarii;\n- Modificarea sau actualizarea oricarui serviciu sau drept de utilizare al oricarui serviciu, fara notificare prealabila;\n- Modificarea Ofertei de vanzare, inainte ca acceptarea sa ajunga la Vanzator.\n\nDefinitii\nTermenii de mai jos vor avea urmatoarea semnificatie in cuprinsul acestui document, precum si a altor acte elaborate in legatura cu T&C:\n\n- Website: https://floralis-artaflorilor.ro/\n- Utilizator – orice persoana fizica/juridica ce acceseaza, in orice mod, website-ul;\n- Cumparator – orice persoana fizica, avand varsta mai mare de 18 ani, si persoana juridica ce achizitioneaza produsele si/sau serviciile comercializate de Vanzator;\n- Van zator – Societatea Floralis Arta Florilor SRL ;\n- Comanda – solicitarea transmisa de catre Cumparator, prin parcurgerea etapelor tehnice necesare, in vederea achizitionarii produselor si/sau serviciilor comercializate online conform T&C;\n- Contract – acordul de vointa al partilor – Vanzator si Cumparator – format prin acceptarea Ofertei Vanzatorului de catre Cumparator; data incheierii Contractului se considera a fi data confirmarii expedierii de catre Vanzator prin urmatorul mijloc de comunicare floralis.artaflorilor@yahoo.com\n- Oferta Vanzatorului – se constituie din prezentele T&C, politicile publicate (de confidentialitate, utilizare cookie, retur/retragere etc) si toate conditiile speciale referitoare la un anumit produs/serviciu, cum ar fi dar fara a se limita la:\n- toate informatiile de pe website care pot fi vizitate, vizualizate sau altfel accesate prin utilizarea unui echipament numeric;\n- conținutul oricarui e-mail trimis Utilizatorilor si/sau Cumparatorilor de catre Vanzator, prin mijloace electronice si/sau oricare alt mijloc de comunicare disponibil;\n- orice informatie comunicata prin orice mijloc, care poate fi probat, de catre Vanzator Utilizatorului si/sau Cumparatorului, conform datelor de contact, specificate sau nu de catre acesta;\n- informatii legate de produsele, serviciile si/sau tarifele practicate de Vanzator intr-o anumita perioada;\n- informatii legate de produsele, serviciile și/sau tarifele practicate de catre un tert cu care Vanzatorul are incheiate contracte de parteneriat, intr-o anumita perioada;\n- Newsletter – mijlocul de informare periodic, exclusiv electronic, respectiv posta electronica (e-mail, SMS), asupra produselor, serviciilor si/sau promotiilor desfasurate de catre Vanzator, fara niciun angajament din partea acestuia;\n- Tranzactie – incasare/rambursare a unei sume in baza Contractului, prin utilizarea serviciilor procesatorului de carduri, indiferent de modalitatea livrarii;\n- Specificatii – descrierea produselor si/sau serviciilor, așa cum sunt precizate pe website.\n\nII. Formarea Contractului\n\n- Prin inregistrarea unei Comenzi prin website, Cumparatorul este de acord cu forma de comunicare (telefonic sau e-mail) prin care Vanzatorul isi deruleaza operatiunile comerciale.\n- Contractul se considera format si incheiat la momentul notificarii expedierii de catre Vanzator Cumparatorului, prin mijloacele de comunicare stabilite.\n- Vanzatorul isi rezerva dreptul de a modifica cantitatea produselor si/sau serviciilor din comanda/Oferta, pentru motive intemeiate. O astfel de modificare va fi notificata Cumparatorului pe adresa de e-mail sau la numarul de telefon puse la dispoziția Vanzatorului. Cumparatorul poate modifica/anula noua Oferta, daca nu este de acord cu aceasta, iar Vanzatorul va returna suma platita de Cumparator termen maxim de 14 zile de la anulare.\n- Cumparatorul este de acord cu emiterea si comunicarea facturii, la cererea acestuia, prin email la adresa indicata in cadrul comenzii.\n\nIII. Politica de vanzare online\n\n- Va atragem atentia ca persoanele fizice pot efectua comenzi online doar daca au implinit varsta de 18 ani, de la care au capacitate de exercitiu deplina. Produsele/serviciile sunt furnizate doar pe teritoriul Romaniei.\n\nEfectuarea unei comenzi presupune furnizarea urmatoarelor date personale, care sunt protejate conform politicii de confidentialitate publicate: Nume, Prenume, adresa livrare, nr. Telefon, adresa email.\nAceste date se regasesc si in baza de date a companiei S.C. RWB Software Arhitect S.R.L.cu sediul in Bld. Fratii Golesti, Nr. 132, Pitesti, Judet Arges, in calitate de dezvoltator al website-ului.\nDaca doar vizitati website-ul, veti avea calitatea de Utilizator. Pentru a putea achizitiona produse/servicii, va trebui sa urmati procedura disponibila in website la sectiunea Produse.\nVanzatorul poate refuza solicitarea de inregistrare sau poate sterge conturi existente in masura in care constata ca informatiile furnizate sunt neconforme cu realitatea. De exemplu, Vanzatorul isi rezerva dreptul de a sterge conturile create cu o adresa de email care nu apartine persoanei care creeaza contul. In urma stergerii contului, puteti pierde dreptul de garantie sau dreptul de a returna produsele. Prin urmare, este necesar sa va creati conturi de client cu adresa dvs. de email corecta.\n\n- Vanzatorul va lua toate masurile pentru a se asigura ca informatiile disponibile pe website sunt corecte si complete. Cu toate acestea, in situatia in care exista erori, Vanzatorul le va indrepta in cel mai scurt timp posibil, fara notificarea prealabila a Cumparatorului. Acesta din urma are posibilitatea anularii comenzii, cu obligatia corelativa a Vanzatorului de rambursare a sumelor platite.\n\nVanzatorul isi rezerva dreptul de a anula Comenzile care privesc produse si/sau servicii afisate pe website ca urmare a unor erori tehnice sau care, din cauza unor erori, prezinta preturi evident gresite/derizorii (preturi care pot fi, în mod rezonabil, apreciate ca eronate/derizorii de catre consumatorul mediu), cu consecința restituirii intregii sume platite de Cumparator in considerarea comenzilor anulate, daca acesta nu confirma comanda la preturile corectate.\n\n- Este strict interzisa utilizarea website-ului in scopul introducerii in mod deliberat a oricarui program sau material care poate fi tehnic daunator sau distructiv. Sunt interzise incercarile de acces neautorizat la website, la serverul pe care este gazduit sau la orice alt server, calculator sau baza de date. Prin acceptarea T&C va angajati sa nu atacați website-ul prin intermediul unui atac de blocare a serviciului. Nerespectarea acestei clauze determina interzicerea accesului dvs. la website.\n- Totodata, Vanzatorul nu garanteaza ca website-ul nu conține erori, omisiuni, defectiuni, intarzieri sau intreruperi in operare sau transmitere sau orice alti factori similari. Vanzatorul nu este responsabil pentru eventualele daune directe sau indirecte cauzate de utilizarea sau accesarea/vizitarea website-ului sau ca urmare a utilizarii informatiilor din continutul acestora.\n- Linkurile afisate pe website,daca exista, apartinand tertelor parti au scop informativ si Vanzatorul nu isi asuma responsabilitatea pentru continutul acestora si/sau produsele/serviciile comercializate prin intermediul lor.\n- Vanzatorul va depune toate eforturile pentru livrarea tuturor produselor comandate/ prestarea serviciilor, dar isi rezerva dreptul, fara a prezenta motivele aferente, sa refuze o Comanda (inainte de a o fi confirmat expedierea). In cazul in care comanda este refuzata, Cumparatorul va fi anuntat telefonic sau prin e-mail.\n\nIV. Pret si modalitate de plata\n\n- Preturile afisate sunt exprimate in lei si includ toate taxele aplicabile, TVA fiind inclus in valoarea comenzii.\n- Preturile nu includ transportul sau alte servicii optionale, insa pretul acestora va fi afisat in cosul dvs. anterior finalizarii comenzii.\n- Produsele si/sau serviciile oferite de Vanzator pot fi platite prin cash, card sau online .\n- Cardurile bancare acceptate sunt Visa si Mastercard .Platile cu cardul efectuate pe website sunt securizate, iar platile sunt procesate de NETOPIA PAYMENTS SRL. Pentru finalizarea corecta a tranzactiei, trebuie sa introduceti datele necesare autorizarii comenzii in platforma de plati, urmand instructiunile furnizate de aceasta platforma. Vanzatorul nu solicita si nu stocheaza niciun fel de detalii referitoare la cardul dumneavoastra.\n- Platile in numerar se efectueaza ramburs la livrare, catre curierul desemnat.\n- In cazul platii prin card bancar, procesatorul de plati va bloca valoarea comenzii pe cardul dvs. Costul produselor si/sau serviciilor selectate va fi debitat din contul bancar de indata ce comanda dvs. sau parte din comanda dvs., ce doriti sa fie expediata separat, este completa si gata de expediere. In cazul in care comanda este anulata, procesatorul de plati va debloca valoarea acesteia in termen de obicei in 3 zile de la data anularii, insa poate dura pana la 30 zile, in functie de banca emitenta a cardului. In momentul in care se realizeaza creditarea, clientul primeste un mail cu niste detalii de genul RRN, in baza caruia poate suna la banca sa solicite returnarea mai rapida.\n- In eventualitatea unui control fiscal, pentru a asigura securitatea operatiunilor cu clientii, Vanzatorul va poate solicita documente cu privire la comanda, prin email, sau documente care atesta adresa, copia actului de identitate, inainte de confirmarea comenzii. Intr-un astfel de caz, comanda se considera finalizata doar dupa primirea de catre Vanzator a documentelor solicitate, in lipsa lor Vanzatorul putand sa refuze comanda.\n\nVanzatorul isi rezerva dreptul de a refuza comanda in situatia oricarei suspiciuni de frauda sau in cazul in care un client a comandat un numar neobisnuit de mare in raport cu specificul afacerii si uzantele comerciale.\n\nV. Livrare/locul prestarii seviciului\n\n- Produsele vor fi livrate, respectiv serviciile prestate, la locul indicat de dumneavoastra in comanda. Livrarea este in responsabilitatea Vanzatorului, costurile fiind suportate in functie de caz specificat in pagina de checkout.\n- In cazul in care livrarea se face la o adresa la care locuiesc/isi desfasoara activitatea mai multe persoane, sunteti de acord ca produsele sa fie predate oricarei persoane indicate de dvs. in scris sau verbal.\n\nIn cazul in care livrarea presupune taxe suplimentare determinate din motive precum, dar nelimitate la locatie, lipsa unui raspuns la sosirea curierului, amanarea preluarii produselor sau altele asemenea, acestea vor fi suportate de dvs.\n\n- Timpul de livrare maxim este de 120 minute si va fi comunicat de Vanzator la momentul confirmarii comenzii. Vanzatorul este indreptatit la prelungirea termenelor de livrare daca va suferi intarzieri sau obstructionari si/sau costuri suplimentare cauzate de autoritati sau ca urmare a unor schimbari in legislatie sau orice alte motive independente de vointa sa, cu perioada necesara depasirii acestor cauze, care va fi comunicata Cumparatorului.\n- In cazul in care nu puteti prelua produsele livrate, veti fi contactat de catre reprezentantul curierului pentru cel mult 2 incercari de livrare, intr-un interval de 1 zi. Ulterior, coletul va fi returnat Vanzatorului.\n- Produsele comandate se livreaza in Tunari, Ilfov si imprejurimi. Program comenzi: 08:00 – 24:00 Timp de livrare aproximativ (dupa confirmarea comenzii), in functie de zona si conditii de trafic: 30-50 min. pentru zonele apropiate (0-10 km) si 60 – 120 pentru zonele indepartate (10- 20 km)\n\n-C omanda minima variaza in functie de distante.\nPentru comenzi care nu sunt cuprinse in aria de livrare a florariei veti fi informat telefonic sau pe e-mail privind comanda minima in lei si taxele suplimentare de transport.\nFloraria isi rezerva dreptul ca in timp de 15 minute de la primirea comenzii sa anuleze comenzile care nu respecta criteriile mentionate mai sus (cu informare telefonica sau pe e-mail).\n\nVI. Rezerva proprietatii\n\n- Vanzatorul isi rezerva dreptul de proprietate asupra oricaror produse vandute pana la indeplinirea de catre Cumparator a tuturor obligatiilor sale, in special plata integrala.\n- Cumparatorul este obligat sa semneze documentele de livrare, fara a fi afectat dreptul sau de a sesiza neconformitati cu Specificatiile sau defecte aparente, daca este cazul. Dispozitiile politicii de retur si a celei de garantie, conform naturii bunurilor, sunt aplicabile.\n- De la semnarea documentelor de livrare, Cumparatorul preia riscul bunurilor. In situatia in care Cumparatorul/reprezentantul Cumparatorului nu este disponibil personal, poate desemna o terta persoana care sa preia produsele in numele sau. Reprezentantul Cumparatorului/persoana care preia bunurile trebuie sa aiba capacitate de exercitiu, respectiv sa fi implinit varsta de 18 ani, pentru a putea primi, in numele Cumparatorului, produsele. Cumparatorul intelege si este de acord ca Vanzatorul se bazeze pe instructiunile tertului desemnat ca si cum ar fi ale sale.\n- Cumparatorul are dreptul de a reclama integritatea comenzii in termen de 10 minute de la primirea acesteia, telefonand la florarie pentru a cere returnarea acestora.\n\nVII. Drepturile de proprietate intelectuala privind continutul website-ului\n\nCumparatorul intelege ca toate informatiile din continutul website-ului, care sunt proprietatea Vanzatorului sau colaboratorilor/partenerilor sai, nu vor fi folosite in niciun alt scop decat pentru incheierea Tranzactiei si ca nu este permisa copierea, distribuirea, publicarea, transferul catre terti, modificarea si/sau alterarea sau orice alta utilizare in afara scopului descris prin prezentul contract.\nVIII. Durata contractului. Modalitati de incetare\n\n- Contractul este in vigoare de la data confirmarii expedierii de catre Vanzator (momentul intrarii in vigoare) pana la data la care partile si-au indeplinit obligatiile rezultate din acesta.\n- Contractul poate inceta prin: a) acordul partilor, transmis prin orice mijloc de proba, in scris; b) rezolutiunea declarata de oricare dintre parti pentru neindeplinirea obligatiilor de catre cealalta parte, transmisa in scris sau verbal, cu un preaviz de 30 minute; c) denuntarea unilaterala de catre Cumparator in conditiile stabilite de politica de retur si retragere, daca este aplicabila si cumparatorul este calificat drept consummator conform legilatiei romane; d) denuntarea unilaterala de catre Vanzator, in conditiile stabilite in contract.\n\nAtat rezolutiunea, cat si denuntarea vor opera partial daca se refera doar la o parte dintre produsele/serviciile comandate, neafectand partea din contract executata corespunzator.\n\n- Vanzatorul nu raspunde in niciun caz pentru beneficiu nerealizat sau alte pierderi viitoare, inclusiv pierderi de clientela, profit, productie etc.\n\nIX. Prelucrarea datelor cu caracter personal\n\nSocietatea Floralis Arta Florilor SRL in calitate de proprietar al website-ului https://floralis-artaflorilor.ro/ , respecta caracterul privat si securitatea prelucrarii datelor cu caracter personal al fiecarui utilizator care viziteaza acest site in vederea efectuarii comenzilor si rezervarilor online.\nIn conformitate cu Regulamentul (UE) 679/2016 – Regulamentul General privind Protectia Datelor (GDPR) si a Legii de punere in aplicare a prevederilor GDPR, Societatea Floralis Arta Florilor SRL , are obligatia de a administra in conditii de siguranta datele personale pe care ni le furnizati dumneavoastra prin completarea a formularului din pagina de finalizare comanda.\nSocietatea Floralis Arta Florilor SRL se obliga sa pastreze confidentialitatea datelor personale furnizate de dumneavoastra prin intermediul paginii web https://floralis-artaflorilor.ro /termeni-si-conditii/ prin efectuarea comenzilor, asa cum prevad dispozitiile Legii 677/2001 cu modificarile ulterioare privind protectia datelor personale.\nDatele colectate si/sau prelucrate:\n– nume;\n– prenume;\n– telefon;\n– adresa;\n– adresa de e-mail;\nPutem folosi adresa dvs de email sau numarul de telefon pentru a va contacta atunci cand apar oferte si promotii care va pot interesa.\nDaca doriti sa nu mai fiti contactat, va rugam trimiteti un email la adres a: floralis.artaflorilor@yahoo.com impreuna cu toate datele de identificare.\n\nX. Alte clauze\n\n- Cesiune: Cumparatorul nu are dreptul sa cesioneze, integral sau partial, Contractul ori sa inchirieze produsele pana la plata integrala a pretului, cu exceptia existentei unui acord scris al Vanzatorului. Vanzatorul are dreptul de a cesiona contractul, integral sau partial, precum si de a-l executa prin colaboratori/subcontractori.\n- Forta majora: Aparitia in relatiile contractuale a unui caz de forta majora va determina suspendarea executarii contractului, sub conditia probarii acestuia prin certificat emis de autoritatile competente (CCIR). In cazul in care durata suspendarii este mai mare de 6 luni, contractul se considera incetat de plin drept pentru imposibilitatea executarii sale, conform dispozitiilor Codului civil.\n- Notificari: Orice comunicare intre parti se va face prin email sau prin intermediul websiteului, daca aceasta permite. Notificarile prin email pentru Vanzator se vor face la adresa mentionata in partea introductiva, iar pentru Cumparator la cea folosita pentru plasarea comenzii. Notificarile se vor transmite prin posta electronica (cu confirmare de trimitere)\n- Nulitate: Daca oricare dintre clauzele contractului este declarata nula, aceasta nu va afecta restul clauzelor valide si, in cazul in care contractul nu poate fi executat in lipsa clauzei nule, Partile se obliga sa negocieze cu buna credinta o noua clauza care sa o inlocuiasca pe cea nelegala.\n- Lege aplicabila/Litigii: Contractul este guvernat de legea romana, locul jurisdictiei fiind cel stabilit conform Codului de procedura civila.\n- Consumatori: Consumatorii, astfel cum sunt definiti in legislatia romana, nu pot renunta la drepturile care le sunt garantate de lege. Orice clauza contractuala prin care se renunta sau se restrang in mod direct sau indirect drepturile prevazute de lege in favoarea consumatorilor nu este obligatorie pentru acestia."
+    }
+  ]
+}

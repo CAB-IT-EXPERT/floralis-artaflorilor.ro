@@ -1,0 +1,10 @@
+{
+  "source": "data/source-catalog.json",
+  "media_source": "produse-media-din-csv-2026-10-06-0828",
+  "products": 83,
+  "categories": 12,
+  "product_images": 91,
+  "media": 117,
+  "failures": [],
+  "missing_stock": 83
+}
