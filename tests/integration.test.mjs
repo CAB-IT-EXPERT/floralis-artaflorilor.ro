@@ -90,6 +90,20 @@ test('checkout uses server prices, coupons, shipping, stock and idempotency',asy
  assert.equal((await guest.request('/api/checkout/quote',{method:'POST',body})).status,400);
  assert.equal((await guest.request('/api/cart/'+created.id,{method:'PUT',body:{quantity:4}})).status,400);
 });
+test('coupon administration checks codes, updates status and deletes permanently',async()=>{
+ await admin.api('/admin/discounts',{method:'POST',body:{code:'QAMANAGE',type:'fixed',value:2500,min_cents:10000,max_uses:12,active:1}});
+ const coupon=(await admin.api('/admin/discounts')).find(item=>item.code==='QAMANAGE');assert.ok(coupon);
+ assert.equal((await admin.api('/admin/discounts/availability?code=qamanage')).available,false);
+ assert.equal((await admin.api('/admin/discounts/availability?code=qamanage&exclude_id='+coupon.id)).available,true);
+ assert.equal((await admin.request('/api/admin/discounts',{method:'POST',body:{code:'qamanage',type:'percent',value:5,min_cents:0,max_uses:null,active:1}})).status,409);
+ await admin.api('/admin/discounts/'+coupon.id+'/status',{method:'PATCH',body:{active:0}});
+ assert.equal(Number((await admin.api('/admin/discounts')).find(item=>item.id===coupon.id).active),0);
+ await admin.api('/admin/discounts/'+coupon.id,{method:'PUT',body:{code:'QAMANAGE25',type:'percent',value:25,min_cents:0,max_uses:null,expires_at:null,active:1}});
+ assert.equal((await admin.api('/admin/discounts')).find(item=>item.id===coupon.id).code,'QAMANAGE25');
+ await admin.api('/admin/discounts/'+coupon.id,{method:'DELETE'});
+ assert.equal((await admin.api('/admin/discounts')).some(item=>item.id===coupon.id),false);
+ assert.equal((await admin.request('/api/admin/discounts/'+coupon.id+'/status',{method:'PATCH',body:{active:1}})).status,404);
+});
 test('admin order status, payment, notes, history, cancel restoration and customer history',async()=>{
  await admin.api('/admin/orders/'+order.id,{method:'PATCH',body:{status:'confirmed',payment_status:'paid',admin_notes:'Confirmare QA'}});
  const detail=await admin.api('/admin/orders/'+order.id);assert.equal(detail.payment_status,'paid');assert.equal(detail.history.length,2);
