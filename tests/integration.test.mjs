@@ -58,8 +58,13 @@ test('customer registration preserves cart, favorite/profile/address state and i
 test('admin product CRUD, duplicate, archive and category hierarchy update storefront',async()=>{
  created=await admin.api('/admin/products',{method:'POST',body:{name:'Produs QA',slug:'produs-qa',sku:'QA-1',status:'publish',price_cents:10000,regular_price_cents:10000,sale_price_cents:null,stock:5,manage_stock:1,stock_status:'instock',categories:[cat.id],images:[{url:sample.images[0].url,alt:'Imagine QA'}],seo:{title:'Titlu produs QA',description:'Descriere SEO QA'}}});
  assert.equal((await guest.api('/products/produs-qa')).price_cents,10000);
- created=await admin.api('/admin/products/'+created.id,{method:'PUT',body:{...created,name:'Produs QA editat',price_cents:12000,regular_price_cents:12000,categories:[cat.id]}});
- assert.equal((await guest.api('/products/produs-qa')).name,'Produs QA editat');
+ created=await admin.api('/admin/products/'+created.id,{method:'PUT',body:{...created,name:'Buchet cu trandafir Quasar QA',price_cents:12000,regular_price_cents:12000,categories:[cat.id]}});
+ assert.equal((await guest.api('/products/produs-qa')).name,'Buchet cu trandafir Quasar QA');
+ const pluralSearch=await guest.api('/products?q=trandafiri%20quasar');assert.ok(pluralSearch.items.some(p=>p.id===created.id),JSON.stringify(pluralSearch));
+ const typoSearch=await guest.api('/products?q=quasr');assert.ok(typoSearch.items.some(p=>p.id===created.id),JSON.stringify(typoSearch));
+ const adminSearch=await admin.api('/admin/products?q=trandafiri%20quasar');assert.ok(adminSearch.items.some(p=>p.id===created.id),JSON.stringify(adminSearch));
+ assert.ok((await guest.api('/search?q=quasr')).items.some(item=>item.url==='/produs/produs-qa'));
+ assert.ok((await guest.api('/search?q=contatc')).items.some(item=>item.url==='/contact'));
  const copy=await admin.api('/admin/products/'+created.id+'/duplicate',{method:'POST'});assert.equal(copy.status,'draft');assert.equal((await guest.request('/api/products/'+copy.slug)).status,404);
  await admin.api('/admin/products/'+copy.id,{method:'DELETE'});
  await admin.api('/admin/categories',{method:'POST',body:{name:'Colecție QA',slug:'colectie-qa',parent_id:cat.id}});
@@ -116,7 +121,10 @@ test('contact, newsletter, reviews moderation and CSV export use actual persiste
  await customer.api('/account/reviews',{method:'POST',body:{product_id:sample.id,rating:5,body:'Recenzie QA pentru moderare.'}});
  assert.equal((await guest.api('/bootstrap')).reviews.length,0);
  const review=(await admin.api('/admin/reviews'))[0];await admin.api('/admin/reviews/'+review.id,{method:'PATCH',body:{approved:1}});
- assert.equal((await guest.api('/bootstrap')).reviews.length,1);assert.equal((await admin.api('/admin/messages')).length,1);
+ assert.equal((await guest.api('/bootstrap')).reviews.length,1);const inbox=await admin.api('/admin/messages');assert.equal(inbox.items.length,1);assert.equal(inbox.counts.unread,1);
+ const contactMessage=inbox.items[0];const reply=await admin.api('/admin/messages/'+contactMessage.id+'/reply',{method:'POST',body:{subject:'Despre decorul tău',body:'Îți mulțumim pentru mesaj. Revenim cu propunerea potrivită.'}});assert.equal(reply.delivery.status,'pending');
+ const repliedInbox=await admin.api('/admin/messages?status=resolved');assert.equal(repliedInbox.items[0].reply_count,1);assert.equal(repliedInbox.items[0].replies[0].body,'Îți mulțumim pentru mesaj. Revenim cu propunerea potrivită.');
+ const replyMail=(await admin.api('/admin/outbox')).find(m=>m.subject.includes('Răspuns Floralis'));assert.equal(replyMail.recipient,'contact@example.test');
  const exported=await admin.request('/api/admin/export/newsletter',{raw:true});assert.ok(exported.data.includes('newsletter@example.test'));assert.ok(!exported.data.includes('password'));
 });
 test('uploads validate actual content, re-encode images and protect imported originals',async()=>{
@@ -129,7 +137,7 @@ test('uploads validate actual content, re-encode images and protect imported ori
 });
 test('password reset invalidates old sessions and is single-use',async()=>{
  await guest.api('/auth/forgot',{method:'POST',body:{email:'client-qa@example.test'}});
- const message=(await admin.api('/admin/outbox')).find(m=>m.subject.includes('Resetare'));const token=new URL(message.body).searchParams.get('token');
+ const message=(await admin.api('/admin/outbox')).find(m=>m.subject.includes('Resetare')),resetUrl=message.body.match(/https?:\/\/\S+/)[0],token=new URL(resetUrl).searchParams.get('token');
  await guest.api('/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}});
  assert.equal((await customer.request('/api/account')).status,401);
  assert.equal((await guest.request('/api/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}})).status,400);
@@ -165,7 +173,10 @@ test('category visibility, permanent product deletion and content editors remain
  await admin.api('/admin/pages',{method:'POST',body:{title:'Articol public QA',slug:'articol-public-qa',body:'Floralis — articol public de verificare.',type:'post',status:'publish',seo:{title:'Titlu SEO articol QA'}}});
  const post=await guest.request('/blog/articol-public-qa',{raw:true});assert.equal(post.status,200);assert.match(post.data,/<title>Titlu SEO articol QA<\/title>/);
  assert.match((await guest.request('/sitemap.xml',{raw:true})).data,/\/blog\/articol-public-qa/);
+ assert.ok((await guest.api('/search?q=publc%20qa')).items.some(item=>item.url==='/articol-public-qa'));
+ const savedPost=(await admin.api('/admin/pages')).find(p=>p.slug==='articol-public-qa');await admin.api('/admin/pages/'+savedPost.id+'/permanent',{method:'DELETE'});
+ assert.ok(!(await admin.api('/admin/pages')).some(p=>p.id===savedPost.id));assert.equal((await guest.request('/blog/articol-public-qa',{raw:true})).status,404);
  assert.equal((await guest.request('/categorie/categorie-care-nu-exista',{raw:true})).status,404);
  assert.equal((await admin.request('/api/admin/settings',{method:'PUT',body:{phone:{invalid:true}}})).status,400);
- assert.equal((await guest.request('/api/admin/email/settings')).status,403);const config=await admin.api('/admin/email/settings');assert.ok(!('password' in config));assert.equal(config.enabled,0);
+ assert.equal((await guest.request('/api/admin/email/settings')).status,403);const config=await admin.api('/admin/email/settings');assert.ok(!('password' in config));assert.equal(config.enabled,0);assert.equal(config.notification_email,'alexie.popescu2019@yahoo.com');assert.equal(config.port,465);assert.equal(config.security,'ssl');
 });
