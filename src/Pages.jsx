@@ -1,6 +1,6 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useRef,useState} from 'react';
 import {Link,useLocation,useNavigate,useSearchParams} from 'react-router-dom';
-import {Search,SlidersHorizontal,Heart,ArrowRight,Leaf,Check,ShoppingBag,MapPin,Phone,Mail,ChevronDown,Play,ShieldCheck,X,UserRound,LockKeyhole,Sparkles} from 'lucide-react';
+import {Search,SlidersHorizontal,Heart,ArrowRight,ArrowLeft,Leaf,Check,ShoppingBag,MapPin,Phone,Mail,ChevronDown,Play,ShieldCheck,X,UserRound,LockKeyhole,Sparkles,ZoomIn,Images} from 'lucide-react';
 import {useStore} from './context';
 import {api,money,date} from './api';
 import {Image,ProductCard,Quantity,Empty,CartLines,SectionHeading,Newsletter,Dialog} from './components';
@@ -16,8 +16,103 @@ function Checkout(){const s=useStore(),navigate=useNavigate(),[quote,setQuote]=u
 function Confirmation({number}){const s=useStore(),[params]=useSearchParams(),[version,setVersion]=useState(0),[busy,setBusy]=useState(false),r=useData('/orders/'+number+'?token='+encodeURIComponent(params.get('token')||'')+'&v='+version);if(r.error)return <ErrorState error={r.error}/>;if(!r.data)return <div className="loading">Se încarcă…</div>;const o=r.data,pending=o.payment_method==='card'&&o.payment_status==='unpaid'&&o.status!=='cancelled';const labels={received:'Primită',confirmed:'Confirmată',processing:'În pregătire',prepared:'Pregătită',shipped:'Expediată',delivered:'Livrată',cancelled:'Anulată',returned:'Returnată'};return <div className="confirmation section"><Check size={50} strokeWidth={1}/><Heading title={o.status==='cancelled'?'Comanda a fost anulată.':pending?'Comanda așteaptă plata.':'Mulțumim. Povestea ta începe aici.'} eyebrow="COMANDĂ FLORALIS" text={'Comanda '+o.number+' a fost înregistrată.'}/><div className="order-summary"><div><span>Status</span><b>{labels[o.status]||o.status}</b></div><div><span>Plată</span><b>{o.payment_status==='paid'?'Confirmată':o.payment_status==='refunded'?'Rambursată':'Neachitată'}</b></div><div><span>Total</span><b>{money(o.total_cents)}</b></div><div><span>Livrare</span><b>{o.shipping_method}</b></div>{o.items.map(i=><div key={i.id}><span>{i.name} × {i.quantity}</span><b>{money(i.total_cents)}</b></div>)}</div>{pending&&<div className="payment-followup"><p>Plata va fi afișată după confirmarea Stripe.</p><button className="text-link" onClick={()=>setVersion(v=>v+1)}>Verifică plata</button>{o.stripe_checkout_url&&<a className="gold-button" href={o.stripe_checkout_url}>Continuă plata cu cardul</a>}<button className="text-link" disabled={busy} onClick={async()=>{setBusy(true);try{await api('/payments/stripe/cancel',{method:'POST',body:{number:o.number,token:params.get('token')}});setVersion(v=>v+1);await s.refresh();}catch(e){s.notify(e.message,'error');}finally{setBusy(false);}}}>Anulează comanda neplătită</button></div>}<Link className="gold-button" to="/magazin">Înapoi la colecții</Link></div>;}
 function Contact({quote=false}){const s=useStore(),[params]=useSearchParams(),[done,setDone]=useState(false),[busy,setBusy]=useState(false);return <><Heading title={quote?'Spune-ne povestea evenimentului tău.':'Ne bucurăm să te cunoaștem.'} eyebrow="CONTACT FLORALIS"/><section className="contact-layout section"><div className="contact-details"><h2>Hai să înflorim<br/><em>o poveste împreună.</em></h2><a href={'tel:'+s.data?.settings.phone}><Phone size={22}/><span><small>Sună-ne</small>{s.data?.settings.phone}</span></a><a href={'mailto:'+s.data?.settings.email}><Mail size={22}/><span><small>Scrie-ne</small>{s.data?.settings.email}</span></a><a href="https://www.google.com/maps/search/?api=1&query=Floralis+Tunari+Calea+Bucuresti+9" target="_blank" rel="noreferrer"><MapPin size={22}/><span><small>Vizitează-ne</small>{s.data?.settings.address}</span></a></div>{done?<Empty icon={Check} title="Mesajul tău a fost înregistrat." text="Îți mulțumim pentru încredere." link={null}/>:<form className="contact-form" onSubmit={async e=>{e.preventDefault();setBusy(true);try{const f=new FormData(e.currentTarget);await api('/contact',{method:'POST',body:{name:f.get('name'),email:f.get('email'),phone:f.get('phone')||'',subject:f.get('subject')||'',body:f.get('body'),consent:f.get('consent')==='on'}});setDone(true);}catch(e){s.notify(e.message,'error');}finally{setBusy(false);}}}><div className="form-grid"><label>Numele tău<input name="name" required minLength={2}/></label><label>Email<input name="email" type="email" required/></label><label>Telefon<input name="phone" type="tel"/></label><label>Despre ce vorbim?<input name="subject" defaultValue={params.get('subiect')||(quote?'Ofertă decor floral':'')}/></label><label className="full">Mesaj<textarea name="body" required minLength={10} placeholder="Ocazia, data și câteva gânduri despre ce îți dorești…"/></label></div><label className="checkbox"><input type="checkbox" name="consent" required/><span>Sunt de acord cu <Link to="/confidentialitate">politica de confidențialitate</Link>.</span></label><button className="gold-button" disabled={busy}>{busy?'Se trimite…':'Trimite mesajul'}<ArrowRight size={18}/></button></form>}</section></>;}
 function Decor(){const s=useStore(),g=s.data?.settings.gallery||[];const [video,setVideo]=useState(false);return <><section className="decor-hero"><Image src={g[8]?.url} alt="Decor floral elegant pentru evenimente" priority/><div><span className="eyebrow">POVESTEA TA, ÎNFLORITĂ</span><h1>Momente memorabile.<br/><em>Flori de neuitat.</em></h1><Link className="gold-button" to="/contact?subiect=Ofertă decor floral">Solicită ofertă<ArrowRight size={18}/></Link></div></section><section className="decor-intro section"><span className="eyebrow">ARTA DE A CREA ATMOSFERĂ</span><h2>Un decor care spune<br/><em>povestea voastră.</em></h2><p>{s.data?.settings.decor_text?.split('\n').find(x=>x.startsWith('Decorurile'))}</p></section><section className="decor-services section">{[['Nuntă','Pentru ziua în care începe o nouă poveste.',g[12]?.url],['Botez','Delicatețe și emoție, în fiecare detaliu.',g[5]?.url],['Evenimente private','Botezuri, aniversări și momente speciale.',g[15]?.url],['Corporate & decor locații','Atenție la detalii și flori proaspete.',g[19]?.url]].map(([title,text,src],i)=><article className="reveal" key={title}><Image src={src||g[0]?.url} alt={'Decor Floralis — '+title}/><div><span className="eyebrow">0{i+1}</span><h2>{title}</h2><p>{text}</p><Link className="text-link" to={'/contact?subiect='+encodeURIComponent(title)}>Solicită ofertă<ArrowRight size={17}/></Link></div></article>)}</section><section className="section decor-process"><SectionHeading eyebrow="CU GRIJĂ, DE LA PRIMUL GÂND" title="Cum lucrăm împreună"/><div>{[['Ne spui povestea','Pornim de la dorințele și viziunea ta.'],['Alegem florile','Stabilim stilul, paleta cromatică, florile și dimensiunile decorurilor.'],['Creăm atmosfera','Bugetul final se stabilește în funcție de decorul ales.']].map(([t,p],i)=><article key={t}><span>0{i+1}</span><h3>{t}</h3><p>{p}</p></article>)}</div></section><section className="atelier-video section"><Image src={g[18]?.url} alt="Din atelierul Floralis"/><button className="video-play" onClick={()=>setVideo(true)} aria-label="Vezi videoclipul Floralis"><Play/>Din atelier, cu suflet</button></section><Dialog open={video} onClose={()=>setVideo(false)} className="video-dialog" label="Video Floralis">{video&&<video controls autoPlay playsInline src="/assets/floralis/atelier.mp4"/>}</Dialog><section className="section"><SectionHeading eyebrow="INSPIRAȚIE" title="Povești pe care le-am înflorit" link="/galerie" label="Vezi galeria"/><div className="gallery-grid">{g.slice(8,14).map((x,i)=><Link to="/galerie" key={x.url}><Image src={x.url} alt={'Decor de eveniment '+(i+1)}/></Link>)}</div></section><Contact quote/></>;}
-function Gallery(){const s=useStore(),[selected,setSelected]=useState(null),g=s.data?.settings.gallery||[];return <><Heading title="Povești înflorite." eyebrow="GALERIA FLORALIS" text="Detalii, texturi și emoții din lumea noastră."/><div className="gallery-grid section">{g.map((img,i)=><button key={img.url} aria-label={'Deschide fotografia '+(i+1)} onClick={()=>setSelected(i)}><Image src={img.url} alt={'Decor floral Floralis '+(i+1)}/></button>)}</div><Dialog open={selected!==null} onClose={()=>setSelected(null)} className="image-dialog" label="Galerie Floralis">{selected!==null&&<><Image src={g[selected].url} alt="Decor floral Floralis"/><div className="lightbox-nav"><button onClick={()=>setSelected((selected-1+g.length)%g.length)}>Anterior</button><span>{selected+1} / {g.length}</span><button onClick={()=>setSelected((selected+1)%g.length)}>Următor</button></div></>}</Dialog></>;}
-function About(){const s=useStore(),r=useData('/pages/despre-noi');return <><Heading title="Un loc creat din pasiune." eyebrow="DIN 2017, CU SUFLET"/><section className="about-page section"><Image src={s.data?.settings.gallery[23]?.url} alt="Creație Floralis"/><div><h2>Floralis —<br/><em>arta florilor.</em></h2><div className="prose">{r.data?.body.split('\n').filter(x=>x.length>90).map((p,i)=><p key={i}>{p}</p>)}</div></div></section><Newsletter/></>;}
+function Gallery(){
+  const s=useStore(),g=s.data?.settings.gallery||[],[selected,setSelected]=useState(0),[lightbox,setLightbox]=useState(false),drag=useRef(null);
+  const titles=['Ceremonii în aer liber','Detalii care rămân','Atmosferă de poveste','Eleganță în fiecare colț','Mese care devin tablouri','Flori pentru începuturi','Culori care spun emoții','Momente înflorite'];
+  const chapters=['DECORURI DE EVENIMENT','DIN ATELIERUL FLORALIS','POVEȘTI ÎN CULORI','FLORI PENTRU SUFLET'];
+  const previous=()=>g.length&&setSelected(i=>(i-1+g.length)%g.length),next=()=>g.length&&setSelected(i=>(i+1)%g.length),open=i=>{setSelected(i);setLightbox(true);};
+  useEffect(()=>{if(selected>=g.length)setSelected(0);},[g.length,selected]);
+  useEffect(()=>{if(!lightbox)return;const onKey=e=>{if(e.key==='ArrowLeft')previous();if(e.key==='ArrowRight')next();};window.addEventListener('keydown',onKey);return()=>window.removeEventListener('keydown',onKey);},[lightbox,g.length]);
+  const swipeStart=e=>{drag.current={x:e.clientX,y:e.clientY};},swipeEnd=e=>{if(!drag.current)return;const dx=e.clientX-drag.current.x,dy=e.clientY-drag.current.y;drag.current=null;if(Math.abs(dx)>48&&Math.abs(dx)>Math.abs(dy)*1.25)(dx>0?previous:next)();};
+  const current=g[selected];
+  return <section className="gallery-page">
+    <span className="gallery-page-orbit gallery-page-orbit-one" aria-hidden="true"/><span className="gallery-page-orbit gallery-page-orbit-two" aria-hidden="true"/><span className="gallery-page-word" aria-hidden="true">FLORALIS</span>
+    <header className="gallery-page-hero">
+      <div className="gallery-page-heading"><span className="eyebrow">GALERIA FLORALIS</span><h1>Povești înflorite,<br/><em>păstrate în imagini.</em></h1><p>Fragmente din evenimente, decoruri și creații în care fiecare floare a avut ceva de spus.</p></div>
+      <div className="gallery-page-seal" aria-hidden="true"><Images/><span><b>{String(g.length).padStart(2,'0')}</b> momente</span><i/></div>
+    </header>
+    <div className="gallery-page-intro"><span>PRIVEȘTE MAI APROAPE</span><i/><p>Apasă pe orice fotografie pentru a descoperi detaliile. În fereastra mărită poți glisa sau folosi săgețile.</p></div>
+    <div className="gallery-page-grid">
+      {g.map((img,i)=><button className={'gallery-page-card gallery-page-card-'+((i%8)+1)} style={{'--gallery-index':i}} key={img.url} aria-label={'Mărește fotografia: '+titles[i%titles.length]} onClick={()=>open(i)}>
+        <Image src={img.url} alt={img.alt||titles[i%titles.length]} sizes={i%8===0?'(max-width: 767px) 94vw, (max-width: 1049px) 88vw, 50vw':'(max-width: 767px) 46vw, (max-width: 1049px) 44vw, 32vw'}/><span className="gallery-page-card-shade" aria-hidden="true"/><span className="gallery-page-card-number">{String(i+1).padStart(2,'0')}</span><span className="gallery-page-card-expand"><ZoomIn/></span><span className="gallery-page-card-caption"><small>{chapters[i%chapters.length]}</small><strong>{titles[i%titles.length]}</strong></span>
+      </button>)}
+    </div>
+    <div className="gallery-page-closing"><Sparkles/><span>Fiecare poveste începe cu un gând.</span><Link to="/contact?subiect=Ofertă decor floral">Spune-ne povestea ta<ArrowRight/></Link></div>
+    <Dialog open={lightbox} onClose={()=>setLightbox(false)} className="gallery-page-lightbox" label="Galeria Floralis" motion>
+      {current&&<div className="gallery-page-lightbox-inner" onPointerDown={swipeStart} onPointerUp={swipeEnd} onPointerCancel={()=>{drag.current=null;}}>
+        <div className="gallery-page-lightbox-photo" key={current.url}><span className="gallery-page-lightbox-glow" aria-hidden="true"/><Image src={current.url} alt={current.alt||titles[selected%titles.length]} sizes="100vw" priority draggable="false"/></div>
+        <button className="gallery-page-lightbox-nav gallery-page-lightbox-prev" onClick={previous} aria-label="Fotografia anterioară"><ArrowLeft/></button><button className="gallery-page-lightbox-nav gallery-page-lightbox-next" onClick={next} aria-label="Fotografia următoare"><ArrowRight/></button>
+        <div className="gallery-page-lightbox-caption"><div><small>{chapters[selected%chapters.length]}</small><strong>{titles[selected%titles.length]}</strong></div><span><b>{String(selected+1).padStart(2,'0')}</b> / {String(g.length).padStart(2,'0')}</span><i style={{'--gallery-progress':((selected+1)/g.length)*100+'%'}}/></div>
+        <span className="gallery-page-swipe-hint"><ArrowLeft/> glisează pentru a explora <ArrowRight/></span>
+      </div>}
+    </Dialog>
+  </section>;
+}
+function About(){
+  const r=useData('/pages/despre-noi'),paragraphs=r.data?.body.split('\n').filter(x=>x.trim().length>90)||[];
+  const story=[
+    paragraphs[0]||'Floralis – Arta Florilor este un loc creat din pasiune pentru flori, frumos și emoțiile pe care acestea le transmit. Din 2017, transformăm fiecare buchet și fiecare aranjament floral într-o experiență elegantă, caldă și memorabilă.',
+    paragraphs[1]||'Cu o experiență vastă în design floral și decoruri pentru evenimente, punem accent pe calitate, prospețime și atenția la fiecare detaliu. Alegem cu grijă florile, texturile și combinațiile cromatice, pentru ca fiecare creație să aibă un aer natural, rafinat și armonios.'
+  ];
+  const founder=paragraphs.find(p=>p.includes('Ana Smoaca'))||'Sunt Ana Smoaca Uhlov, cofondatoarea Floralis – Arta Florilor, iar pentru mine florile au însemnat întotdeauna mai mult decât un simplu domeniu. Sunt o pasiune transformată, în timp, într-un mod de a crea emoție, frumusețe și atmosferă.';
+  return <><section className="about-editorial">
+    <span className="about-orbit about-orbit-one" aria-hidden="true"/><span className="about-orbit about-orbit-two" aria-hidden="true"/><span className="about-watermark" aria-hidden="true">FLORALIS</span>
+    <header className="about-hero">
+      <div className="about-hero-copy">
+        <span className="eyebrow">POVESTEA NOASTRĂ · DIN 2017</span>
+        <h1>Din pasiune pentru flori,<br/><em>un loc pentru oameni.</em></h1>
+        <p>În atelierul nostru, fiecare petală, textură și nuanță se întâlnesc pentru a transforma un gând frumos într-o amintire care rămâne.</p>
+        <div className="about-hero-actions"><Link className="gold-button" to="/magazin">Descoperă creațiile<ArrowRight/></Link><Link className="about-text-link" to="/contact">Hai să ne cunoaștem<span>↗</span></Link></div>
+        <div className="about-signature"><span>Floralis</span><small>arta florilor</small></div>
+      </div>
+      <div className="about-hero-visual" aria-label="Atelierul Floralis">
+        <figure className="about-hero-main"><Image src="/assets/floralis/export-bb030fca2f37.webp" alt="Interiorul atelierului Floralis, plin de flori și creații florale" priority sizes="(max-width: 767px) 92vw, 52vw"/><span aria-hidden="true"/></figure>
+        <figure className="about-hero-detail"><Image src="/assets/floralis/export-e5170e333909.webp" alt="Aranjament floral pastelat creat în atelierul Floralis" sizes="(max-width: 767px) 38vw, 18vw"/></figure>
+        <span className="about-year"><b>2017</b><small>de atunci,<br/>înflorim povești</small></span>
+        <span className="about-hero-ring" aria-hidden="true"><i/><i/><i/></span>
+      </div>
+    </header>
+
+    <section className="about-story reveal">
+      <div className="about-section-index"><span>01</span><i/><small>RĂDĂCINI</small></div>
+      <div className="about-story-heading"><span className="eyebrow">MAI MULT DECÂT O FLORĂRIE</span><h2>Un atelier în care<br/><em>frumosul prinde viață.</em></h2></div>
+      <div className="about-story-copy"><p>{story[0]}</p><p>{story[1]}</p><Link to="/galerie">Privește lumea Floralis<ArrowRight/></Link></div>
+    </section>
+
+    <section className="about-collage reveal" aria-label="Momente din lumea Floralis">
+      <figure className="about-collage-main"><Image src="/assets/floralis/export-cd0301132119.webp" alt="Decor de eveniment cu aranjamente florale Floralis" sizes="(max-width: 767px) 94vw, 48vw"/><figcaption><small>EVENIMENTE CARE RĂMÂN</small><span>Emoție în fiecare detaliu.</span></figcaption></figure>
+      <figure className="about-collage-top"><Image src="/assets/floralis/export-81d675f18c22.webp" alt="Ceremonie în aer liber decorată cu flori" sizes="(max-width: 767px) 44vw, 24vw"/></figure>
+      <figure className="about-collage-bottom"><Image src="/assets/floralis/export-9036aabedb36.webp" alt="Flori albe pregătite cu grijă în atelier" sizes="(max-width: 767px) 44vw, 21vw"/></figure>
+      <blockquote><Sparkles/><p>„Florile au puterea de a transforma cele mai simple momente în amintiri speciale.”</p><span>— filosofia Floralis</span></blockquote>
+      <span className="about-collage-stamp" aria-hidden="true">CU SUFLET · CU GRIJĂ ·</span>
+    </section>
+
+    <section className="about-values reveal">
+      <div className="about-values-head"><span className="eyebrow">FELUL NOSTRU DE A CREA</span><h2>Cu grijă. Cu pasiune.<br/><em>Cu suflet.</em></h2><p>De la alegerea florilor până la ultimul detaliu, fiecare gest construiește experiența Floralis.</p></div>
+      <div className="about-values-grid">
+        <article><span><Leaf/></span><small>01</small><h3>Prospețime în fiecare petală</h3><p>Alegem flori fresh, texturi fine și combinații cromatice care respiră natural.</p></article>
+        <article><span><Sparkles/></span><small>02</small><h3>Atenție la fiecare detaliu</h3><p>Fiecare creație este compusă cu echilibru, răbdare și o estetică personală.</p></article>
+        <article><span><Heart/></span><small>03</small><h3>Emoții care rămân</h3><p>Ascultăm povestea din spatele fiecărei comenzi și o transformăm în flori.</p></article>
+      </div>
+    </section>
+
+    <section className="about-founder reveal">
+      <div className="about-founder-photo"><figure><Image src="/assets/floralis/export-b613330c87ff.webp" alt="Decor floral elegant realizat de echipa Floralis" sizes="(max-width: 767px) 92vw, 42vw"/></figure><span className="about-founder-bloom" aria-hidden="true"><i/><i/><i/><i/></span></div>
+      <div className="about-founder-copy"><div className="about-section-index"><span>02</span><i/><small>OMUL DIN SPATELE FLORILOR</small></div><span className="eyebrow">BUNĂ, SUNT ANA</span><h2>Pasiune transformată<br/><em>într-un mod de a crea.</em></h2><p>{founder}</p><div className="about-founder-note"><span>Designer floral</span><i/><span>Co-fondator Floralis</span></div></div>
+    </section>
+
+    <section className="about-journey reveal">
+      <div className="about-journey-title"><span className="eyebrow">POVESTEA CONTINUĂ</span><h2>Din 2017, înflorim<br/><em>momente împreună.</em></h2></div>
+      <div className="about-journey-line"><i/></div>
+      <div className="about-journey-grid"><article><b>2017</b><span>Începutul Floralis</span><p>O pasiune pentru flori devine atelier și promisiune.</p></article><article><b>Astăzi</b><span>Mii de povești înflorite</span><p>Buchete, evenimente și gesturi create pentru oameni.</p></article><article><b>Mai departe</b><span>Aceeași grijă</span><p>Continuăm să creăm frumosul, petală cu petală.</p></article></div>
+    </section>
+
+    <section className="about-final reveal">
+      <Image src="/assets/floralis/export-b613330c87ff.webp" alt="Atmosferă florală Floralis" sizes="100vw"/>
+      <div><span className="eyebrow">POVESTEA TA POATE ÎNCEPE AICI</span><h2>Ce moment vrei<br/><em>să facem să înflorească?</em></h2><p>Spune-ne ce simți. Noi găsim florile potrivite.</p><div><Link className="gold-button" to="/contact">Vorbește cu noi<ArrowRight/></Link><Link to="/galerie">Descoperă galeria<Images/></Link></div></div>
+    </section>
+  </section><Newsletter/></>;
+}
 function FAQ(){const items=[['Cum solicit un decor pentru un eveniment?','Decorurile pentru nunți și botezuri sunt realizate pe bază de comandă. Contactează-ne pentru a stabili împreună stilul, florile și bugetul.'],['Pot exista diferențe față de fotografie?','În funcție de stoc și sezon, produsele pot suferi mici modificări, însă cromatica va fi păstrată.'],['Unde vă găsesc?','Calea București Nr. 9, Tunari, Ilfov. Ne poți suna la 0720 823 194.'],['Cum verific metodele de livrare și plată?','Metodele disponibile și costurile sunt afișate la finalizarea comenzii. Pentru alte detalii, ne poți contacta direct.']];return <><Heading title="Cu grijă pentru întrebările tale." eyebrow="ÎNTREBĂRI FRECVENTE"/><section className="faq section">{items.map(([q,a])=><details key={q}><summary>{q}<ChevronDown size={18}/></summary><p>{a}</p></details>)}<Link className="gold-button" to="/contact">Hai să vorbim</Link></section></>;}
 function ContentPage({slug}){const r=useData('/pages/'+slug);if(r.error)return <ErrorState error={r.error}/>;if(!r.data)return <div className="loading">Se încarcă…</div>;return <><Heading title={r.data.title}/><article className="prose legal-page section">{r.data.body.split('\n').filter(Boolean).map((p,i)=>/^(I{1,3}|IV|V|VI|VII|VIII|IX|X)\./.test(p)?<h2 key={i}>{p}</h2>:<p key={i}>{p}</p>)}{['retur','gdpr','confidentialitate'].includes(slug)&&<Link to="/termeni-si-conditii" className="text-link">Citește Termenii și condițiile</Link>}</article></>;}
 function Blog(){const r=useData('/pages'),posts=r.data?.filter(p=>p.type==='post')||[];return <><Heading title="Povești din atelier." eyebrow="JURNAL FLORALIS"/>{posts.length?<section className="section blog-grid">{posts.map(p=><Link to={'/'+p.slug} key={p.id}><Image src={p.image} alt={p.title}/><h2>{p.title}</h2><p>{p.body.slice(0,180)}…</p></Link>)}</section>:<Empty icon={Leaf} title="Următoarea poveste prinde rădăcini." text="Între timp, te invităm să descoperi creațiile atelierului."/>}</>;}
