@@ -117,8 +117,10 @@
   .occasions>.occasion-heading { margin: 0 20px 34px 0; padding: 0 10px; }
   .occasion-heading h2 { max-width: 355px; margin-right: auto; margin-left: auto; font-size: 36px; line-height: 1.03; }
   .occasion-heading p { font-size: 17px; }
-  .occasions>.occasion-grid { display: flex; gap: 14px; overflow-x: auto; padding: 4px 20px 18px 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .occasions>.occasion-grid { display: flex; gap: 14px; overflow-x: auto; padding: 4px 20px 18px 0; scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: pan-y; cursor: grab; user-select: none; overscroll-behavior-inline: contain; }
+  .occasions>.occasion-grid.is-dragging { cursor: grabbing; scroll-snap-type: none; }
   .occasion-grid::-webkit-scrollbar { display: none; }
+  .occasion-grid img { -webkit-user-drag: none; }
   .occasion-card { flex: 0 0 78vw; min-height: 390px; border-radius: 155px 155px 25px 25px; scroll-snap-align: center; }
   .occasion-card::before { border-radius: 149px 149px 19px 19px; }
   .occasion-copy { right: 28px; bottom: 29px; left: 28px; }
