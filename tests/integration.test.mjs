@@ -148,3 +148,14 @@ test('Stripe payload takes exact order snapshot prices, shipping and fixed disco
  const result=JSON.parse(execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/stripe.php'; $o=one('SELECT * FROM orders WHERE id=?',[${order.id}]); echo j(stripeCheckoutPayload($o,all('SELECT * FROM order_items WHERE order_id=?',[$o['id']]),'qa@example.test','coupon_qa'));`],{cwd:root,env,encoding:'utf8'}));
  assert.equal(result.line_items[0].price_data.unit_amount,12000);assert.equal(result.line_items[0].quantity,2);assert.equal(result.shipping_options[0].shipping_rate_data.fixed_amount.amount,0);assert.equal(result.discounts[0].coupon,'coupon_qa');assert.equal(result.line_items[0].price_data.currency,'ron');
 });
+test('category visibility, permanent product deletion and content editors remain connected',async()=>{
+ await admin.api('/admin/categories/'+cat.id+'/visibility',{method:'PATCH',body:{visible:0}});
+ assert.ok(!(await guest.api('/categories')).some(c=>c.id===cat.id));assert.ok((await admin.api('/admin/categories')).some(c=>c.id===cat.id));
+ await admin.api('/admin/categories/'+cat.id+'/visibility',{method:'PATCH',body:{visible:1}});
+ const p=await admin.api('/admin/products',{method:'POST',body:{name:'Produs de șters QA',slug:'produs-de-sters-qa',price_cents:5000,status:'draft'}});
+ await admin.api('/admin/products/'+p.id+'/permanent',{method:'DELETE'});assert.equal((await admin.request('/api/admin/products/'+p.id)).status,404);
+ assert.equal((await admin.request('/api/admin/products/'+created.id+'/permanent',{method:'DELETE'})).status,409);
+ const about=(await admin.api('/admin/pages')).find(p=>p.slug==='despre-noi');await admin.api('/admin/pages/'+about.id,{method:'PUT',body:{...about,body:'Floralis — text actualizat din editorul paginii.'}});
+ assert.equal((await guest.api('/bootstrap')).settings.story,'Floralis — text actualizat din editorul paginii.');
+ assert.equal((await guest.request('/api/admin/email/settings')).status,403);const config=await admin.api('/admin/email/settings');assert.ok(!('password' in config));assert.equal(config.enabled,0);
+});

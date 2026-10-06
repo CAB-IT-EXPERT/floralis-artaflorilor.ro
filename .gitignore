@@ -20,6 +20,8 @@ data/deployment-private.json
 data/floralis-test-*/
 data/stripe-listener.log
 data/stripe-sync.lock
+data/email-private.json
+data/stripe-qa.json
 tools/stripe-cli/
 qa/screenshots/
 *.log

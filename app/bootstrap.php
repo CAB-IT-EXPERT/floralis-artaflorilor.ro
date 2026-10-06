@@ -40,7 +40,11 @@ function email(array $a): string {$e=strtolower(text($a,'email',3,200));if(!filt
 function enumValue(mixed $v,array $allowed): string {if(!in_array($v,$allowed,true))abortApi('Valoare invalidă.');return (string)$v;}
 function safeUser(?array $u): ?array {return $u?array_intersect_key($u,array_flip(['id','email','name','phone','role','active'])):null;}
 function product(array $p): array {$p['seo']=decoded($p['seo']);$p['source_fields']=decoded($p['source_fields']);$p['images']=all('SELECT * FROM product_images WHERE product_id=? ORDER BY sort_order,id',[$p['id']]);$p['categories']=all('SELECT c.* FROM categories c JOIN product_categories pc ON pc.category_id=c.id WHERE pc.product_id=?',[$p['id']]);$p['price']=$p['price_cents']===null?null:$p['price_cents']/100;return $p;}
-function categories(): array {return array_map(function($c){$c['seo']=decoded($c['seo']);return $c;},all("SELECT c.*,(SELECT COUNT(*) FROM product_categories pc JOIN products p ON p.id=pc.product_id WHERE pc.category_id=c.id AND p.status='publish') product_count FROM categories c ORDER BY sort_order,id"));}
+function categories(bool $admin=false): array {
+ $rows=all("SELECT c.*,(SELECT COUNT(*) FROM product_categories pc JOIN products p ON p.id=pc.product_id WHERE pc.category_id=c.id AND p.status='publish') product_count FROM categories c ORDER BY sort_order,id");$byId=array_column($rows,null,'id');
+ if(!$admin)$rows=array_values(array_filter($rows,function($c)use($byId){$seen=[];while($c){if(!$c['visible']||in_array($c['id'],$seen))return false;$seen[]=$c['id'];$c=$byId[$c['parent_id']]??null;}return true;}));
+ return array_map(function($c){$c['seo']=decoded($c['seo']);return $c;},$rows);
+}
 function migrate(): void {
  db()->exec(driver()==='mysql'?"CREATE TABLE IF NOT EXISTS migrations(name VARCHAR(190) PRIMARY KEY, applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)":"CREATE TABLE IF NOT EXISTS migrations(name TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT (datetime('now')))");
  foreach(glob(ROOT.'/migrations/'.(driver()==='mysql'?'mysql/':'').'*.sql') as $file)if(!one('SELECT name FROM migrations WHERE name=?',[basename($file)])){

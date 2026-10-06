@@ -23,7 +23,7 @@ const products=rows.map(r=>{
   stock:r.Stock===''?null:Number(r.Stock),stock_status:r['Stock Status'],manage_stock:r['Manage Stock']==='yes'?1:0,featured:r.Featured==='yes'?1:0,
   description:plain(r.Content),short_description:plain(r['Short Description']),tax_status:r['Tax Status'],tax_class:r['Tax Class'],categories:[...new Set(categorySlugs)],
   images:[],source_fields:Object.fromEntries(['Weight','Length','Width','Height','Backorders','Sold Individually','alergeni','ingrediente','declaratia_nutritionala'].filter(k=>r[k]).map(k=>[k,plain(r[k])])),
-  image_sources:(r['Image URL']||'').split('|').filter(Boolean),image_alt:plain(r['Image Alt Text'])||plain(r.Title)};
+  image_sources:(r['Image URL']||'').split('|').filter(Boolean),image_alt:/[\p{L}\p{N}]/u.test(plain(r['Image Alt Text']))?plain(r['Image Alt Text']):plain(r.Title)};
 });
 async function optimize(input,name,{max=1200}={}){
  const dest=path.join(out,name+'.webp');

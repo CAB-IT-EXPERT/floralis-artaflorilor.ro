@@ -18,9 +18,9 @@ function stripeSyncProduct(int $id): void {
  $p=one('SELECT * FROM products WHERE id=?',[$id]);if(!$p)abortApi('Produs inexistent.',404);
  $map=one('SELECT * FROM stripe_catalog WHERE product_id=?',[$id]);$hash=hash('sha256',j(array_intersect_key($p,array_flip(['name','slug','status','price_cents','stock_status','manage_stock','stock','short_description','sku']))));
  if($map&&$map['synced_hash']===$hash)return;
- $active=$p['status']==='publish'&&$p['price_cents']!==null&&$p['stock_status']==='instock'&&(!$p['manage_stock']||$p['stock']>0);
- $pid=$map['stripe_product_id']??('floralis_product_'.($p['source_id']?:'local_'.$id));
- $body=['name'=>$p['name'],'active'=>$active?'true':'false','description'=>substr($p['short_description']?:$p['description'],0,1000),'metadata'=>['application'=>'floralis','local_product_id'=>(string)$id,'sku'=>$p['sku']??'']];
+ $active=$p['status']==='publish'&&$p['price_cents']!==null;
+ $namespace=settingAll()['stripe_namespace']??null;if(!$namespace){$namespace=bin2hex(random_bytes(8));sql('INSERT OR IGNORE INTO settings VALUES(?,?)',['stripe_namespace',j($namespace)]);$namespace=settingAll()['stripe_namespace'];}$pid=$map['stripe_product_id']??('floralis_product_'.($p['source_id']?:$namespace.'_local_'.$id));
+ $body=['name'=>$p['name'],'active'=>$active?'true':'false','description'=>substr($p['short_description']?:($p['description']?:$p['name']),0,1000),'metadata'=>['application'=>'floralis','local_product_id'=>(string)$id,'sku'=>$p['sku']??'','stock_status'=>$p['stock_status'],'stock'=>$p['stock']===null?'unmanaged':(string)$p['stock']]];
  if(!$map){try{stripeRequest('GET','/products/'.$pid);stripeRequest('POST','/products/'.$pid,$body);}catch(Throwable $e){stripeRequest('POST','/products',['id'=>$pid]+$body,'floralis-product-'.$pid);}
   sql('INSERT INTO stripe_catalog(product_id,stripe_product_id) VALUES(?,?)',[$id,$pid]);$map=one('SELECT * FROM stripe_catalog WHERE product_id=?',[$id]);
  }else stripeRequest('POST','/products/'.$pid,$body);
@@ -53,7 +53,7 @@ function stripeCheckoutPayload(array $o,array $items,string $email,?string $coup
 function stripeCheckout(array $o): array {
  if($o['status']==='cancelled')abortApi('Comanda a fost anulată. Reface coșul.',409);if($o['stripe_checkout_url'])return $o;
  $items=all('SELECT * FROM order_items WHERE order_id=?',[$o['id']]);foreach($items as $i)stripeQueue('product',(int)$i['product_id']);
- $coupon=null;if($o['discount_cents']>0){$c=stripeRequest('POST','/coupons',['amount_off'=>$o['discount_cents'],'currency'=>'ron','duration'=>'once','name'=>$o['coupon'],'metadata'=>['application'=>'floralis','local_order_id'=>(string)$o['id']]],'floralis-order-discount-'.$o['id']);$coupon=$c['id'];}
+ $coupon=null;if($o['discount_cents']>0){$c=stripeRequest('POST','/coupons',['amount_off'=>$o['discount_cents'],'currency'=>'ron','duration'=>'once','name'=>$o['coupon'],'metadata'=>['application'=>'floralis','local_order_id'=>(string)$o['id']]],'floralis-order-discount-'.$o['id'].'-'.$o['idempotency_key']);$coupon=$c['id'];}
  $customer=one('SELECT email FROM customers WHERE id=?',[$o['customer_id']]);$result=stripeRequest('POST','/checkout/sessions',stripeCheckoutPayload($o,$items,$customer['email'],$coupon),'floralis-checkout-'.$o['id'].'-'.$o['idempotency_key']);
  if(($result['amount_total']??null)!==$o['total_cents']||($result['currency']??'')!=='ron'){stripeRequest('POST','/checkout/sessions/'.$result['id'].'/expire');abortApi('Totalul Stripe diferă de comandă. Plata nu a fost inițiată.',502);}
  sql('UPDATE orders SET stripe_session_id=?,stripe_checkout_url=?,stripe_error=? WHERE id=?',[$result['id'],$result['url'],'',$o['id']]);return one('SELECT * FROM orders WHERE id=?',[$o['id']]);
@@ -67,7 +67,7 @@ function stripeApplySession(array $s): void {
  if(($s['metadata']['application']??'')!=='floralis'||!empty($s['livemode']))return;
  tx(function()use($s){$o=one('SELECT * FROM orders WHERE id=?',[(int)($s['metadata']['local_order_id']??0)]);if(!$o||$o['stripe_session_id']!==($s['id']??'')||$o['payment_method']!=='card')return;
   if(($s['currency']??'')!=='ron'||($s['amount_total']??null)!==$o['total_cents'])abortApi('Valoare Stripe invalidă.',400);
-  if(($s['payment_status']??'')==='paid'&&!in_array($o['status'],['cancelled','returned'])&&$o['payment_status']!=='paid'){
+  if((($s['payment_status']??'')==='paid'||(($s['payment_status']??'')==='no_payment_required'&&$o['total_cents']===0))&&!in_array($o['status'],['cancelled','returned'])&&$o['payment_status']!=='paid'){
    sql("UPDATE orders SET payment_status='paid',stripe_payment_intent=?,status=CASE WHEN status='received' THEN 'confirmed' ELSE status END WHERE id=?",[$s['payment_intent']??null,$o['id']]);sql("INSERT INTO order_status_history(order_id,status,note) VALUES(?,'confirmed','Plată confirmată de Stripe')",[$o['id']]);$c=one('SELECT email FROM customers WHERE id=?',[$o['customer_id']]);sql('INSERT INTO outbox(recipient,subject,body) VALUES(?,?,?)',[$c['email'],'Plată confirmată '.$o['number'],'Plata cu cardul a fost confirmată.']);
   }elseif(($s['status']??'')==='expired'&&$o['payment_status']==='unpaid')stripeCancelOrder($o,'Sesiunea Stripe a expirat');
  });
