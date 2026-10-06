@@ -98,8 +98,9 @@ test('admin order status, payment, notes, history, cancel restoration and custom
 test('stock adjustments, CMS, SEO, shipping and payment settings are connected',async()=>{
  created=await admin.api('/admin/products/'+created.id,{method:'PUT',body:{...created,stock:0,categories:[cat.id]}});
  const unlimited=await guest.api('/products/produs-qa');assert.equal(unlimited.stock,null);assert.equal(unlimited.manage_stock,0);assert.equal(unlimited.stock_status,'instock');assert.ok((await admin.api('/admin/stock')).history.length>=2);
- await admin.api('/admin/settings',{method:'PUT',body:{hero_title:'Titlu QA',newsletter_title:'Newsletter QA'}});
- assert.equal((await guest.api('/bootstrap')).settings.hero_title,'Titlu QA');
+ await admin.api('/admin/settings',{method:'PUT',body:{seo_title:'Titlu SEO QA'}});
+ assert.equal((await guest.api('/bootstrap')).settings.seo_title,'Titlu SEO QA');
+ assert.equal((await admin.request('/api/admin/settings',{method:'PUT',body:{hero_title:'Titlu QA'}})).status,400);
  await admin.api('/admin/pages',{method:'POST',body:{slug:'pagina-qa',title:'Pagina QA',body:'Conținut QA real editabil.',type:'page',status:'publish',seo:{title:'SEO QA'}}});
  assert.equal((await guest.api('/pages/pagina-qa')).title,'Pagina QA');
  const html=(await guest.request('/pagina-qa',{raw:true})).data;assert.ok(html.includes('<title>SEO QA</title>'));assert.ok(html.includes('Conținut QA real editabil.'));

@@ -70,11 +70,13 @@ Credentialele proprii sunt în `data/google-client.json`. Adaugă exact `http://
 
 Admin → Email configurează SMTP/TLS și expeditorul. Fără SMTP, comenzile și resetările generează mesaje în outbox local. După configurare rulează `php tools/send-outbox.php`; pe hosting programează comanda prin cron. Testul SMTP trimite doar către adresa completată explicit. Nu există credentiale SMTP SmileBaby.
 
-## Date comerciale și CMS
+## Date comerciale și conținut
 
 Adminul și storefront-ul folosesc aceeași DB. Checkout-ul calculează prețurile, transportul și cuponul în bani pe server; comanda păstrează snapshot-ul prețurilor. Anularea restabilește stocul o singură dată. Rambursările cardului se verifică în Stripe.
 
-Exportul celor 83 produse nu are cantități numerice: `stock=null`, deci stoc nelimitat. În editorul produsului, stoc gol sau `0` înseamnă nelimitat, iar o valoare pozitivă activează automat gestiunea cantitativă. Livrarea locală este dezactivată până la completarea tarifului/zonelor reale; ridicarea gratuită este activă. Completează în CMS paginile legale fără text integral în sursă. Articolele Lorem Ipsum rămân draft.
+Exportul celor 83 produse nu are cantități numerice: `stock=null`, deci stoc nelimitat. În editorul produsului, stoc gol sau `0` înseamnă nelimitat, iar o valoare pozitivă activează automat gestiunea cantitativă. Livrarea locală este dezactivată până la completarea tarifului/zonelor reale; ridicarea gratuită este activă. Textele paginilor se întrețin în proiect; secțiunile Pagini și Homepage nu sunt disponibile în admin. Paginile legale fără text integral în sursă necesită completare. Articolele Lorem Ipsum rămân draft.
+
+Hero-ul este static, fără carusel, în `src/Hero.jsx`, cu stilurile responsive în `src/hero.css`. Fundalurile furnizate sunt `public/assets/floralis/hero-desktop.webp` și `hero-mobile.webp`. Navbarul fix, cu Acasă și logo centrat, este stilizat în `src/storefront-chrome.css`. Textele hero-ului nu pot fi modificate din admin.
 
 ## Dezvoltare, verificare și pachet
 

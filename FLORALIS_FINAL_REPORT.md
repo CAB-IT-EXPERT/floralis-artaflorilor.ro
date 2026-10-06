@@ -4,9 +4,9 @@
 
 ## Implementat
 
-- Storefront responsive după referința Floralis: logo real, hero editorial, cinci colecții, decor, produse, ocazii, poveste, galerie, recenzii și newsletter; fotografii/video reale, fonturi locale și navigație mobilă.
+- Storefront responsive după referința Floralis: logo real, hero static cu fundaluri separate desktop/mobil, fără carusel, navbar fix, cinci colecții, decor, produse, ocazii, poveste, galerie, recenzii și newsletter; fotografii/video reale, fonturi locale și navigație mobilă.
 - Catalog, căutare/filtre/sortare/paginare, categorii ierarhice, produs/galerie, favorite/coș persistent, checkout și confirmare. Conturi, login/logout/resetare single-use, profil, adrese, istoric și recenzii moderate.
-- Admin cu **CSS-ul efectiv SmileBaby copiat local**, conform cererii: sidebar/topbar, dashboard/perioade/grafic, produse cu editoare complete/duplicare/arhivare/ștergere, categorii/vizibilitate, comenzi/detalii/status/istoric/print/export, clienți/conturi, stoc/istoric, cupoane, media/upload/alt, CMS/articole/SEO, newsletter/mesaje/recenzii, setări/livrare/plăți și SMTP/outbox.
+- Admin cu **CSS-ul efectiv SmileBaby copiat local**, conform cererii: sidebar/topbar, dashboard/perioade/grafic, produse cu editoare complete/duplicare/arhivare/ștergere, categorii/vizibilitate, comenzi/detalii/status/istoric/print/export, clienți/conturi, cupoane, imagini în editorul produsului, articole/SEO, newsletter/mesaje/recenzii, setări/livrare/plăți și SMTP/outbox. Secțiunile Pagini și Homepage au fost eliminate din admin; textele hero-ului sunt definite în cod.
 - Modificările admin folosesc aceeași DB ca storefront-ul. Fără backend, API, DB, autentificare sau chei SmileBaby în runtime. Fără personalizarea produselor.
 - Stripe test propriu: sincronizare catalog/prețuri/transport, Checkout cu snapshot server, cupon, rezervare stoc, webhook semnat/deduplicat, reconciliere, anulare și rambursare verificată.
 - Google OAuth propriu implementat; fișierul și flagul sunt private. Sesiuni HttpOnly/SameSite, CSRF, roluri, SQL parametrizat, rate limits, upload re-encodat și protecția surselor.
