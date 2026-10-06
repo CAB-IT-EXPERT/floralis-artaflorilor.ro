@@ -21,6 +21,7 @@ import './visit-home.css';
 import './newsletter.css';
 import './footer.css';
 import './mobile-nav.css';
+import './cart-favorites.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-500.css';
 import '@fontsource/cormorant-garamond/latin-400-italic.css';
