@@ -49,7 +49,7 @@ export default function Hero() {
         Mai mult<br/>decât flori,
         <em>emoții în dar.</em>
       </h1>
-      <p className="floralis-hero-description">Aranjamente florale premium, create cu pasiune pentru cele mai frumoase momente din viața ta.</p>
+      <p className="floralis-hero-description"><span>Aranjamente florale premium,</span> <em>create cu pasiune</em> pentru cele mai frumoase momente din viața ta.</p>
       <Link className="floralis-hero-button" to="/magazin"><span>Descoperă colecțiile</span><ArrowRight aria-hidden="true"/></Link>
       <ul className="floralis-hero-benefits" aria-label="Grija Floralis pentru fiecare comandă">
         <li><BenefitIcon kind="diamond"/><span>Aranjamente<br/>premium</span></li>
