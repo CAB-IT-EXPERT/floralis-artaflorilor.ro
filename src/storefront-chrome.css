@@ -1,7 +1,7 @@
 .storefront {
   --header-height: 76px;
   --header-inset: 0px;
-  max-width: 1920px;
+  max-width: none;
   margin: 0 auto;
   padding-top: var(--header-height);
   border-radius: 0;
@@ -12,11 +12,11 @@
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
-  max-width: 1920px;
+  max-width: none;
   height: var(--header-height);
   padding: 0 clamp(24px, 3.1vw, 60px);
   border: 1px solid #ded5c7;
-  border-radius: 0 0 12px 12px;
+  border-radius: 0;
   background: #fffdfbf7;
   box-shadow: 0 8px 30px #4e3a1810;
   backdrop-filter: blur(14px);
