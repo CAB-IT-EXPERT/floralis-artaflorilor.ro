@@ -3,10 +3,10 @@ import assert from 'node:assert/strict';
 import {execFileSync,spawn} from 'node:child_process';
 import {mkdtempSync,rmSync,readFileSync,existsSync} from 'node:fs';
 import {join,resolve} from 'node:path';
-import {randomUUID} from 'node:crypto';
+import {randomUUID,createHmac} from 'node:crypto';
 import {phpCommand,root} from '../scripts/php-runtime.mjs';
 const p=phpCommand(),folder=mkdtempSync(join(root,'data','floralis-test-'));
-const env={...process.env,DATABASE_PATH:join(folder,'test.sqlite'),ADMIN_EMAIL:'qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-password-2026',APP_URL:'http://127.0.0.1:5191',GOOGLE_LOCAL_CALLBACK_ENABLED:'0'};
+const env={...process.env,DATABASE_PATH:join(folder,'test.sqlite'),ADMIN_EMAIL:'qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-password-2026',APP_URL:'http://127.0.0.1:5191',GOOGLE_LOCAL_CALLBACK_ENABLED:'0',STRIPE_ENABLED:'0',STRIPE_WEBHOOK_SECRET:'whsec_qa_fixture_secret',DB_DRIVER:process.env.TEST_DB_DRIVER||'sqlite'};
 const base='http://127.0.0.1:5191';let server,logs='',sample,cat,created,order;const uploads=[];
 class Client{
  cookie='';csrf='';
@@ -134,4 +134,17 @@ test('password reset invalidates old sessions and is single-use',async()=>{
  assert.equal((await guest.request('/api/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}})).status,400);
  await guest.api('/auth/login',{method:'POST',body:{email:'client-qa@example.test',password:'QA-new-password-2026'}});
  assert.equal((await guest.api('/account')).user.role,'customer');
+});
+test('Stripe signed events validate amount/currency and cannot duplicate fulfillment',async()=>{
+ execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; sql("UPDATE orders SET status='received',payment_status='unpaid',payment_method='card',stripe_session_id='cs_test_fixture' WHERE id=?",[${order.id}]);`],{cwd:root,env});
+ const event={id:'evt_qa_fixture',type:'checkout.session.completed',livemode:false,data:{object:{id:'cs_test_fixture',currency:'ron',amount_total:order.total_cents,payment_status:'paid',payment_intent:'pi_test_fixture',metadata:{application:'floralis',local_order_id:String(order.id)}}}};
+ async function webhook(value,t=Math.floor(Date.now()/1000),valid=true){const raw=JSON.stringify(value),sig=createHmac('sha256',env.STRIPE_WEBHOOK_SECRET).update(t+'.'+raw).digest('hex');const r=await fetch(base+'/api/payments/stripe/webhook',{method:'POST',headers:{'Content-Type':'application/json','Stripe-Signature':`t=${t},v1=${valid?sig:'bad'}`},body:raw});return r.status;}
+ assert.equal(await webhook(event,undefined,false),400);assert.equal(await webhook(event,Math.floor(Date.now()/1000)-1000),400);
+ assert.equal(await webhook({...event,data:{object:{...event.data.object,amount_total:1}}}),400);
+ assert.equal(await webhook(event),200);const first=await admin.api('/admin/orders/'+order.id);assert.equal(first.payment_status,'paid');assert.equal(first.status,'confirmed');
+ assert.equal(await webhook(event),200);assert.equal((await admin.api('/admin/orders/'+order.id)).history.length,first.history.length);
+});
+test('Stripe payload takes exact order snapshot prices, shipping and fixed discount',async()=>{
+ const result=JSON.parse(execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/stripe.php'; $o=one('SELECT * FROM orders WHERE id=?',[${order.id}]); echo j(stripeCheckoutPayload($o,all('SELECT * FROM order_items WHERE order_id=?',[$o['id']]),'qa@example.test','coupon_qa'));`],{cwd:root,env,encoding:'utf8'}));
+ assert.equal(result.line_items[0].price_data.unit_amount,12000);assert.equal(result.line_items[0].quantity,2);assert.equal(result.shipping_options[0].shipping_rate_data.fixed_amount.amount,0);assert.equal(result.discounts[0].coupon,'coupon_qa');assert.equal(result.line_items[0].price_data.currency,'ron');
 });

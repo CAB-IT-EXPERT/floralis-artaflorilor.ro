@@ -15,5 +15,11 @@ data/google-client.json
 data/source-images/
 data/rate-limits/
 data/google-certs.json
+data/*.env
+data/deployment-private.json
+data/floralis-test-*/
+data/stripe-listener.log
+data/stripe-sync.lock
+tools/stripe-cli/
 qa/screenshots/
 *.log

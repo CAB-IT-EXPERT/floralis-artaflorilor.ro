@@ -9,7 +9,7 @@ export function phpCommand(){
  const args=[];
  if(process.platform==='win32'){
   const ext=join(dirname(binary),'ext');args.push('-d',`extension_dir=${ext}`);
-  for(const name of ['pdo_sqlite','gd','mbstring','curl','openssl'])if(!loaded.split(/\r?\n/).includes(name)&&existsSync(join(ext,`php_${name}.dll`)))args.push('-d',`extension=${name}`);
+  for(const name of ['pdo_sqlite','pdo_mysql','gd','mbstring','curl','openssl'])if(!loaded.split(/\r?\n/).includes(name)&&existsSync(join(ext,`php_${name}.dll`)))args.push('-d',`extension=${name}`);
  }
  return {binary,args};
 }

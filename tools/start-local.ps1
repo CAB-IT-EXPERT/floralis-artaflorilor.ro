@@ -6,7 +6,7 @@ $floralisPhp=(Get-Command php -ErrorAction Stop).Source
 $floralisLoaded=& $floralisPhp -m
 $floralisExt=Join-Path (Split-Path $floralisPhp) 'ext'
 $floralisArgs=@('-d',"extension_dir=$floralisExt")
-foreach($extension in @('pdo_sqlite','gd','mbstring','curl','openssl')){
+foreach($extension in @('pdo_sqlite','pdo_mysql','gd','mbstring','curl','openssl')){
  if(($floralisLoaded -notcontains $extension) -and (Test-Path -LiteralPath (Join-Path $floralisExt "php_$extension.dll"))){$floralisArgs+=@('-d',"extension=$extension")}
 }
 switch($Action){
