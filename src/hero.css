@@ -12,10 +12,55 @@
 .floralis-hero-background img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
 .floralis-hero-content { padding: clamp(32px, 3.8%, 54px) 0 2.7% 5.7%; }
 .floralis-hero-eyebrow {
-  font: 400 clamp(9px, .64cqw, 12px)/1.65 var(--sans);
+  position: relative;
+  display: grid;
+  width: max-content;
+  gap: 2px;
+  padding-left: 42px;
+  font-family: var(--sans);
+  line-height: 1.45;
+  text-transform: uppercase;
+  color: #27292b;
+}
+.floralis-hero-eyebrow::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 29px;
+  height: 1px;
+  background: linear-gradient(90deg,#9b731e,#c5a157);
+  transform-origin: left;
+  animation: motto-line-in .8s .2s cubic-bezier(.2,.8,.25,1) both;
+}
+.floralis-hero-eyebrow::after {
+  content: '';
+  position: absolute;
+  left: 32px;
+  top: calc(50% - 2px);
+  width: 5px;
+  height: 5px;
+  border: 1px solid #ad8737;
+  transform: rotate(45deg);
+  animation: motto-gem-in .7s .58s ease-out both;
+}
+.floralis-hero-eyebrow span {
+  font-size: clamp(8px,.55cqw,10px);
+  font-weight: 500;
+  letter-spacing: .34em;
+  color: #8c7040;
+}
+.floralis-hero-eyebrow strong {
+  font-size: clamp(9px,.67cqw,12px);
+  font-weight: 600;
   letter-spacing: .25em;
   color: #27292b;
 }
+.floralis-hero-eyebrow span,.floralis-hero-eyebrow strong {
+  animation: motto-word-in .75s cubic-bezier(.2,.8,.25,1) both;
+}
+.floralis-hero-eyebrow span { animation-delay: .18s; }
+.floralis-hero-eyebrow strong { animation-delay: .29s; }
 .floralis-hero h1 {
   max-width: 45%;
   margin: 1.8cqw 0 1.55cqw;
@@ -90,7 +135,11 @@
     mask-image: linear-gradient(180deg, transparent 17%, #000 39%);
   }
   .floralis-hero-content { padding: 43% 8.5% 8%; }
-  .floralis-hero-eyebrow { font-size: clamp(9px, 2.4cqw, 13px); line-height: 1.8; letter-spacing: .18em; }
+  .floralis-hero-eyebrow { gap: 1px; padding: 12px 0 0; line-height: 1.55; }
+  .floralis-hero-eyebrow::before { top: 0; width: 25px; }
+  .floralis-hero-eyebrow::after { left: 28px; top: -2px; width: 5px; height: 5px; }
+  .floralis-hero-eyebrow span { font-size: clamp(8px,2.15cqw,11px); letter-spacing: .28em; }
+  .floralis-hero-eyebrow strong { font-size: clamp(9px,2.4cqw,12px); letter-spacing: .18em; }
   .floralis-hero h1 { max-width: none; font-size: clamp(34px, 10.2cqw, 66px); line-height: .94; margin: 4.9cqw 0 3.8cqw; letter-spacing: -.025em; }
   .floralis-hero h1 em { font-size: 1.1em; }
   .floralis-hero-description { max-width: 83cqw; font-size: clamp(13px, 3.45cqw, 21px); line-height: 1.35; }
@@ -106,3 +155,6 @@
 @keyframes hero-background-in { from { opacity: .72; transform: scale(1.035); } to { opacity: 1; transform: scale(1.01); } }
 @keyframes hero-copy-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes hero-signature-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes motto-line-in { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes motto-gem-in { from { opacity: 0; transform: rotate(45deg) scale(.2); } to { opacity: 1; transform: rotate(45deg) scale(1); } }
+@keyframes motto-word-in { from { opacity: 0; transform: translateX(-9px); letter-spacing: .4em; } to { opacity: 1; transform: translateX(0); } }

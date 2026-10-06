@@ -36,7 +36,7 @@ export default function Hero() {
       <img src="/assets/floralis/hero-desktop.webp" width="1774" height="887" alt="" fetchPriority="high" loading="eager" decoding="async"/>
     </picture>
     <div className="floralis-hero-content">
-      <p className="floralis-hero-eyebrow">FLORI PENTRU<br/>MOMENTE CARE CONTEAZĂ</p>
+      <p className="floralis-hero-eyebrow"><span>Flori pentru</span><strong>momente care contează</strong></p>
       <h1 id="floralis-hero-title">
         Mai mult<br/>decât flori,
         <em>emoții în dar.</em>
