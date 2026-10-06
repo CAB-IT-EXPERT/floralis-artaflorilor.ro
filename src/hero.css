@@ -47,6 +47,7 @@
 .floralis-hero-signature span { display: block; width: 1px; height: 3.3cqw; margin-top: .75cqw; background: #a17d2c; }
 
 @media (min-width: 768px) and (max-width: 1100px) {
+  .floralis-hero-background::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #faf8f6ed, #faf8f6b3 34%, #faf8f600 63%); }
   .floralis-hero-content { padding-top: 5%; }
   .floralis-hero h1 { font-size: 5.8cqw; margin: 2.4cqw 0; }
   .floralis-hero-description { max-width: 37cqw; }

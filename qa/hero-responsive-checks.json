@@ -1,0 +1,55 @@
+{
+  "checkedAt": "2026-10-06T11:48:29.544Z",
+  "viewports": [
+    {
+      "carouselButtons": 0,
+      "contentWidth": 375,
+      "descriptionFont": "13px",
+      "eyebrowFont": "9px",
+      "heading": "Mai mult\ndecât flori,\nemoții în dar.",
+      "heroHeight": 555.671875,
+      "image": "http://localhost:5173/assets/floralis/hero-mobile.webp",
+      "overflow": false,
+      "viewport": 390
+    },
+    {
+      "contentWidth": 305,
+      "heroHeight": 500.078125,
+      "overflow": false,
+      "titleRight": 279.078125,
+      "viewport": 320
+    },
+    {
+      "heroHeight": 490,
+      "image": "http://localhost:5173/assets/floralis/hero-desktop.webp",
+      "overflow": false,
+      "viewport": 820
+    },
+    {
+      "headerTop": 12,
+      "heroHeight": 677.0625,
+      "logoLeft": 604.5,
+      "navRight": 511.96875,
+      "overflow": false,
+      "viewport": 1440
+    },
+    {
+      "heroHeight": 903.03125,
+      "imageLoaded": true,
+      "logoLeft": 808.5,
+      "navRight": 671.65625,
+      "overflow": false,
+      "viewport": 1920
+    }
+  ],
+  "mobileHeaderFixedTop": 0,
+  "desktopHeaderFixedTop": 12,
+  "pageEditorRemoved": true,
+  "settingsTabs": [
+    "General",
+    "SEO",
+    "Livrare",
+    "Plăți"
+  ],
+  "integrationTestsPassed": 13
+}
