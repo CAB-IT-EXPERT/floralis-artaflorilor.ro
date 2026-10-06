@@ -96,14 +96,14 @@ test('admin order status, payment, notes, history, cancel restoration and custom
  assert.equal((await admin.api('/admin/dashboard')).stats.orders,0);
 });
 test('stock adjustments, CMS, SEO, shipping and payment settings are connected',async()=>{
- await admin.api('/admin/stock/'+created.id,{method:'POST',body:{stock:0,reason:'Inventar QA'}});
- assert.equal((await guest.api('/products/produs-qa')).stock_status,'outofstock');assert.ok((await admin.api('/admin/stock')).history.length>=3);
+ created=await admin.api('/admin/products/'+created.id,{method:'PUT',body:{...created,stock:0,categories:[cat.id]}});
+ const unlimited=await guest.api('/products/produs-qa');assert.equal(unlimited.stock,null);assert.equal(unlimited.manage_stock,0);assert.equal(unlimited.stock_status,'instock');assert.ok((await admin.api('/admin/stock')).history.length>=2);
  await admin.api('/admin/settings',{method:'PUT',body:{hero_title:'Titlu QA',newsletter_title:'Newsletter QA'}});
  assert.equal((await guest.api('/bootstrap')).settings.hero_title,'Titlu QA');
  await admin.api('/admin/pages',{method:'POST',body:{slug:'pagina-qa',title:'Pagina QA',body:'Conținut QA real editabil.',type:'page',status:'publish',seo:{title:'SEO QA'}}});
  assert.equal((await guest.api('/pages/pagina-qa')).title,'Pagina QA');
  const html=(await guest.request('/pagina-qa',{raw:true})).data;assert.ok(html.includes('<title>SEO QA</title>'));assert.ok(html.includes('Conținut QA real editabil.'));
- const seo=(await guest.request('/produs/produs-qa',{raw:true})).data;assert.ok(seo.includes('Titlu produs QA'));assert.ok(seo.includes('application/ld+json'));assert.ok(seo.includes('OutOfStock'));
+ const seo=(await guest.request('/produs/produs-qa',{raw:true})).data;assert.ok(seo.includes('Titlu produs QA'));assert.ok(seo.includes('application/ld+json'));assert.ok(seo.includes('InStock'));
  await admin.api('/admin/shipping',{method:'POST',body:{name:'Livrare QA',price_cents:2500,zones:'Ilfov',enabled:1}});
  assert.ok((await guest.api('/bootstrap')).shipping.some(s=>s.name==='Livrare QA'));
  await admin.api('/admin/payments/cod',{method:'PUT',body:{enabled:0}});assert.equal((await guest.api('/bootstrap')).payments.find(p=>p.code==='cod').enabled,0);

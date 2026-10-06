@@ -74,7 +74,7 @@ Admin → Email configurează SMTP/TLS și expeditorul. Fără SMTP, comenzile �
 
 Adminul și storefront-ul folosesc aceeași DB. Checkout-ul calculează prețurile, transportul și cuponul în bani pe server; comanda păstrează snapshot-ul prețurilor. Anularea restabilește stocul o singură dată. Rambursările cardului se verifică în Stripe.
 
-Exportul celor 83 produse nu are cantități numerice: `stock=null`, gestiune cantitativă dezactivată. Completează stocurile reale dacă activezi gestiunea. Livrarea locală este dezactivată până la completarea tarifului/zonelor reale; ridicarea gratuită este activă. Completează în CMS paginile legale fără text integral în sursă. Articolele Lorem Ipsum rămân draft.
+Exportul celor 83 produse nu are cantități numerice: `stock=null`, deci stoc nelimitat. În editorul produsului, stoc gol sau `0` înseamnă nelimitat, iar o valoare pozitivă activează automat gestiunea cantitativă. Livrarea locală este dezactivată până la completarea tarifului/zonelor reale; ridicarea gratuită este activă. Completează în CMS paginile legale fără text integral în sursă. Articolele Lorem Ipsum rămân draft.
 
 ## Dezvoltare, verificare și pachet
 
