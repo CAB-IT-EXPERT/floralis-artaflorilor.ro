@@ -15,6 +15,7 @@ import './product-cards.css';
 import './recommended-carousel.css';
 import './story-home.css';
 import './home-sections.css';
+import './home-gallery.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-500.css';
 import '@fontsource/cormorant-garamond/latin-400-italic.css';
