@@ -1,0 +1,11 @@
+Options -Indexes
+DirectoryIndex index.php
+<IfModule mod_rewrite.c>
+RewriteEngine On
+# Only the front controller serves files; source, exports, credentials and database stay private.
+RewriteRule ^index\.php$ - [L]
+RewriteRule ^ index.php [QSA,L]
+</IfModule>
+<FilesMatch "(^\.|backup.?code|\.sqlite|\.env|\.sql$|\.zip$|\.log$)">
+Require all denied
+</FilesMatch>
