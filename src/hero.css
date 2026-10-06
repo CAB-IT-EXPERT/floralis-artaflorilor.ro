@@ -3,7 +3,7 @@
   isolation: isolate;
   container-type: inline-size;
   overflow: hidden;
-  height: clamp(500px, calc(100svh - var(--header-height)), 720px);
+  height: clamp(500px, min(calc(100svh - var(--header-height)), 47.5cqw), 720px);
   min-height: 0;
   background: #f8f5f0;
   color: #101316;
@@ -55,6 +55,30 @@
   .floralis-hero-benefits { gap: 2.2cqw; margin-top: 3.4cqw; }
   .floralis-hero-signature { right: 2.5%; }
 }
+@media (min-width: 1101px) and (max-width: 1500px) {
+  .floralis-hero-content { padding-top: clamp(36px, 4.2%, 50px); }
+  .floralis-hero-eyebrow { font-size: 10px; }
+  .floralis-hero h1 { font-size: clamp(56px, 4.75cqw, 64px); }
+  .floralis-hero-description { font-size: clamp(15px, 1.15cqw, 17px); max-width: 33cqw; }
+  .floralis-hero-button { font-size: 18px; padding: 12px 24px; }
+  .floralis-hero-benefits span { font-size: 14px; }
+  .floralis-hero-benefits svg { width: 28px; height: 28px; }
+}
+@media (min-width: 768px) {
+  .floralis-hero-background {
+    inset: -3% 0;
+    transform: translate3d(0,var(--hero-parallax,0),0);
+    will-change: transform;
+  }
+  .floralis-hero-background img { animation: hero-background-in 1.35s cubic-bezier(.2,.75,.25,1) both; }
+  .floralis-hero-content > * { opacity: 0; animation: hero-copy-in .7s cubic-bezier(.2,.8,.25,1) both; }
+  .floralis-hero-eyebrow { animation-delay: .12s; }
+  .floralis-hero h1 { animation-delay: .2s; }
+  .floralis-hero-description { animation-delay: .29s; }
+  .floralis-hero-button { animation-delay: .37s; }
+  .floralis-hero-benefits { animation-delay: .45s; }
+  .floralis-hero-signature { opacity: 0; animation: hero-signature-in .8s .52s ease-out both; }
+}
 @media (max-width: 767px) {
   .floralis-hero { height: auto; min-height: 0; }
   .floralis-hero-background img { position: absolute; top: -19cqw; right: -12%; width: 112%; max-width: none; height: auto; }
@@ -78,3 +102,7 @@
   .floralis-hero-benefits span { font: 400 clamp(9px, 2.6cqw, 14px)/1.55 var(--sans); white-space: nowrap; }
   .floralis-hero-signature { display: none; }
 }
+
+@keyframes hero-background-in { from { opacity: .72; transform: scale(1.035); } to { opacity: 1; transform: scale(1.01); } }
+@keyframes hero-copy-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes hero-signature-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }

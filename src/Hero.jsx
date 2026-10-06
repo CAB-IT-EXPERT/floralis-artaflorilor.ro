@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect,useRef} from 'react';
 import {Link} from 'react-router-dom';
 import {ArrowRight} from 'lucide-react';
 import './hero.css';
@@ -10,7 +10,27 @@ function BenefitIcon({kind}) {
 }
 
 export default function Hero() {
-  return <section className="floralis-hero" aria-labelledby="floralis-hero-title">
+  const heroRef=useRef(null);
+  useEffect(()=>{
+    const desktop=window.matchMedia('(min-width: 768px)');
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(!desktop.matches||reduced.matches)return;
+    let frame=0;
+    const update=()=>{
+      if(frame)return;
+      frame=window.requestAnimationFrame(()=>{
+        frame=0;
+        const hero=heroRef.current;
+        if(!hero)return;
+        const offset=Math.min(46,Math.max(0,-hero.getBoundingClientRect().top*.085));
+        hero.style.setProperty('--hero-parallax',offset+'px');
+      });
+    };
+    update();
+    window.addEventListener('scroll',update,{passive:true});
+    return()=>{window.removeEventListener('scroll',update);if(frame)window.cancelAnimationFrame(frame);};
+  },[]);
+  return <section ref={heroRef} className="floralis-hero" aria-labelledby="floralis-hero-title">
     <picture className="floralis-hero-background">
       <source media="(max-width: 767px)" srcSet="/assets/floralis/hero-mobile.webp"/>
       <img src="/assets/floralis/hero-desktop.webp" width="1774" height="887" alt="" fetchPriority="high" loading="eager" decoding="async"/>

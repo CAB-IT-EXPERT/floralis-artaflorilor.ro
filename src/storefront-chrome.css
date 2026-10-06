@@ -44,6 +44,11 @@
   .store-header.scrolled .logo { width: clamp(154px, 9vw, 178px); }
 }
 
+@media (min-width: 1101px) and (max-width: 1500px) {
+  .store-header .logo { width: clamp(180px, 14vw, 195px); }
+  .store-header .desktop-nav { font-size: 15px; }
+}
+
 @media (min-width: 768px) {
   .storefront .store-header { animation: header-arrive .55s cubic-bezier(.22,.8,.35,1) both; }
 }
