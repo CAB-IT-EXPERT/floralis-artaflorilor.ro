@@ -22,13 +22,21 @@ export default function Hero() {
         frame=0;
         const hero=heroRef.current;
         if(!hero)return;
-        const offset=Math.min(46,Math.max(0,-hero.getBoundingClientRect().top*.085));
-        hero.style.setProperty('--hero-parallax',offset+'px');
+        const progress=Math.max(0,-hero.getBoundingClientRect().top);
+        const backgroundOffset=Math.min(110,progress*.24);
+        const copyOffset=Math.min(20,progress*.045);
+        hero.style.setProperty('--hero-parallax',backgroundOffset+'px');
+        hero.style.setProperty('--hero-copy-parallax',-copyOffset+'px');
       });
     };
     update();
     window.addEventListener('scroll',update,{passive:true});
-    return()=>{window.removeEventListener('scroll',update);if(frame)window.cancelAnimationFrame(frame);};
+    return()=>{
+      window.removeEventListener('scroll',update);
+      if(frame)window.cancelAnimationFrame(frame);
+      const hero=heroRef.current;
+      if(hero){hero.style.removeProperty('--hero-parallax');hero.style.removeProperty('--hero-copy-parallax');}
+    };
   },[]);
   return <section ref={heroRef} className="floralis-hero" aria-labelledby="floralis-hero-title">
     <picture className="floralis-hero-background">

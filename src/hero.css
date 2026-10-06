@@ -161,8 +161,12 @@
 }
 @media (min-width: 768px) {
   .floralis-hero-background {
-    inset: -3% 0;
+    inset: -20% 0;
     transform: translate3d(0,var(--hero-parallax,0),0);
+    will-change: transform;
+  }
+  .floralis-hero-content {
+    transform: translate3d(0,var(--hero-copy-parallax,0),0);
     will-change: transform;
   }
   .floralis-hero-background img { animation: hero-background-in 1.35s cubic-bezier(.2,.75,.25,1) both; }
