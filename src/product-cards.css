@@ -92,7 +92,15 @@
   box-shadow: 0 9px 25px rgba(95,65,20,.16);
   transform: translateY(-2px) scale(1.06);
 }
-.product-card .favorite-button.selected svg { fill: #e7cf9b; }
+.product-card .favorite-button.selected,
+.product-card .favorite-button[aria-pressed="true"] {
+  border-color: #a77e27;
+  background: linear-gradient(145deg,#c3a052,#a77d26);
+  color: white;
+  box-shadow: 0 9px 24px rgba(108,73,16,.26),inset 0 1px rgba(255,255,255,.35);
+}
+.product-card .favorite-button.selected svg,
+.product-card .favorite-button[aria-pressed="true"] svg { fill: white; stroke: white; transform: scale(1.08); }
 
 .product-card .quick-add {
   z-index: 3;
@@ -215,6 +223,8 @@
   .reveal.visible .product-card:nth-child(4) { animation-delay: .24s; }
   .product-buy .favorite-button-static.selected,
   .product-buy .favorite-button-static[aria-pressed="true"] { animation: favorite-button-pop .42s cubic-bezier(.2,.8,.25,1) both; }
+  .product-card .favorite-button.selected,
+  .product-card .favorite-button[aria-pressed="true"] { animation: favorite-button-pop .42s cubic-bezier(.2,.8,.25,1) both; }
 }
 
 @media (max-width: 767px) {
