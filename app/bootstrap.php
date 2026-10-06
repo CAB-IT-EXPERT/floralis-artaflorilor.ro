@@ -32,6 +32,7 @@ function tx(callable $fn): mixed {if(driver()==='mysql')db()->beginTransaction()
 function j(mixed $v): string {return json_encode($v,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR);}
 function decoded(?string $v,mixed $default=[]): mixed {return $v===null?$default:(json_decode($v,true)??$default);}
 function settingAll(): array {$out=[];foreach(all('SELECT * FROM settings') as $s)$out[$s['key']]=decoded($s['value']);return $out;}
+function paymentMethods(): array {return all("SELECT * FROM payment_methods ORDER BY CASE WHEN code='card' AND enabled=1 THEN 0 WHEN code='cod' THEN 1 ELSE 2 END,code");}
 function abortApi(string $message,int $status=400): never {throw new RuntimeException($message,$status);}
 function respond(mixed $data,int $status=200): never {http_response_code($status);header('Content-Type: application/json; charset=utf-8');echo j($data);exit;}
 function text(array $a,string $key,int $min=0,int $max=1000,string $default=''): string {$v=$a[$key]??$default;if(!is_string($v))abortApi('Câmp invalid: '.$key);$v=trim($v);$n=function_exists('mb_strlen')?mb_strlen($v):strlen($v);if($n<$min||$n>$max)abortApi('Completează corect câmpul: '.$key);return $v;}

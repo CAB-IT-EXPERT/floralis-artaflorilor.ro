@@ -129,6 +129,8 @@ test('stock adjustments, CMS, SEO, shipping and payment settings are connected',
  assert.ok((await guest.api('/bootstrap')).shipping.some(s=>s.name==='Livrare QA'));
  await admin.api('/admin/payments/cod',{method:'PUT',body:{enabled:0}});assert.equal((await guest.api('/bootstrap')).payments.find(p=>p.code==='cod').enabled,0);
  assert.equal((await admin.request('/api/admin/payments/card',{method:'PUT',body:{enabled:1}})).status,400);
+ execFileSync(p.binary,[...p.args,'-r',"require 'app/bootstrap.php'; migrate(); sql(\"UPDATE payment_methods SET enabled=1 WHERE code='card'\");"],{cwd:root,env});
+ const orderedPayments=(await guest.api('/bootstrap')).payments;assert.equal(orderedPayments[0].code,'card');assert.equal(Number(orderedPayments[0].enabled),1);
 });
 test('contact, newsletter, reviews moderation and CSV export use actual persisted data',async()=>{
  await guest.api('/contact',{method:'POST',body:{name:'Contact QA',email:'contact@example.test',subject:'Decor floral',body:'Doresc informații despre decor floral.',consent:true}});
@@ -180,8 +182,8 @@ test('category visibility, permanent product deletion and content editors remain
  await admin.api('/admin/categories/'+cat.id+'/visibility',{method:'PATCH',body:{visible:0}});
  assert.ok(!(await guest.api('/categories')).some(c=>c.id===cat.id));assert.ok((await admin.api('/admin/categories')).some(c=>c.id===cat.id));
  await admin.api('/admin/categories/'+cat.id+'/visibility',{method:'PATCH',body:{visible:1}});
- const p=await admin.api('/admin/products',{method:'POST',body:{name:'Produs de șters QA',slug:'produs-de-sters-qa',price_cents:5000,status:'draft'}});
- await admin.api('/admin/products/'+p.id+'/permanent',{method:'DELETE'});assert.equal((await admin.request('/api/admin/products/'+p.id)).status,404);
+ const removableProduct=await admin.api('/admin/products',{method:'POST',body:{name:'Produs de șters QA',slug:'produs-de-sters-qa',price_cents:5000,status:'draft'}});
+ await admin.api('/admin/products/'+removableProduct.id+'/permanent',{method:'DELETE'});assert.equal((await admin.request('/api/admin/products/'+removableProduct.id)).status,404);
  assert.equal((await admin.request('/api/admin/products/'+created.id+'/permanent',{method:'DELETE'})).status,409);
  const about=(await admin.api('/admin/pages')).find(p=>p.slug==='despre-noi');await admin.api('/admin/pages/'+about.id,{method:'PUT',body:{...about,body:'Floralis — text actualizat din editorul paginii.'}});
  assert.equal((await guest.api('/bootstrap')).settings.story,'Floralis — text actualizat din editorul paginii.');
@@ -193,9 +195,12 @@ test('category visibility, permanent product deletion and content editors remain
  const post=await guest.request('/blog/articol-public-qa',{raw:true});assert.equal(post.status,200);assert.match(post.data,/<title>Titlu SEO articol QA<\/title>/);
  assert.match((await guest.request('/sitemap.xml',{raw:true})).data,/\/blog\/articol-public-qa/);
  assert.ok((await guest.api('/search?q=publc%20qa')).items.some(item=>item.url==='/articol-public-qa'));
- const savedPost=(await admin.api('/admin/pages')).find(p=>p.slug==='articol-public-qa');await admin.api('/admin/pages/'+savedPost.id+'/permanent',{method:'DELETE'});
+ const announcements=(await admin.api('/admin/outbox')).filter(message=>message.template==='newsletter_product'||message.template==='newsletter_post');assert.equal(announcements.length,22);assert.equal(announcements.filter(message=>message.template==='newsletter_product').length,11);assert.equal(announcements.filter(message=>message.template==='newsletter_post').length,11);
+ const productAnnouncement=announcements.find(message=>message.template==='newsletter_product');assert.equal(productAnnouncement.recipient.includes(','),false);assert.equal(JSON.parse(productAnnouncement.template_data).url,base+'/produs/pret-la-cerere-qa');
+ const renderedNewsletter=execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/email.php'; migrate(); echo mailHtml(one('SELECT * FROM outbox WHERE id=?',[${productAnnouncement.id}]));`],{cwd:root,env,encoding:'utf8'});assert.match(renderedNewsletter,/O creație nouă/);assert.match(renderedNewsletter,/href="http:\/\/127\.0\.0\.1:5191\/produs\/pret-la-cerere-qa"/);assert.match(renderedNewsletter,/Primești acest mesaj pentru că te-ai abonat/);
+ const savedPost=(await admin.api('/admin/pages')).find(p=>p.slug==='articol-public-qa');await admin.api('/admin/pages/'+savedPost.id,{method:'PUT',body:{...savedPost,body:savedPost.body+' Text editat fără retrimitere.'}});assert.equal((await admin.api('/admin/outbox')).filter(message=>message.template==='newsletter_post').length,11);await admin.api('/admin/pages/'+savedPost.id+'/permanent',{method:'DELETE'});
  assert.ok(!(await admin.api('/admin/pages')).some(p=>p.id===savedPost.id));assert.equal((await guest.request('/blog/articol-public-qa',{raw:true})).status,404);
  assert.equal((await guest.request('/categorie/categorie-care-nu-exista',{raw:true})).status,404);
  assert.equal((await admin.request('/api/admin/settings',{method:'PUT',body:{phone:{invalid:true}}})).status,400);
- assert.equal((await guest.request('/api/admin/email/settings')).status,403);const config=await admin.api('/admin/email/settings');assert.ok(!('password' in config));assert.equal(config.enabled,0);assert.equal(config.notification_email,'alexie.popescu2019@yahoo.com');assert.equal(config.port,465);assert.equal(config.security,'ssl');
+ assert.equal((await guest.request('/api/admin/email/settings')).status,403);const config=await admin.api('/admin/email/settings');assert.ok(!('password' in config));assert.equal(config.enabled,0);assert.equal(config.from_email,'contact@floralis-artaflorilor.ro');assert.equal(config.notification_email,'alexie.popescu2019@yahoo.com');assert.equal(config.port,465);assert.equal(config.security,'ssl');
 });

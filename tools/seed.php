@@ -18,5 +18,7 @@ tx(function()use($data,$content){
  foreach($settings as $k=>$v)sql('INSERT OR IGNORE INTO settings VALUES(?,?)',[$k,j($v)]);
  if(!one('SELECT id FROM shipping_methods LIMIT 1')){sql('INSERT INTO shipping_methods(name,price_cents,enabled) VALUES(?,?,?)',['Ridicare din florărie',0,1]);sql('INSERT INTO shipping_methods(name,price_cents,zones,enabled) VALUES(?,?,?,?)',['Livrare locală',0,'Ilfov,București',0]);}
  sql("INSERT OR IGNORE INTO payment_methods VALUES('cod','Ramburs / plată la ridicare',1,'local')");sql("INSERT OR IGNORE INTO payment_methods VALUES('card','Card bancar',0,'disabled')");
+ sql("INSERT OR IGNORE INTO newsletter_campaigns(entity_type,entity_id) SELECT 'product',id FROM products WHERE status='publish'");
+ sql("INSERT OR IGNORE INTO newsletter_campaigns(entity_type,entity_id) SELECT 'post',id FROM pages WHERE type='post' AND status='publish'");
  $mail=env('ADMIN_EMAIL');$pass=env('ADMIN_PASSWORD');if($mail&&$pass){$admin=one('SELECT * FROM users WHERE email=?',[$mail]);if(!$admin)sql("INSERT INTO users(email,password_hash,name,role) VALUES(?,?,?,'admin')",[$mail,password_hash($pass,PASSWORD_DEFAULT),'Administrator Floralis']);elseif(str_contains($admin['password_hash'],':'))sql('UPDATE users SET password_hash=? WHERE id=?',[password_hash($pass,PASSWORD_DEFAULT),$admin['id']]);}
 });echo 'Floralis seed: '.j(['products'=>one('SELECT COUNT(*) n FROM products')['n'],'categories'=>one('SELECT COUNT(*) n FROM categories')['n']])."\n";
