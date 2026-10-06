@@ -1,0 +1,177 @@
+{
+  "tested_at": "2026-10-06T10:14:42.591Z",
+  "mobile": [
+    {
+      "missing": 0,
+      "path": "/",
+      "scroll": 375,
+      "width": 390
+    },
+    {
+      "missing": 0,
+      "path": "/magazin",
+      "scroll": 375,
+      "width": 390
+    },
+    {
+      "missing": 0,
+      "path": "/produs/aranjament-poem-in-roz",
+      "scroll": 375,
+      "width": 390
+    },
+    {
+      "missing": 0,
+      "path": "/decor-floral",
+      "scroll": 375,
+      "width": 390
+    },
+    {
+      "missing": 0,
+      "path": "/admin/produse",
+      "scroll": 375,
+      "width": 390
+    }
+  ],
+  "tablet": [
+    {
+      "missing": 0,
+      "path": "/",
+      "scroll": 805,
+      "width": 820
+    },
+    {
+      "missing": 0,
+      "path": "/magazin",
+      "scroll": 805,
+      "width": 820
+    },
+    {
+      "missing": 0,
+      "path": "/produs/aranjament-poem-in-roz",
+      "scroll": 805,
+      "width": 820
+    },
+    {
+      "missing": 0,
+      "path": "/decor-floral",
+      "scroll": 805,
+      "width": 820
+    },
+    {
+      "missing": 0,
+      "path": "/admin/produse",
+      "scroll": 805,
+      "width": 820
+    }
+  ],
+  "desktop": [
+    {
+      "heading": "Mai multdecât flori,emoții în dar.",
+      "missingImages": 0,
+      "route": "/",
+      "scroll": 1425,
+      "width": 1440
+    },
+    {
+      "heading": "Florile spun povestea ta.",
+      "missingImages": 0,
+      "route": "/magazin",
+      "scroll": 1425,
+      "width": 1440
+    },
+    {
+      "heading": "Aranjament Poem in roz",
+      "missingImages": 0,
+      "route": "/produs/aranjament-poem-in-roz",
+      "scroll": 1425,
+      "width": 1440
+    },
+    {
+      "heading": "Momente memorabile.Flori de neuitat.",
+      "missingImages": 0,
+      "route": "/decor-floral",
+      "scroll": 1425,
+      "width": 1440
+    },
+    {
+      "heading": "Produse",
+      "missingImages": 0,
+      "route": "/admin/produse",
+      "scroll": 1425,
+      "width": 1440
+    },
+    {
+      "heading": "Înregistrare nouă",
+      "missingImages": 0,
+      "route": "/admin/produse/creare",
+      "scroll": 1425,
+      "width": 1440
+    },
+    {
+      "heading": "Setările magazinului",
+      "missingImages": 0,
+      "route": "/admin/plati",
+      "scroll": 1440,
+      "width": 1440
+    },
+    {
+      "heading": "Configurare email",
+      "missingImages": 0,
+      "route": "/admin/email",
+      "scroll": 1425,
+      "width": 1440
+    }
+  ],
+  "narrow": [
+    {
+      "client": 305,
+      "missingImages": 0,
+      "route": "/",
+      "scroll": 305,
+      "width": 320
+    },
+    {
+      "client": 305,
+      "missingImages": 0,
+      "route": "/magazin",
+      "scroll": 305,
+      "width": 320
+    },
+    {
+      "client": 305,
+      "missingImages": 0,
+      "route": "/produs/aranjament-poem-in-roz",
+      "scroll": 305,
+      "width": 320
+    },
+    {
+      "client": 305,
+      "missingImages": 0,
+      "route": "/admin/produse",
+      "scroll": 305,
+      "width": 320
+    },
+    {
+      "client": 305,
+      "missingImages": 0,
+      "route": "/admin/produse/creare",
+      "scroll": 305,
+      "width": 320
+    },
+    {
+      "client": 305,
+      "missingImages": 0,
+      "route": "/admin/plati",
+      "scroll": 305,
+      "width": 320
+    },
+    {
+      "client": 305,
+      "missingImages": 0,
+      "route": "/admin/email",
+      "scroll": 305,
+      "width": 320
+    }
+  ],
+  "visual_rounds": 2
+}

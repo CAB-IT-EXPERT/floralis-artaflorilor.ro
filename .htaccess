@@ -6,6 +6,8 @@ RewriteEngine On
 RewriteRule ^index\.php$ - [L]
 RewriteRule ^ index.php [QSA,L]
 </IfModule>
-<FilesMatch "(^\.|backup.?code|\.sqlite|\.env|\.sql$|\.zip$|\.log$)">
+# These protections remain effective even when rewrite has not been enabled.
+RedirectMatch 403 ^/(app|data|migrations|tools|scripts|tests|src|node_modules|under-construction|floralis-media-export|produse-media-din-csv[^/]*)(/|$)
+<FilesMatch "(^\.|client_secret|backup.?code|\.sqlite|\.env|\.sql$|\.zip$|\.log$|\.json$|\.csv$|\.ps1$|\.py$|^(?!index\.php$).*\.php$)">
 Require all denied
 </FilesMatch>

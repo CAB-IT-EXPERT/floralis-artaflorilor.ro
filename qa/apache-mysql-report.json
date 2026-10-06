@@ -1,0 +1,16 @@
+{
+  "tested_at": "2026-10-06T10:21:27.672Z",
+  "apache": "2.4.69 Windows",
+  "php": "8.4.25",
+  "mariadb": "11.4.9",
+  "database": "disposable local QA databases",
+  "checks": [
+    "13 integration tests passed on MariaDB / PDO MySQL",
+    "Apache serves PHP API with 83 products and 12 categories",
+    "Apache rewrite supports storefront, category, product, admin and SEO routes",
+    "Private source, database and credential paths return 403/404 through Apache",
+    "Compiled JavaScript, real product photos and MP4 range requests work through Apache",
+    "Admin authentication works through Apache with PDO MySQL"
+  ],
+  "passed": true
+}

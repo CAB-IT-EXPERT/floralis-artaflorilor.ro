@@ -1,0 +1,13 @@
+{
+  "tested_at": "2026-10-06T09:52:26.261Z",
+  "mode": "Stripe sandbox",
+  "product_cents": 30000,
+  "discount_cents": 3000,
+  "shipping_cents": 2500,
+  "total_cents": 29500,
+  "checkout_total_verified": true,
+  "card_payment_confirmed_by_server": true,
+  "refund_confirmed_by_stripe": true,
+  "order_cancelled_after_refund": true,
+  "database": "isolated disposable QA database"
+}

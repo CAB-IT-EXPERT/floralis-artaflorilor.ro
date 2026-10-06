@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 function mailConfig(bool $private=false): array {
- $c=is_file(ROOT.'/data/email-private.json')?decoded(file_get_contents(ROOT.'/data/email-private.json')):[];
+ $c=is_file(env('EMAIL_CONFIG_FILE',ROOT.'/data/email-private.json'))?decoded(file_get_contents(env('EMAIL_CONFIG_FILE',ROOT.'/data/email-private.json'))):[];
  $c+=['enabled'=>0,'host'=>'','port'=>587,'security'=>'starttls','username'=>'','password'=>'','from_email'=>settingAll()['email']??'','from_name'=>'Floralis — arta florilor'];
  if(!$private){$c['password_set']=$c['password']!=='';unset($c['password']);}return $c;
 }
@@ -11,7 +11,7 @@ function saveMailConfig(array $a): void {
  $from=strtolower(text($a,'from_email',3,200));if(!filter_var($from,FILTER_VALIDATE_EMAIL))abortApi('Expeditor invalid.');
  $next=['enabled'=>$enabled,'host'=>$host,'port'=>integer($a['port']??587,1,65535),'security'=>enumValue($a['security']??'starttls',['starttls','ssl']),'username'=>text($a,'username',0,250),'password'=>text($a,'password',0,500)?:$c['password'],'from_email'=>$from,'from_name'=>text($a,'from_name',2,150)];
  if($enabled&&(!$host||!$next['username']||!$next['password']))abortApi('Completează hostul, utilizatorul și parola SMTP.');
- file_put_contents(ROOT.'/data/email-private.json',j($next),LOCK_EX);
+ file_put_contents(env('EMAIL_CONFIG_FILE',ROOT.'/data/email-private.json'),j($next),LOCK_EX);
 }
 function sendMailRow(array $row): void {
  $c=mailConfig(true);if(!$c['enabled']||!$c['host']||!function_exists('curl_init'))abortApi('Configurează și activează SMTP în admin.',503);

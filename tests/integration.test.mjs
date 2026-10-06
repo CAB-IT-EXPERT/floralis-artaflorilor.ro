@@ -6,7 +6,7 @@ import {join,resolve} from 'node:path';
 import {randomUUID,createHmac} from 'node:crypto';
 import {phpCommand,root} from '../scripts/php-runtime.mjs';
 const p=phpCommand(),folder=mkdtempSync(join(root,'data','floralis-test-'));
-const env={...process.env,DATABASE_PATH:join(folder,'test.sqlite'),ADMIN_EMAIL:'qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-password-2026',APP_URL:'http://127.0.0.1:5191',GOOGLE_LOCAL_CALLBACK_ENABLED:'0',STRIPE_ENABLED:'0',STRIPE_WEBHOOK_SECRET:'whsec_qa_fixture_secret',DB_DRIVER:process.env.TEST_DB_DRIVER||'sqlite'};
+const env={...process.env,DATABASE_PATH:join(folder,'test.sqlite'),RATE_LIMIT_PATH:join(folder,'rate-limits'),EMAIL_CONFIG_FILE:join(folder,'email-private.json'),ADMIN_EMAIL:'qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-password-2026',APP_URL:'http://127.0.0.1:5191',GOOGLE_LOCAL_CALLBACK_ENABLED:'0',SESSION_COOKIE:'floralis_integration_session',STRIPE_ENABLED:'0',STRIPE_WEBHOOK_SECRET:'whsec_qa_fixture_secret',DB_DRIVER:process.env.TEST_DB_DRIVER||'sqlite'};
 const base='http://127.0.0.1:5191';let server,logs='',sample,cat,created,order;const uploads=[];
 class Client{
  cookie='';csrf='';
@@ -157,5 +157,14 @@ test('category visibility, permanent product deletion and content editors remain
  assert.equal((await admin.request('/api/admin/products/'+created.id+'/permanent',{method:'DELETE'})).status,409);
  const about=(await admin.api('/admin/pages')).find(p=>p.slug==='despre-noi');await admin.api('/admin/pages/'+about.id,{method:'PUT',body:{...about,body:'Floralis — text actualizat din editorul paginii.'}});
  assert.equal((await guest.api('/bootstrap')).settings.story,'Floralis — text actualizat din editorul paginii.');
+ const unpriced=await admin.api('/admin/products',{method:'POST',body:{name:'Preț la cerere QA',slug:'pret-la-cerere-qa',price_cents:null,status:'publish'}});
+ const html=await guest.request('/produs/pret-la-cerere-qa',{raw:true});assert.equal(html.status,200);assert.match(html.data,/Preț la cerere/);
+ const jsonld=[...html.data.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(m=>JSON.parse(m[1]));assert.ok(!('offers' in jsonld.find(v=>v['@type']==='Product')));
+ await admin.api('/admin/products/'+unpriced.id+'/permanent',{method:'DELETE'});
+ await admin.api('/admin/pages',{method:'POST',body:{title:'Articol public QA',slug:'articol-public-qa',body:'Floralis — articol public de verificare.',type:'post',status:'publish',seo:{title:'Titlu SEO articol QA'}}});
+ const post=await guest.request('/blog/articol-public-qa',{raw:true});assert.equal(post.status,200);assert.match(post.data,/<title>Titlu SEO articol QA<\/title>/);
+ assert.match((await guest.request('/sitemap.xml',{raw:true})).data,/\/blog\/articol-public-qa/);
+ assert.equal((await guest.request('/categorie/categorie-care-nu-exista',{raw:true})).status,404);
+ assert.equal((await admin.request('/api/admin/settings',{method:'PUT',body:{phone:{invalid:true}}})).status,400);
  assert.equal((await guest.request('/api/admin/email/settings')).status,403);const config=await admin.api('/admin/email/settings');assert.ok(!('password' in config));assert.equal(config.enabled,0);
 });

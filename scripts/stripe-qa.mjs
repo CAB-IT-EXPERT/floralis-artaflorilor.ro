@@ -5,7 +5,7 @@ import {join} from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {phpCommand,root} from './php-runtime.mjs';
 const php=phpCommand(),folder=mkdtempSync(join(root,'data','floralis-test-'));
-const env={...process.env,DB_DRIVER:'sqlite',DATABASE_PATH:join(folder,'stripe-qa.sqlite'),ADMIN_EMAIL:'stripe-qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-stripe-2026',APP_URL:'http://localhost:5192',STRIPE_ENABLED:'1'};
+const env={...process.env,DB_DRIVER:'sqlite',DATABASE_PATH:join(folder,'stripe-qa.sqlite'),ADMIN_EMAIL:'stripe-qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-stripe-2026',APP_URL:'http://localhost:5192',SESSION_COOKIE:'floralis_stripe_qa_session',STRIPE_ENABLED:'1'};
 execFileSync(php.binary,[...php.args,'tools/seed.php'],{cwd:root,env});
 execFileSync(php.binary,[...php.args,'-r',`require 'app/bootstrap.php'; sql("UPDATE payment_methods SET enabled=1 WHERE code='card'"); sql('UPDATE shipping_methods SET price_cents=2500 WHERE id=1'); sql("INSERT INTO discounts(code,type,value) VALUES('QA10','percent',10)");`],{cwd:root,env});
 const child=spawn(php.binary,[...php.args,'-S','127.0.0.1:5192','router.php'],{cwd:root,env,stdio:'ignore'});
