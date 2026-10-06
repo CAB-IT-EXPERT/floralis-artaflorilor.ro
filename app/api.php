@@ -1,6 +1,7 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__.'/bootstrap.php';
+require_once __DIR__.'/google.php';
 header('Cache-Control: no-store');
 $method=$_SERVER['REQUEST_METHOD'];$route=substr(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),4);
 $input=json_decode(file_get_contents('php://input'),true)??[];
@@ -8,6 +9,7 @@ try {
  $raw=$_COOKIE['floralis_session']??'';$key=hash('sha256',$raw);$session=$raw?one('SELECT * FROM sessions WHERE token_hash=? AND expires_at>?',[$key,(int)(microtime(true)*1000)]):null;
  if(!$session){$raw=bin2hex(random_bytes(32));$key=hash('sha256',$raw);$session=['token_hash'=>$key,'user_id'=>null,'csrf'=>bin2hex(random_bytes(24)),'expires_at'=>(int)(microtime(true)*1000)+604800000];sql('INSERT INTO sessions VALUES(?,?,?,?)',[$key,null,$session['csrf'],$session['expires_at']]);setcookie('floralis_session',$raw,['expires'=>time()+604800,'path'=>'/','httponly'=>true,'samesite'=>'Lax','secure'=>!empty($_SERVER['HTTPS'])&&$_SERVER['HTTPS']!=='off']);}
  $user=$session['user_id']?one('SELECT * FROM users WHERE id=? AND active=1',[$session['user_id']]):null;
+ if($method==='GET'&&in_array($route,['/auth/google/start','/auth/google/callback']))googleRoute($route,$key);
  if($method!=='GET'){
   $origin=$_SERVER['HTTP_ORIGIN']??'';$host=$_SERVER['HTTP_HOST']??'';if($origin&&parse_url($origin,PHP_URL_HOST).(parse_url($origin,PHP_URL_PORT)?':'.parse_url($origin,PHP_URL_PORT):'')!==$host)abortApi('Origine nepermisă.',403);
   if(!hash_equals($session['csrf'],$_SERVER['HTTP_X_CSRF_TOKEN']??''))abortApi('Sesiunea formularului a expirat. Reîncarcă pagina.',403);
@@ -43,7 +45,7 @@ try {
   $sort=['price_asc'=>'p.price_cents ASC','price_desc'=>'p.price_cents DESC','name'=>'p.name COLLATE NOCASE ASC','newest'=>'p.id DESC','recommended'=>'p.featured DESC,p.id ASC'][$q['sort']??'']??'p.featured DESC,p.id ASC';$page=max(1,(int)($q['page']??1));$limit=min(100,max(1,(int)($q['limit']??12)));$where=implode(' AND ',$where);$total=one('SELECT COUNT(*) n FROM products p WHERE '.$where,$params)['n'];
   $items=all('SELECT p.* FROM products p WHERE '.$where.' ORDER BY '.$sort.' LIMIT '.(int)$limit.' OFFSET '.(int)(($page-1)*$limit),$params);return ['items'=>array_map('product',$items),'total'=>$total,'page'=>$page,'pages'=>(int)ceil($total/$limit)];
  }
- if($route==='/bootstrap'&&$method==='GET')respond(['csrf'=>$session['csrf'],'user'=>safeUser($user),'settings'=>settingAll(),'categories'=>categories(),'favorites'=>favoriteIds($user),'shipping'=>all('SELECT * FROM shipping_methods WHERE enabled=1'),'payments'=>all('SELECT * FROM payment_methods'),'reviews'=>all('SELECT name,rating,body FROM reviews WHERE approved=1 ORDER BY id DESC LIMIT 12')]);
+ if($route==='/bootstrap'&&$method==='GET')respond(['csrf'=>$session['csrf'],'user'=>safeUser($user),'google'=>googleStatus(),'settings'=>settingAll(),'categories'=>categories(),'favorites'=>favoriteIds($user),'shipping'=>all('SELECT * FROM shipping_methods WHERE enabled=1'),'payments'=>all('SELECT * FROM payment_methods'),'reviews'=>all('SELECT name,rating,body FROM reviews WHERE approved=1 ORDER BY id DESC LIMIT 12')]);
  if($route==='/categories')respond(categories());
  if($route==='/products'&&$method==='GET')respond(listProducts());
  if(preg_match('~^/products/([^/]+)$~',$route,$m)){$p=one("SELECT * FROM products WHERE slug=? AND status='publish'",[$m[1]]);if(!$p)abortApi('Produsul nu a fost găsit.',404);respond(product($p));}
