@@ -1,0 +1,123 @@
+{
+  "target": "/floralis-artaflorilor.ro",
+  "uploaded_at": "2026-10-06T20:12:09.736429+00:00",
+  "transport": "FTPS TLS verified as d108.dataserver.ro",
+  "setup_status": 200,
+  "setup_result": "Floralis seed: {\"products\":83,\"categories\":12}",
+  "api_status": 200,
+  "api_checks": {
+    "csrf": true,
+    "settings": true,
+    "categories": 12,
+    "shipping": 1,
+    "payments": 2
+  },
+  "files": [
+    {
+      "path": ".htaccess",
+      "bytes": 869,
+      "sha256": "c6ea0e4fffadbe0db622a1894b9a6aa4c27a5362cfaa2f134a9a8ea591d6aba6"
+    },
+    {
+      "path": "index.php",
+      "bytes": 10419,
+      "sha256": "219b93e868d43c0d37493f0b7d6aade82265e746b6734640face30787baaa5ee"
+    },
+    {
+      "path": "app/api.php",
+      "bytes": 58924,
+      "sha256": "61fe606e1aa933b2ae67dd89d53ad762557c12bb0d339d5b9a73daacc334dcd4"
+    },
+    {
+      "path": "app/bootstrap.php",
+      "bytes": 6564,
+      "sha256": "4ab34a58431ecf186dfe2570a16bbed81db818571d242c2f827703d29e1826a5"
+    },
+    {
+      "path": "app/email.php",
+      "bytes": 18674,
+      "sha256": "11b9cf40ecb99aa138e8f76f2aacd9a61e0bdd12bad60d8fc8d68c3d1faf4537"
+    },
+    {
+      "path": "app/google.php",
+      "bytes": 6527,
+      "sha256": "ac9d58557507a47bf8a6007dfca50eab2f96a763a488be5633fadba9056ca78d"
+    },
+    {
+      "path": "app/stripe.php",
+      "bytes": 14644,
+      "sha256": "1ce4899ee7f7d639aab016501660b771b8340c40abc3d725eff62f2ba34453ab"
+    },
+    {
+      "path": "migrations/mysql/001_initial.sql",
+      "bytes": 10317,
+      "sha256": "41658cd574d29ffdc77b28957326c25e64bc01e49906d86e283ea73e9d78df33"
+    },
+    {
+      "path": "migrations/mysql/002_google_oauth.sql",
+      "bytes": 642,
+      "sha256": "ede128395d858d78f54a1f7d52a0f8f19e503bec478edaa76428664e3a091925"
+    },
+    {
+      "path": "migrations/mysql/003_stripe.sql",
+      "bytes": 1479,
+      "sha256": "f078944a8e8a9f1a30ce8959d775d9052c8b69bb3d36e03a8f1a0d32ece5ddd5"
+    },
+    {
+      "path": "migrations/mysql/004_admin_features.sql",
+      "bytes": 333,
+      "sha256": "474f2f00ff962bff6fc1f611b1b768db3506d6fe9b95e4acfd4ab563421745ee"
+    },
+    {
+      "path": "migrations/mysql/005_recommended_products.sql",
+      "bytes": 136,
+      "sha256": "0d1047afd688b9e08f5a03949fbd81ab4c9c8f719c4645da4eb1e28aebf31972"
+    },
+    {
+      "path": "migrations/mysql/006_message_replies.sql",
+      "bytes": 500,
+      "sha256": "d5cc6ba26f5f949ed90e048622c4d9fc8945a03f60d42328685036d738abab42"
+    },
+    {
+      "path": "migrations/mysql/007_newsletter_announcements.sql",
+      "bytes": 751,
+      "sha256": "594b35fefa29b5b8395639622a9b3ef9c22f5fe3a3bf76a2eaa8757f4f2b9125"
+    },
+    {
+      "path": "migrations/mysql/008_checkout_identity.sql",
+      "bytes": 322,
+      "sha256": "24b3246e04008d0cd60e2fe31468a10152ff7fa74a7144a809d015c9e2898b13"
+    },
+    {
+      "path": "tools/seed.php",
+      "bytes": 8527,
+      "sha256": "83990743077ebd2e0c5594cc0d1d074e9abcd972ee4f04b282b96de0fba27e10"
+    },
+    {
+      "path": "data/floralis_catalog.json",
+      "bytes": 193043,
+      "sha256": "6d4605ca104415814ee1db7e58ecf0d4d6978f7bf0dfbe4bd0cc6ad1c8bc0980"
+    },
+    {
+      "path": "data/floralis_content.json",
+      "bytes": 9374,
+      "sha256": "72a98137e71d18e2c0b8477b7589c97586d2daac7f0bf5f2c161bf3fe9a9402f"
+    },
+    {
+      "path": "data/email-private.json",
+      "bytes": 356,
+      "sha256": "e7c2fd1b5a5549e681c08d8185c80a8d396d2eae26228fe5cb9348029c1ab6b1"
+    },
+    {
+      "path": ".env",
+      "bytes": 628,
+      "sha256": "cfa598a22609d7518aba339c0ced089a8dcc0c8538bc46b60e90beb1b0809cd8"
+    },
+    {
+      "path": "_floralis_setup_28ff9dced610775c.php",
+      "bytes": 246,
+      "sha256": "a5fbad55f9bda90efc8d806d441f1539ece7e29bc8da60b926dd36931c00bb8e"
+    }
+  ],
+  "backup": "qa/deployment-backups/20261006-231207-before-api"
+}
