@@ -43,6 +43,12 @@ function stripeQueue(string $entity,int $id,bool $now=true): void {
  try{if($entity==='product')stripeSyncProduct($id);else stripeSyncShipping($id);sql("UPDATE stripe_sync SET status='synced',error='',updated_at=datetime('now') WHERE entity=? AND local_id=?",[$entity,$id]);}
  catch(Throwable $e){sql("UPDATE stripe_sync SET status='error',error=?,updated_at=datetime('now') WHERE entity=? AND local_id=?",[substr($e->getMessage(),0,500),$entity,$id]);}
 }
+function stripeQueueRequired(string $entity,int $id): void {
+ stripeQueue($entity,$id);
+ if(!stripeConfigured())return;
+ $sync=one('SELECT status,error FROM stripe_sync WHERE entity=? AND local_id=?',[$entity,$id]);
+ if(!$sync||$sync['status']!=='synced')abortApi('Sincronizarea catalogului Stripe a eșuat. Modificarea locală a fost păstrată și trebuie reîncercată. '.substr((string)($sync['error']??''),0,240),502);
+}
 function stripeStatus(): array {return ['configured'=>stripeConfigured(),'mode'=>'test','webhook_configured'=>str_starts_with(env('STRIPE_WEBHOOK_SECRET'),'whsec_'),'synced'=>one("SELECT COUNT(*) n FROM stripe_sync WHERE status='synced'")['n'],'pending'=>all("SELECT entity,local_id,status,error FROM stripe_sync WHERE status!='synced' ORDER BY updated_at LIMIT 100")];}
 function stripeCheckoutPayload(array $o,array $items,string $email,?string $couponId=null): array {
  $base=rtrim(env('APP_URL','http://localhost:5173'),'/');$target=$base.'/comanda/'.$o['number'].'?token='.$o['access_token'];
