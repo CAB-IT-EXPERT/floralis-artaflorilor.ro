@@ -12,6 +12,8 @@ import './storefront-chrome.css';
 import './collections.css';
 import './decor-home.css';
 import './product-cards.css';
+import './story-home.css';
+import './home-sections.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-500.css';
 import '@fontsource/cormorant-garamond/latin-400-italic.css';

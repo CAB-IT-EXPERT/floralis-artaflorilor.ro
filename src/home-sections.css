@@ -1,0 +1,135 @@
+.occasions {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: 88px;
+  padding-bottom: 100px;
+  background:
+    radial-gradient(circle at 7% 12%,rgba(224,191,161,.2),transparent 25%),
+    radial-gradient(circle at 93% 84%,rgba(194,157,74,.1),transparent 27%),
+    linear-gradient(135deg,#faf7f2,#fffdfb 55%,#f8f2e9);
+}
+.occasion-bloom,.why-bloom { position: absolute; z-index: -1; border: 1px solid rgba(169,128,38,.11); border-radius: 50%; pointer-events: none; }
+.occasion-bloom::after,.why-bloom::after { content: ''; position: absolute; inset: 14px; border: 1px solid rgba(169,128,38,.07); border-radius: inherit; }
+.occasion-bloom-one { width: 350px; height: 350px; top: -230px; left: -120px; }
+.occasion-bloom-two { width: 270px; height: 270px; right: -90px; bottom: -160px; }
+.occasions>.occasion-heading { position: relative; display: block; max-width: 1120px; margin: 0 auto 50px; text-align: center; }
+.occasions>.occasion-heading::after { content: ''; display: block; width: 76px; height: 1px; margin: 22px auto 0; background: linear-gradient(90deg,transparent,#ac842e,transparent); transform-origin: center; }
+.occasion-heading h2 { margin: 12px 0 13px; font-size: clamp(35px,3.15vw,52px); }
+.occasion-heading h2 em { color: #a67d27; background: linear-gradient(105deg,#956b17 18%,#d5b564 42%,#956b17 68%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.occasion-heading p { max-width: 560px; margin: auto; color: #786d62; font: 18px/1.55 var(--serif); }
+.occasions>.occasion-grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: clamp(14px,1.8vw,28px); }
+.occasions>.occasion-grid>.occasion-card {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 365px;
+  border: 1px solid rgba(162,122,33,.18);
+  border-radius: 150px 150px 26px 26px;
+  background: #ddd4ca;
+  box-shadow: 0 18px 45px rgba(69,49,25,.1);
+  padding: 0;
+  border-bottom: 1px solid rgba(162,122,33,.18);
+  color: #fff;
+  font-family: inherit;
+  font-size: inherit;
+  transform: translateY(0);
+  transition: transform .55s cubic-bezier(.2,.75,.25,1),box-shadow .55s ease,border-color .4s ease;
+}
+.occasion-card::before { content: ''; position: absolute; z-index: 2; inset: 8px; border: 1px solid rgba(255,255,255,.48); border-radius: 144px 144px 20px 20px; pointer-events: none; }
+.occasion-card::after { content: ''; position: absolute; z-index: 3; width: 85%; height: 140%; top: -25%; left: -125%; background: linear-gradient(100deg,transparent,rgba(255,255,255,.22),transparent); transform: rotate(9deg); transition: left .8s cubic-bezier(.2,.7,.25,1); pointer-events: none; }
+.occasion-card>img { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.82) contrast(.96); transition: transform .9s cubic-bezier(.2,.75,.25,1),filter .5s ease; }
+.occasion-card-shade { position: absolute; z-index: 1; inset: 0; background: linear-gradient(180deg,rgba(24,18,13,.04) 25%,rgba(27,19,12,.18) 52%,rgba(23,16,10,.88) 100%); }
+.occasion-number { position: absolute; z-index: 4; top: 29px; left: 31px; color: rgba(255,255,255,.9); font: 500 10px/1 var(--sans); letter-spacing: .22em; }
+.occasion-icon { position: absolute; z-index: 4; top: 21px; right: 25px; display: grid; place-items: center; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.42); border-radius: 50%; background: rgba(255,255,255,.13); backdrop-filter: blur(8px); }
+.occasion-copy { position: absolute; z-index: 4; right: 29px; bottom: 30px; left: 29px; text-align: left; }
+.occasion-copy small { display: block; margin-bottom: 8px; color: #e8cf97; font-size: 8px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.occasion-copy h3 { color: #fff; font-size: clamp(25px,2vw,32px); line-height: 1.02; text-shadow: 0 2px 16px rgba(0,0,0,.18); }
+.occasion-discover { display: flex; align-items: center; justify-content: space-between; max-height: 0; margin-top: 0; overflow: hidden; color: rgba(255,255,255,.88); font-size: 11px; letter-spacing: .08em; opacity: 0; transition: max-height .45s ease,margin .45s ease,opacity .35s ease; }
+.occasions>.occasion-grid>.occasion-card:hover { color: #fff; transform: translateY(-10px); border-color: rgba(162,122,33,.44); box-shadow: 0 28px 60px rgba(69,49,25,.19); }
+.occasion-card:hover::after { left: 145%; }
+.occasion-card:hover>img { transform: scale(1.075); filter: saturate(1) contrast(1); }
+.occasion-card:hover .occasion-discover { max-height: 30px; margin-top: 16px; opacity: 1; }
+.occasion-card:hover .occasion-icon { animation: occasion-icon-bloom .65s cubic-bezier(.2,.8,.25,1); }
+
+.why-floralis { position: relative; isolation: isolate; overflow: hidden; padding-top: 94px; padding-bottom: 104px; background: linear-gradient(180deg,#fff,#fcfaf6); }
+.why-floralis::before { content: 'FLORALIS'; position: absolute; z-index: -1; left: 50%; top: 49%; color: rgba(166,126,39,.035); font: 500 clamp(90px,13vw,220px)/1 var(--serif); letter-spacing: .08em; transform: translate(-50%,-50%); white-space: nowrap; }
+.why-bloom-one { width: 320px; height: 320px; top: -205px; right: -90px; }
+.why-bloom-two { width: 230px; height: 230px; left: -115px; bottom: -95px; }
+.why-floralis .section-heading { margin-bottom: 48px; }
+.why-floralis .section-heading h2 { font-size: clamp(40px,3.6vw,58px); }
+.why-floralis .values { gap: clamp(18px,3vw,42px); max-width: 1240px; margin: 0 auto; }
+.why-floralis .values article { position: relative; isolation: isolate; overflow: hidden; min-height: 320px; padding: 48px 34px 38px; border: 1px solid rgba(164,124,35,.15); border-radius: 120px 120px 24px 24px; background: linear-gradient(155deg,rgba(255,255,255,.9),rgba(247,240,230,.78)); box-shadow: 0 18px 44px rgba(86,59,22,.07); transition: transform .5s cubic-bezier(.2,.75,.25,1),box-shadow .5s ease,border-color .4s ease; }
+.why-floralis .values article::before { content: ''; position: absolute; z-index: -1; width: 190px; height: 190px; left: 50%; top: 23px; border-radius: 50%; background: radial-gradient(circle,rgba(193,151,60,.12),transparent 68%); transform: translateX(-50%); transition: transform .6s ease; }
+.why-index { position: absolute; top: 27px; left: 31px; color: rgba(153,112,29,.58); font-size: 9px; font-weight: 600; letter-spacing: .2em; }
+.why-icon { position: relative; display: grid; place-items: center; width: 82px; height: 82px; margin: 0 auto 30px; border: 1px solid rgba(169,128,38,.24); border-radius: 50%; color: #ad842d; background: rgba(255,255,255,.7); box-shadow: 0 10px 28px rgba(103,72,24,.08); }
+.why-icon i { position: absolute; inset: -8px; border: 1px dashed rgba(169,128,38,.26); border-radius: 50%; }
+.why-floralis .values .why-icon svg { width: 34px; height: 34px; margin: 0; overflow: visible; }
+.why-floralis .values h3 { margin: 0 0 15px; font-size: clamp(25px,2vw,31px); }
+.why-floralis .values p { max-width: 315px; margin: auto; color: #776c61; font-size: 13px; line-height: 1.75; }
+.why-line { display: block; width: 32px; height: 1px; margin: 24px auto 0; background: #b38a34; transition: width .45s ease; }
+.why-floralis .values article:hover { transform: translateY(-9px); border-color: rgba(164,124,35,.35); box-shadow: 0 28px 58px rgba(86,59,22,.13); }
+.why-floralis .values article:hover::before { transform: translateX(-50%) scale(1.18); }
+.why-floralis .values article:hover .why-line { width: 72px; }
+
+@media (prefers-reduced-motion:no-preference) {
+  .occasions.visible .occasion-heading .eyebrow { animation: occasion-heading-in .65s ease both; }
+  .occasions.visible .occasion-heading h2 { animation: occasion-heading-in .8s .08s cubic-bezier(.2,.75,.25,1) both; }
+  .occasions.visible .occasion-heading p { animation: occasion-heading-in .8s .18s cubic-bezier(.2,.75,.25,1) both; }
+  .occasions.visible .occasion-heading::after { animation: occasion-line-draw .85s .32s cubic-bezier(.2,.75,.25,1) both; }
+  .occasions.visible .occasion-heading h2 em { animation: occasion-gold-glow 4.5s .8s ease-in-out infinite; }
+  .occasions.visible .occasion-card { animation: occasion-card-in .8s cubic-bezier(.2,.75,.25,1) both; }
+  .occasions.visible .occasion-card:nth-child(2) { animation-delay: .1s; }
+  .occasions.visible .occasion-card:nth-child(3) { animation-delay: .2s; }
+  .occasions.visible .occasion-card:nth-child(4) { animation-delay: .3s; }
+  .occasion-bloom-one,.why-bloom-one { animation: section-orbit 17s linear infinite; }
+  .occasion-bloom-two,.why-bloom-two { animation: section-orbit-reverse 14s linear infinite; }
+  .why-floralis.visible .values article { animation: why-card-in .8s cubic-bezier(.2,.75,.25,1) both; }
+  .why-floralis.visible .values article:nth-child(2) { animation-delay: .12s; }
+  .why-floralis.visible .values article:nth-child(3) { animation-delay: .24s; }
+  .why-icon i { animation: section-orbit 10s linear infinite; }
+  .why-icon svg path,.why-icon svg polyline,.why-icon svg rect { stroke-dasharray: 130; stroke-dashoffset: 0; animation: why-icon-draw 5.4s ease-in-out infinite; }
+  .why-floralis .values article:nth-child(2) .why-icon svg path,.why-floralis .values article:nth-child(2) .why-icon svg polyline,.why-floralis .values article:nth-child(2) .why-icon svg rect { animation-delay: -1.8s; }
+  .why-floralis .values article:nth-child(3) .why-icon svg path,.why-floralis .values article:nth-child(3) .why-icon svg polyline,.why-floralis .values article:nth-child(3) .why-icon svg rect { animation-delay: -3.6s; }
+}
+@keyframes occasion-card-in { from { opacity: 0; transform: translateY(30px) scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes occasion-heading-in { from { opacity: 0; transform: translateY(18px); filter: blur(3px); } to { opacity: 1; transform: none; filter: none; } }
+@keyframes occasion-line-draw { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
+@keyframes occasion-gold-glow { 0%,55%,100% { background-position: 100% 50%; } 72% { background-position: 0 50%; } }
+@keyframes why-card-in { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes occasion-icon-bloom { 50% { transform: scale(1.14) rotate(7deg); box-shadow: 0 0 0 8px rgba(255,255,255,.08); } }
+@keyframes section-orbit { to { transform: rotate(360deg); } }
+@keyframes section-orbit-reverse { to { transform: rotate(-360deg); } }
+@keyframes why-icon-draw { 0%,55%,100% { stroke-dashoffset: 0; opacity: 1; } 68% { stroke-dashoffset: -130; opacity: .28; } 82%,99% { stroke-dashoffset: -260; opacity: 1; } }
+
+@media (max-width:1049px) {
+  .occasions>.occasion-grid { gap: 14px; }
+  .occasion-card { min-height: 310px; }
+  .occasion-copy { right: 21px; bottom: 24px; left: 21px; }
+  .why-floralis .values article { min-height: 300px; padding-right: 24px; padding-left: 24px; }
+}
+@media (min-width:768px) {
+  .occasion-heading h2 { white-space: nowrap; }
+}
+@media (max-width:767px) {
+  .occasions { padding: 64px 0 72px 20px; }
+  .occasions>.occasion-heading { margin: 0 20px 34px 0; padding: 0 10px; }
+  .occasion-heading h2 { max-width: 355px; margin-right: auto; margin-left: auto; font-size: 36px; line-height: 1.03; }
+  .occasion-heading p { font-size: 17px; }
+  .occasions>.occasion-grid { display: flex; gap: 14px; overflow-x: auto; padding: 4px 20px 18px 0; scroll-snap-type: x mandatory; scrollbar-width: none; }
+  .occasion-grid::-webkit-scrollbar { display: none; }
+  .occasion-card { flex: 0 0 78vw; min-height: 390px; border-radius: 155px 155px 25px 25px; scroll-snap-align: center; }
+  .occasion-card::before { border-radius: 149px 149px 19px 19px; }
+  .occasion-copy { right: 28px; bottom: 29px; left: 28px; }
+  .occasion-copy h3 { font-size: 31px; }
+  .occasion-discover { max-height: 30px; margin-top: 13px; opacity: 1; }
+  .why-floralis { padding: 68px 20px 78px; }
+  .why-floralis .section-heading { margin-bottom: 34px; }
+  .why-floralis .section-heading h2 { font-size: 39px; }
+  .why-floralis .values { display: grid; grid-template-columns: 1fr; gap: 18px; }
+  .why-floralis .values article { width: 100%; min-height: 0; padding: 35px 27px 31px; border-radius: 85px 85px 22px 22px; }
+  .why-icon { width: 72px; height: 72px; margin-bottom: 23px; }
+  .why-floralis .values h3 { font-size: 29px; }
+  .why-floralis .values p { font-size: 13px; }
+}
