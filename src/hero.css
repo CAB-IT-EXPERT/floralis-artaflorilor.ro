@@ -70,6 +70,9 @@
 .floralis-hero h1 em { display: block; font-size: 1.06em; line-height: 1; color: #a07b24; white-space: nowrap; }
 .floralis-hero-description { max-width: 31cqw; font: 400 clamp(14px, .96cqw, 18px)/1.3 Georgia, serif; color: #292929; }
 .floralis-hero-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -82,9 +85,56 @@
   background: linear-gradient(110deg, #a78431, #a17e2b 65%, #aa893a);
   color: #fffdf8;
   font: 400 clamp(16px, 1.04cqw, 20px)/1.1 var(--serif);
+  box-shadow: 0 7px 18px rgba(119, 84, 19, .16);
+  transition: transform .32s cubic-bezier(.2,.75,.3,1), box-shadow .32s ease, border-color .32s ease;
 }
-.floralis-hero-button svg { width: clamp(18px, 1.15cqw, 22px); min-width: 18px; height: auto; stroke-width: 1.15; }
-.floralis-hero-button:hover { background: #927024; color: white; transform: translateY(-2px); }
+.floralis-hero-button::before,
+.floralis-hero-button::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+}
+.floralis-hero-button::before {
+  z-index: 0;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(110deg, #927024, #ae8a37 54%, #947122);
+  transform: translateX(-102%);
+  transition: transform .5s cubic-bezier(.2,.75,.25,1);
+}
+.floralis-hero-button::after {
+  z-index: 1;
+  top: -55%;
+  bottom: -55%;
+  left: -32%;
+  width: 18%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  transform: skewX(-20deg);
+  transition: left .68s cubic-bezier(.2,.7,.25,1);
+}
+.floralis-hero-button > span,
+.floralis-hero-button > svg { position: relative; z-index: 2; }
+.floralis-hero-button svg {
+  width: clamp(18px, 1.15cqw, 22px);
+  min-width: 18px;
+  height: auto;
+  stroke-width: 1.15;
+  transition: transform .35s cubic-bezier(.2,.75,.3,1);
+}
+.floralis-hero-button:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  border-color: #b89443;
+  box-shadow: 0 12px 28px rgba(119, 84, 19, .25);
+}
+.floralis-hero-button:hover::before { transform: translateX(0); }
+.floralis-hero-button:hover::after { left: 122%; }
+.floralis-hero-button:hover svg { transform: translateX(4px); }
+.floralis-hero-button:active { transform: translateY(0) scale(.985); }
+.floralis-hero-button:focus-visible {
+  outline: 2px solid #bb9546;
+  outline-offset: 4px;
+}
 .floralis-hero-benefits { display: flex; gap: clamp(24px, 2.2cqw, 42px); margin: clamp(22px, 2cqw, 38px) 0 0; padding: 0; list-style: none; }
 .floralis-hero-benefits li { display: flex; align-items: center; gap: 1.05cqw; }
 .floralis-hero-benefits svg { flex: 0 0 auto; width: clamp(24px, 1.65cqw, 32px); height: clamp(24px, 1.65cqw, 32px); color: #a47723; }
