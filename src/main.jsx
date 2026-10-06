@@ -9,6 +9,7 @@ import '@fontsource/inter/latin-ext-500.css';
 import '@fontsource/inter/latin-ext-600.css';
 import './styles.css';
 import './storefront-chrome.css';
+import './collections.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-500.css';
 import '@fontsource/cormorant-garamond/latin-400-italic.css';
