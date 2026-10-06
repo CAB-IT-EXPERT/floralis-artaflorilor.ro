@@ -1,11 +1,15 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
 import {parse} from 'csv-parse/sync';
 import sharp from 'sharp';
 import {decode} from 'html-entities';
+import ffmpegPath from 'ffmpeg-static';
 
 const root=process.cwd(), out=path.join(root,'public/assets/floralis');
+const runFile=promisify(execFile);
 await fs.mkdir(out,{recursive:true}); await fs.mkdir('data/source-images',{recursive:true});
 const plain=s=>decode(String(s??'').replace(/<[^>]*>/g,'')).trim();
 const slug=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -51,7 +55,16 @@ for(const m of manifest){const file=path.join('floralis-media-export',m.filename
 }}
 await fs.copyFile('floralis-media-export/00_branding/logo/logo-floralis.png',path.join(out,'logo.png'));
 await fs.copyFile('floralis-media-export/00_branding/favicon/cropped-frame-2225164381.png',path.join(out,'favicon.png'));
-await fs.copyFile('floralis-media-export/06_videos/hosted/video-floralis.mp4',path.join(out,'atelier.mp4'));
+for(const [source,name] of [
+ ['video-floralis.mp4','atelier.mp4'],
+ ['joined-video-264e5476c7344f10a87537d6c9f5d6d4.mp4','decor-poveste.mp4'],
+ ['img-1900.mp4','decor-atelier-1900.mp4'],
+ ['img-1908.mp4','decor-atelier-1908.mp4'],
+]) await runFile(ffmpegPath,[
+ '-loglevel','error','-y','-i',path.join('floralis-media-export/06_videos/hosted',source),
+ '-t','4','-vf','scale=720:-2:flags=lanczos,fps=30','-an','-c:v','libx264','-preset','fast','-crf','24',
+ '-pix_fmt','yuv420p','-movflags','+faststart','-map_metadata','-1',path.join(out,name),
+],{windowsHide:true,maxBuffer:10*1024*1024});
 const raw=await fs.readFile('floralis-texte-site.txt','utf8');
 const pageBlocks=[...raw.matchAll(/PAGINA: ([^\r\n]+)\r?\nURL: ([^\r\n]+)\r?\nTIP: ([^\r\n]+)\r?\n=+\r?\n([\s\S]*?)(?=\r?\n-{20,})/g)];
 const pages=pageBlocks.map(m=>({title:m[1],slug:new URL(m[2]).pathname.replace(/^\/+|\/+$/g,'')||'home',source_url:m[2],body:m[4].replace(/^(TITLE|H[1-6]|P|LI|TEXT|FORMULAR):\s*\r?\n/gm,'').trim()}));
