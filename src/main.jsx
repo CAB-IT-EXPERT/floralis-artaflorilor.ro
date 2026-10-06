@@ -28,6 +28,9 @@ import './about-page.css';
 import './decor-page.css';
 import './contact-premium.css';
 import './account-premium.css';
+import './info-pages.css';
+import './blog-premium.css';
+import './whatsapp.css';
 import '@fontsource/cormorant-garamond/latin-400.css';
 import '@fontsource/cormorant-garamond/latin-500.css';
 import '@fontsource/cormorant-garamond/latin-400-italic.css';
@@ -35,10 +38,10 @@ import '@fontsource/inter/latin-400.css';
 import '@fontsource/inter/latin-500.css';
 import '@fontsource/inter/latin-600.css';
 import {StoreProvider,useStore} from './context';
-import {Header,Footer,CartDrawer,RevealObserver} from './components';
+import {Header,Footer,CartDrawer,RevealObserver,WhatsAppButton} from './components';
 import Home from './Home';
 const Pages=lazy(()=>import('./Pages'));
 const Admin=lazy(()=>import('./Admin'));
 function PageTitle(){const loc=useLocation(),s=useStore();useEffect(()=>{const root=document.getElementById('root');const update=()=>{const heading=root.querySelector('h1')?.innerText?.replace(/\s+/g,' ').trim();document.title=loc.pathname==='/'?(s.data?.settings?.seo_title||'Floralis — arta florilor'):heading?heading+' · Floralis':'Floralis — arta florilor';};update();const observer=new MutationObserver(update);observer.observe(root,{childList:true,subtree:true});return()=>observer.disconnect();},[loc.pathname,s.data]);return null;}
-function App(){const loc=useLocation(),s=useStore();const admin=loc.pathname.startsWith('/admin');return <><RevealObserver/>{admin?<Suspense fallback={<div className="loading">Se încarcă atelierul…</div>}><Admin/></Suspense>:<div className="storefront"><Header/><main><Routes><Route path="/" element={<Home/>}/><Route path="*" element={<Suspense fallback={<div className="loading">Se încarcă…</div>}><Pages/></Suspense>}/></Routes></main><Footer/><CartDrawer/></div>}{!s.data&&<div className="loading">Pregătim florile pentru tine…</div>}</>;}
+function App(){const loc=useLocation(),s=useStore();const admin=loc.pathname.startsWith('/admin');return <><RevealObserver/>{admin?<Suspense fallback={<div className="loading">Se încarcă atelierul…</div>}><Admin/></Suspense>:<div className="storefront"><Header/><main><Routes><Route path="/" element={<Home/>}/><Route path="*" element={<Suspense fallback={<div className="loading">Se încarcă…</div>}><Pages/></Suspense>}/></Routes></main><Footer/><CartDrawer/><WhatsAppButton/></div>}{!s.data&&<div className="loading">Pregătim florile pentru tine…</div>}</>;}
 createRoot(document.getElementById('root')).render(<BrowserRouter><StoreProvider><PageTitle/><App/></StoreProvider></BrowserRouter>);
