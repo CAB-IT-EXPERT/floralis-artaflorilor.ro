@@ -1,0 +1,137 @@
+import {test,before,after} from 'node:test';
+import assert from 'node:assert/strict';
+import {execFileSync,spawn} from 'node:child_process';
+import {mkdtempSync,rmSync,readFileSync,existsSync} from 'node:fs';
+import {join,resolve} from 'node:path';
+import {randomUUID} from 'node:crypto';
+import {phpCommand,root} from '../scripts/php-runtime.mjs';
+const p=phpCommand(),folder=mkdtempSync(join(root,'data','floralis-test-'));
+const env={...process.env,DATABASE_PATH:join(folder,'test.sqlite'),ADMIN_EMAIL:'qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-password-2026',APP_URL:'http://127.0.0.1:5191',GOOGLE_LOCAL_CALLBACK_ENABLED:'0'};
+const base='http://127.0.0.1:5191';let server,logs='',sample,cat,created,order;const uploads=[];
+class Client{
+ cookie='';csrf='';
+ async request(path,{method='GET',body,raw=false,csrf=true,origin}={}){
+  const headers={Cookie:this.cookie};if(body&&!(body instanceof FormData))headers['Content-Type']='application/json';if(csrf)headers['X-CSRF-Token']=this.csrf;if(origin)headers.Origin=origin;
+  const r=await fetch(base+path,{method,headers,body:body===undefined?undefined:body instanceof FormData?body:JSON.stringify(body),redirect:'manual'});
+  const cookie=r.headers.get('set-cookie');if(cookie)this.cookie=cookie.split(';')[0];
+  const data=raw?await r.text():await r.json();if(data.csrf)this.csrf=data.csrf;
+  return {status:r.status,data,headers:r.headers};
+ }
+ async api(path,opts){const r=await this.request('/api'+path,opts);assert.ok(r.status<300,`${path}: ${r.status} ${JSON.stringify(r.data)} ${logs.slice(-1000)}`);return r.data;}
+}
+const admin=new Client(),customer=new Client(),guest=new Client();
+before(async()=>{
+ const first=execFileSync(p.binary,[...p.args,'tools/seed.php'],{cwd:root,env,encoding:'utf8'});
+ assert.equal(execFileSync(p.binary,[...p.args,'tools/seed.php'],{cwd:root,env,encoding:'utf8'}),first);
+ server=spawn(p.binary,[...p.args,'-S','127.0.0.1:5191','router.php'],{cwd:root,env});server.stderr.on('data',b=>logs+=b);
+ for(let i=0;i<50;i++){try{await admin.api('/bootstrap');break;}catch(e){if(i===49)throw e;await new Promise(r=>setTimeout(r,100));}}
+ await admin.api('/auth/login',{method:'POST',body:{email:env.ADMIN_EMAIL,password:env.ADMIN_PASSWORD,admin:true}});
+ await customer.api('/bootstrap');await guest.api('/bootstrap');
+ sample=(await guest.api('/products?limit=100')).items[0];cat=(await admin.api('/admin/categories'))[0];
+});
+after(async()=>{
+ if(server){server.kill();await new Promise(r=>server.once('exit',r));}
+ for(const name of uploads){const file=resolve(root,'public',name.slice(1));if(file.startsWith(resolve(root,'public','uploads')+'\\')||file.startsWith(resolve(root,'public','uploads')+'/'))rmSync(file,{force:true});}
+ if(resolve(folder).startsWith(resolve(root,'data')+ '\\')||resolve(folder).startsWith(resolve(root,'data')+'/'))rmSync(folder,{recursive:true,force:true});
+});
+test('catalog import is complete, idempotent and local',async()=>{
+ const list=await guest.api('/products?limit=100');assert.equal(list.total,83);assert.equal((await guest.api('/categories')).length,12);
+ for(const x of list.items){assert.equal(x.stock,null);assert.equal(x.manage_stock,0);assert.ok(x.images.length);for(const i of x.images)assert.ok(existsSync(join(root,'public',i.url)));}
+ const boot=await guest.api('/bootstrap');assert.equal(boot.google.enabled,false);assert.ok(boot.payments.find(p=>p.code==='card').enabled===0);
+});
+test('private files, roles, CSRF and cross-origin mutations are protected',async()=>{
+ for(const path of ['/.env','/data/google-client.json','/data/source-catalog.json','/tools/seed.php','/app/bootstrap.php','/package.json'])assert.equal((await guest.request(path,{raw:true})).status,404,path);
+ assert.equal((await guest.request('/api/admin/dashboard')).status,401);
+ assert.equal((await guest.request('/api/cart/'+sample.id,{method:'PUT',body:{quantity:1},csrf:false})).status,403);
+ assert.equal((await guest.request('/api/cart/'+sample.id,{method:'PUT',body:{quantity:1},origin:'https://example.com'})).status,403);
+});
+test('customer registration preserves cart, favorite/profile/address state and isolates admin',async()=>{
+ await customer.api('/cart/'+sample.id,{method:'PUT',body:{quantity:1}});const old=customer.cookie;
+ const r=await customer.api('/auth/register',{method:'POST',body:{name:'Client QA',email:'client-qa@example.test',password:'Floralis-customer-2026'}});assert.equal(r.user.role,'customer');assert.notEqual(customer.cookie,old);
+ assert.equal((await customer.api('/cart')).items.length,1);
+ assert.equal((await customer.request('/api/admin/products')).status,403);
+ await customer.api('/account/profile',{method:'PATCH',body:{name:'Client QA nou',phone:'0720000000'}});
+ await customer.api('/account/favorites',{method:'PUT',body:{ids:[sample.id]}});
+ await customer.api('/account/addresses',{method:'POST',body:{name:'Client QA',phone:'0720000000',street:'Strada Test 10',city:'Tunari',county:'Ilfov',postal_code:'077180'}});
+ const a=await customer.api('/account');assert.equal(a.user.name,'Client QA nou');assert.equal(a.addresses.length,1);assert.deepEqual(a.favorites,[sample.id]);
+});
+test('admin product CRUD, duplicate, archive and category hierarchy update storefront',async()=>{
+ created=await admin.api('/admin/products',{method:'POST',body:{name:'Produs QA',slug:'produs-qa',sku:'QA-1',status:'publish',price_cents:10000,regular_price_cents:10000,sale_price_cents:null,stock:5,manage_stock:1,stock_status:'instock',categories:[cat.id],images:[{url:sample.images[0].url,alt:'Imagine QA'}],seo:{title:'Titlu produs QA',description:'Descriere SEO QA'}}});
+ assert.equal((await guest.api('/products/produs-qa')).price_cents,10000);
+ created=await admin.api('/admin/products/'+created.id,{method:'PUT',body:{...created,name:'Produs QA editat',price_cents:12000,regular_price_cents:12000,categories:[cat.id]}});
+ assert.equal((await guest.api('/products/produs-qa')).name,'Produs QA editat');
+ const copy=await admin.api('/admin/products/'+created.id+'/duplicate',{method:'POST'});assert.equal(copy.status,'draft');assert.equal((await guest.request('/api/products/'+copy.slug)).status,404);
+ await admin.api('/admin/products/'+copy.id,{method:'DELETE'});
+ await admin.api('/admin/categories',{method:'POST',body:{name:'Colecție QA',slug:'colectie-qa',parent_id:cat.id}});
+ const child=(await admin.api('/admin/categories')).find(c=>c.slug==='colectie-qa');
+ assert.equal((await admin.request('/api/admin/categories/'+cat.id,{method:'PUT',body:{...cat,parent_id:child.id}})).status,400);
+ await admin.api('/admin/categories/'+child.id,{method:'DELETE'});
+ assert.equal((await admin.request('/api/admin/categories/'+cat.id,{method:'DELETE'})).status,409);
+});
+test('checkout uses server prices, coupons, shipping, stock and idempotency',async()=>{
+ await admin.api('/admin/discounts',{method:'POST',body:{code:'QA10',type:'percent',value:10,min_cents:0,max_uses:1,active:1}});
+ await guest.api('/cart/'+created.id,{method:'PUT',body:{quantity:2}});
+ const ship=(await guest.api('/bootstrap')).shipping[0].id;
+ const body={email:'guest-qa@example.test',address:{name:'Oaspete QA',phone:'0720000000',street:'Strada Test 10',city:'Tunari',county:'Ilfov'},shipping_id:ship,payment_method:'cod',coupon:'QA10',consent:true,idempotency_key:randomUUID(),total_cents:1};
+ const quote=await guest.api('/checkout/quote',{method:'POST',body});assert.equal(quote.total_cents,21600);
+ assert.equal((await guest.request('/api/orders',{method:'POST',body:{...body,payment_method:'card'}})).status,400);
+ order=await guest.api('/orders',{method:'POST',body});assert.equal(order.total_cents,21600);
+ assert.equal((await guest.api('/orders',{method:'POST',body})).id,order.id);
+ assert.equal((await guest.api('/cart')).items.length,0);assert.equal((await admin.api('/admin/products/'+created.id)).stock,3);
+ assert.equal((await customer.request('/api/orders/'+order.number)).status,404);
+ assert.equal((await guest.api('/orders/'+order.number+'?token='+order.token)).items[0].price_cents,12000);
+ await guest.api('/cart/'+created.id,{method:'PUT',body:{quantity:1}});
+ assert.equal((await guest.request('/api/checkout/quote',{method:'POST',body})).status,400);
+ assert.equal((await guest.request('/api/cart/'+created.id,{method:'PUT',body:{quantity:4}})).status,400);
+});
+test('admin order status, payment, notes, history, cancel restoration and customer history',async()=>{
+ await admin.api('/admin/orders/'+order.id,{method:'PATCH',body:{status:'confirmed',payment_status:'paid',admin_notes:'Confirmare QA'}});
+ const detail=await admin.api('/admin/orders/'+order.id);assert.equal(detail.payment_status,'paid');assert.equal(detail.history.length,2);
+ await admin.api('/admin/orders/'+order.id,{method:'PATCH',body:{status:'cancelled',payment_status:'refunded',admin_notes:'Anulare QA'}});
+ assert.equal((await admin.api('/admin/products/'+created.id)).stock,5);
+ await admin.api('/admin/orders/'+order.id,{method:'PATCH',body:{status:'cancelled',payment_status:'refunded',admin_notes:'Anulare QA'}});
+ assert.equal((await admin.api('/admin/products/'+created.id)).stock,5);
+ assert.equal((await admin.request('/api/admin/orders/'+order.id,{method:'PATCH',body:{status:'received',payment_status:'unpaid'}})).status,409);
+ const customers=await admin.api('/admin/customers');assert.ok(customers.some(c=>c.email==='guest-qa@example.test'));
+ assert.equal((await admin.api('/admin/dashboard')).stats.orders,0);
+});
+test('stock adjustments, CMS, SEO, shipping and payment settings are connected',async()=>{
+ await admin.api('/admin/stock/'+created.id,{method:'POST',body:{stock:0,reason:'Inventar QA'}});
+ assert.equal((await guest.api('/products/produs-qa')).stock_status,'outofstock');assert.ok((await admin.api('/admin/stock')).history.length>=3);
+ await admin.api('/admin/settings',{method:'PUT',body:{hero_title:'Titlu QA',newsletter_title:'Newsletter QA'}});
+ assert.equal((await guest.api('/bootstrap')).settings.hero_title,'Titlu QA');
+ await admin.api('/admin/pages',{method:'POST',body:{slug:'pagina-qa',title:'Pagina QA',body:'Conținut QA real editabil.',type:'page',status:'publish',seo:{title:'SEO QA'}}});
+ assert.equal((await guest.api('/pages/pagina-qa')).title,'Pagina QA');
+ const html=(await guest.request('/pagina-qa',{raw:true})).data;assert.ok(html.includes('<title>SEO QA</title>'));assert.ok(html.includes('Conținut QA real editabil.'));
+ const seo=(await guest.request('/produs/produs-qa',{raw:true})).data;assert.ok(seo.includes('Titlu produs QA'));assert.ok(seo.includes('application/ld+json'));assert.ok(seo.includes('OutOfStock'));
+ await admin.api('/admin/shipping',{method:'POST',body:{name:'Livrare QA',price_cents:2500,zones:'Ilfov',enabled:1}});
+ assert.ok((await guest.api('/bootstrap')).shipping.some(s=>s.name==='Livrare QA'));
+ await admin.api('/admin/payments/cod',{method:'PUT',body:{enabled:0}});assert.equal((await guest.api('/bootstrap')).payments.find(p=>p.code==='cod').enabled,0);
+ assert.equal((await admin.request('/api/admin/payments/card',{method:'PUT',body:{enabled:1}})).status,400);
+});
+test('contact, newsletter, reviews moderation and CSV export use actual persisted data',async()=>{
+ await guest.api('/contact',{method:'POST',body:{name:'Contact QA',email:'contact@example.test',subject:'Decor floral',body:'Doresc informații despre decor floral.',consent:true}});
+ await guest.api('/newsletter',{method:'POST',body:{email:'newsletter@example.test',consent:true}});
+ await customer.api('/account/reviews',{method:'POST',body:{product_id:sample.id,rating:5,body:'Recenzie QA pentru moderare.'}});
+ assert.equal((await guest.api('/bootstrap')).reviews.length,0);
+ const review=(await admin.api('/admin/reviews'))[0];await admin.api('/admin/reviews/'+review.id,{method:'PATCH',body:{approved:1}});
+ assert.equal((await guest.api('/bootstrap')).reviews.length,1);assert.equal((await admin.api('/admin/messages')).length,1);
+ const exported=await admin.request('/api/admin/export/newsletter',{raw:true});assert.ok(exported.data.includes('newsletter@example.test'));assert.ok(!exported.data.includes('password'));
+});
+test('uploads validate actual content, re-encode images and protect imported originals',async()=>{
+ const bad=new FormData();bad.set('file',new Blob(['<svg/>'],{type:'image/svg+xml'}),'bad.svg');assert.equal((await admin.request('/api/admin/media',{method:'POST',body:bad})).status,400);
+ const form=new FormData();form.set('file',new Blob([readFileSync(join(root,'public/assets/floralis/logo.png'))],{type:'image/png'}),'qa.png');form.set('alt','Logo QA');
+ const uploaded=await admin.api('/admin/media',{method:'POST',body:form});uploads.push(uploaded.url);assert.ok(uploaded.url.endsWith('.webp'));
+ const list=await admin.api('/admin/media');const u=list.find(m=>m.url===uploaded.url);await admin.api('/admin/media/'+u.id,{method:'PATCH',body:{alt:'Alt QA editat'}});
+ assert.equal((await admin.request('/api/admin/media/'+list.find(m=>!m.uploaded).id,{method:'DELETE'})).status,400);
+ await admin.api('/admin/media/'+u.id,{method:'DELETE'});
+});
+test('password reset invalidates old sessions and is single-use',async()=>{
+ await guest.api('/auth/forgot',{method:'POST',body:{email:'client-qa@example.test'}});
+ const message=(await admin.api('/admin/outbox')).find(m=>m.subject.includes('Resetare'));const token=new URL(message.body).searchParams.get('token');
+ await guest.api('/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}});
+ assert.equal((await customer.request('/api/account')).status,401);
+ assert.equal((await guest.request('/api/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}})).status,400);
+ await guest.api('/auth/login',{method:'POST',body:{email:'client-qa@example.test',password:'QA-new-password-2026'}});
+ assert.equal((await guest.api('/account')).user.role,'customer');
+});
