@@ -185,7 +185,13 @@ try {
   sql('INSERT INTO message_replies(message_id,outbox_id,subject,body) VALUES(?,?,?,?)',[$message['id'],$outboxId,$subject,$body]);sql("UPDATE messages SET status='resolved' WHERE id=?",[$message['id']]);respond(['ok'=>true,'delivery'=>one('SELECT status,error FROM outbox WHERE id=?',[$outboxId])]);
  }
  if(preg_match('~^/admin/messages/(\d+)$~',$route,$m)&&$method==='GET'){$message=one('SELECT m.*,(SELECT COUNT(*) FROM message_replies r WHERE r.message_id=m.id) reply_count FROM messages m WHERE m.id=?',[$m[1]]);if(!$message)abortApi('Mesaj inexistent.',404);$message['replies']=all('SELECT r.*,o.status delivery_status,o.error FROM message_replies r LEFT JOIN outbox o ON o.id=r.outbox_id WHERE r.message_id=? ORDER BY r.id',[$message['id']]);respond($message);}
- if(preg_match('~^/admin/(newsletter|reviews|outbox)$~',$route,$m)&&$method==='GET')respond(all('SELECT * FROM '.$m[1].' ORDER BY id DESC LIMIT 1000'));
+ if($route==='/admin/newsletter'&&$method==='GET'){
+  $query=substr(trim((string)($_GET['q']??'')),0,150);$rows=all('SELECT * FROM newsletter ORDER BY id DESC');$filtered=array_values(array_filter($rows,fn($subscriber)=>smartSearchMatch($subscriber['email'],$query)));
+  $total=count($filtered);$limit=min(50,max(5,(int)($_GET['limit']??10)));$page=max(1,(int)($_GET['page']??1));$pages=max(1,(int)ceil($total/$limit));$page=min($page,$pages);$now=time();$today=date('Y-m-d');
+  $counts=['total'=>count($rows),'recent'=>count(array_filter($rows,fn($subscriber)=>strtotime($subscriber['consent_at'])>=$now-30*86400)),'today'=>count(array_filter($rows,fn($subscriber)=>str_starts_with($subscriber['consent_at'],$today)))];
+  respond(['items'=>array_slice($filtered,($page-1)*$limit,$limit),'total'=>$total,'page'=>$page,'pages'=>$pages,'counts'=>$counts]);
+ }
+ if(preg_match('~^/admin/(reviews|outbox)$~',$route,$m)&&$method==='GET')respond(all('SELECT * FROM '.$m[1].' ORDER BY id DESC LIMIT 1000'));
  if(preg_match('~^/admin/messages/(\d+)$~',$route,$m)&&$method==='PATCH'){sql('UPDATE messages SET status=? WHERE id=?',[enumValue($input['status']??'',['new','read','resolved']),$m[1]]);respond(['ok'=>true]);}
  if(preg_match('~^/admin/reviews/(\d+)$~',$route,$m)&&$method==='PATCH'){sql('UPDATE reviews SET approved=? WHERE id=?',[integer($input['approved']??0,0,1),$m[1]]);if(isset($input['reply']))sql("UPDATE reviews SET reply=?,replied_at=datetime('now') WHERE id=?",[text($input,'reply',0,3000),$m[1]]);respond(['ok'=>true]);}
  if(preg_match('~^/admin/reviews/(\d+)$~',$route,$m)&&$method==='DELETE'){sql('DELETE FROM reviews WHERE id=?',[$m[1]]);respond(['ok'=>true]);}

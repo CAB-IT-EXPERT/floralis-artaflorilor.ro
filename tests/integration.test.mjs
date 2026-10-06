@@ -37,6 +37,7 @@ after(async()=>{
 test('catalog import is complete, idempotent and local',async()=>{
  const list=await guest.api('/products?limit=100');assert.equal(list.total,83);assert.equal((await guest.api('/categories')).length,12);
  for(const x of list.items){assert.equal(x.stock,null);assert.equal(x.manage_stock,0);assert.ok(x.images.length);for(const i of x.images)assert.ok(existsSync(join(root,'public',i.url)));}
+ const detail=await guest.api('/products/'+sample.slug+'?related=1');assert.equal(detail.related_products.length,4);assert.ok(detail.related_products.every(product=>product.id!==sample.id));assert.equal(new Set(detail.related_products.map(product=>product.id)).size,4);
  const boot=await guest.api('/bootstrap');assert.equal(boot.google.enabled,false);assert.ok(boot.payments.find(p=>p.code==='card').enabled===0);
 });
 test('private files, roles, CSRF and cross-origin mutations are protected',async()=>{
@@ -118,6 +119,10 @@ test('stock adjustments, CMS, SEO, shipping and payment settings are connected',
 test('contact, newsletter, reviews moderation and CSV export use actual persisted data',async()=>{
  await guest.api('/contact',{method:'POST',body:{name:'Contact QA',email:'contact@example.test',subject:'Decor floral',body:'Doresc informații despre decor floral.',consent:true}});
  await guest.api('/newsletter',{method:'POST',body:{email:'newsletter@example.test',consent:true}});
+ for(let index=0;index<11;index++)await guest.api('/newsletter',{method:'POST',body:{email:`subscriber${index}@example.test`,consent:true}});
+ const subscribers=await admin.api('/admin/newsletter?limit=5&page=2');assert.equal(subscribers.items.length,5);assert.equal(subscribers.pages,3);assert.equal(subscribers.counts.total,12);
+ const tolerantSubscriberSearch=await admin.api('/admin/newsletter?q=newslettr');assert.equal(tolerantSubscriberSearch.items[0].email,'newsletter@example.test');
+ await admin.api('/admin/newsletter/'+subscribers.items[0].id,{method:'DELETE'});assert.equal((await admin.api('/admin/newsletter')).counts.total,11);
  await customer.api('/account/reviews',{method:'POST',body:{product_id:sample.id,rating:5,body:'Recenzie QA pentru moderare.'}});
  assert.equal((await guest.api('/bootstrap')).reviews.length,0);
  const review=(await admin.api('/admin/reviews'))[0];await admin.api('/admin/reviews/'+review.id,{method:'PATCH',body:{approved:1}});
