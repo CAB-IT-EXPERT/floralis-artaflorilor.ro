@@ -1,15 +1,58 @@
-import React,{useEffect,useState} from 'react';
+import React,{useEffect,useRef,useState} from 'react';
 import {Link} from 'react-router-dom';
-import {ArrowRight,Leaf,Heart,Diamond,Star,Quote} from 'lucide-react';
+import {ArrowRight,ChevronLeft,ChevronRight,Leaf,Heart,Diamond,Star,Quote} from 'lucide-react';
 import {useStore} from './context';
 import {api} from './api';
 import {Image,SectionHeading,ProductCard,Newsletter} from './components';
 import Hero from './Hero';
+const decorVideos=[
+ {src:'/assets/floralis/atelier.mp4',eyebrow:'CEREMONII ÎN AER LIBER',title:'Flori care deschid povestea'},
+ {src:'/assets/floralis/decor-poveste.mp4',eyebrow:'ELEGANȚĂ LA FIECARE MASĂ',title:'Atmosferă creată în detaliu'},
+ {src:'/assets/floralis/decor-atelier-1900.mp4',eyebrow:'DIN CULISELE FLORALIS',title:'Fiecare gest, așezat cu grijă'},
+ {src:'/assets/floralis/decor-atelier-1908.mp4',eyebrow:'MOMENTE GATA SĂ ÎNFLOREASCĂ',title:'Ultimele detalii înainte de emoție'},
+];
+function DecorVideoCarousel(){
+ const [active,setActive]=useState(0),refs=useRef([]),gesture=useRef(null);
+ const move=step=>setActive(current=>(current+step+decorVideos.length)%decorVideos.length);
+ const startGesture=event=>{
+  if(event.pointerType==='mouse'&&event.button!==0)return;
+  gesture.current={x:event.clientX,y:event.clientY};
+  event.currentTarget.setPointerCapture?.(event.pointerId);
+ };
+ const readGesture=event=>{
+  const start=gesture.current;
+  if(!start)return;
+  const deltaX=event.clientX-start.x,deltaY=event.clientY-start.y;
+  if(Math.abs(deltaX)>45&&Math.abs(deltaX)>Math.abs(deltaY)*1.15){
+   gesture.current=null;
+   move(deltaX<0?1:-1);
+  }
+ };
+ const endGesture=event=>{readGesture(event);gesture.current=null;};
+ useEffect(()=>{
+  refs.current.forEach((video,index)=>{
+   if(!video)return;
+   if(index===active){video.currentTime=0;video.play().catch(()=>{});}
+   else video.pause();
+  });
+  const timer=window.setTimeout(()=>move(1),4000);
+  return()=>window.clearTimeout(timer);
+ },[active]);
+ return <div className="decor-video-stage">
+  <span className="decor-video-orbit" aria-hidden="true"/>
+  <div className="decor-video-frame" onPointerDown={startGesture} onPointerMove={readGesture} onPointerUp={endGesture} onPointerCancel={()=>{gesture.current=null;}} aria-label="Carusel video Floralis. Glisează pentru a schimba videoclipul.">
+   {decorVideos.map((item,index)=><video key={item.src} ref={node=>refs.current[index]=node} className={index===active?'active':''} src={item.src} muted playsInline autoPlay={index===active} preload={index===active?'auto':'none'} aria-hidden={index!==active} onEnded={()=>index===active&&move(1)}/>)}
+   <div className="decor-video-veil"/><div className="decor-video-caption" aria-live="polite"><span>{decorVideos[active].eyebrow}</span><strong>{decorVideos[active].title}</strong></div><span className="decor-video-count">0{active+1}<i/>04</span>
+  </div>
+  <div className="decor-video-controls"><button type="button" onClick={()=>move(-1)} aria-label="Videoclipul anterior"><ChevronLeft/></button><div className="decor-video-dots">{decorVideos.map((item,index)=><button type="button" key={item.src} className={index===active?'active':''} onClick={()=>setActive(index)} aria-label={'Vezi videoclipul '+(index+1)} aria-current={index===active?'true':undefined}><span/></button>)}</div><button type="button" onClick={()=>move(1)} aria-label="Videoclipul următor"><ChevronRight/></button></div>
+  <small>IMAGINI REALE DIN EVENIMENTELE FLORALIS</small>
+ </div>;
+}
 export default function Home(){const s=useStore(),settings=s.data?.settings,[products,setProducts]=useState([]);useEffect(()=>{api('/products?limit=100').then(r=>setProducts(r.items)).catch(e=>s.notify(e.message,'error'));},[]);if(!settings)return null;const collections=settings.collection_slugs.map(slug=>s.data.categories.find(c=>c.slug===slug)).filter(Boolean),recommended=products.filter(p=>settings.recommended_skus.includes(p.sku)).slice(0,4),story=settings.story?.split('\n').filter(Boolean).find(x=>x.startsWith('Floralis'));
 return <><Hero/>
 <section className="collections-section section reveal"><SectionHeading eyebrow="DESCOPERĂ" title="Colecțiile noastre" link="/magazin" label="Vezi toate categoriile"/><div className="collections">{collections.map((c,i)=><Link key={c.id} to={'/categorie/'+c.slug} className={'collection-card collection-'+i}><div><h3>{c.name==='Nunta'?'Nuntă':c.name==='Craciun'?'Crăciun':c.name}</h3><p>{['Aranjamente de poveste','Purețe și delicatețe','Pentru orice ocazie','Detalii care fac diferența','Magia sărbătorilor'][i]}</p></div><Image src={c.image} alt={c.name}/><span className="collection-shine" aria-hidden="true"/><span className="round-arrow"><ArrowRight size={17}/></span></Link>)}</div></section>
 <section className="floral-banner reveal"><span className="eyebrow">FLORALIS</span><h2>Frumusețea naturală<br/><em>în fiecare detaliu</em></h2><i/></section>
-<section className="decor-home section reveal"><div className="decor-home-images"><Image src={settings.gallery[8]?.url||settings.gallery[0]?.url} alt="Decor floral pentru evenimente"/><Image className="decor-inset" src={settings.gallery[18]?.url||settings.gallery[1]?.url} alt="Detaliu dintr-un decor Floralis"/><span>DIN ATELIER, CU SUFLET</span></div><div className="editorial-copy"><span className="eyebrow">O POVESTE ÎNFLORITĂ</span><h2>Decor floral pentru<br/><em>momente memorabile.</em></h2><p>Transformăm momentele speciale în amintiri de neuitat. Botezuri, aniversări, evenimente corporate, cu atenție la detalii și flori proaspete.</p><p>Spune-ne povestea ta, noi o înflorim!</p><Link className="gold-button" to="/decor-floral">Descoperă serviciile<ArrowRight size={18}/></Link><Link className="text-link" to="/contact?subiect=Ofertă decor floral">Solicită ofertă</Link></div></section>
+<section className="decor-home section reveal"><span className="decor-home-bloom decor-home-bloom-one" aria-hidden="true"/><span className="decor-home-bloom decor-home-bloom-two" aria-hidden="true"/><DecorVideoCarousel/><div className="editorial-copy decor-home-copy"><span className="eyebrow">DECORURI CARE DEVIN AMINTIRI</span><h2>Un cadru înflorit pentru<br/><em>momentele care rămân.</em></h2><p className="decor-home-lead">Fiecare eveniment are o energie proprie. Noi o traducem în flori, texturi și lumină, într-un decor creat special pentru povestea, spațiul și oamenii tăi.</p><p>De la nunți și botezuri la aniversări sau întâlniri corporate, gândim conceptul, alegem florile și pregătim fiecare detaliu până la montajul final.</p><div className="decor-home-highlights"><span>Concept personalizat</span><span>Flori alese cu grijă</span><span>Montaj la locație</span></div><p className="decor-home-note">Tu aduci emoția. Noi construim atmosfera.</p><div className="decor-home-actions"><Link className="gold-button decor-primary-cta" to="/decor-floral">Descoperă decorurile<ArrowRight size={18}/></Link><Link className="decor-secondary-cta" to="/contact?subiect=Ofertă decor floral">Cere o propunere<ArrowRight size={17}/></Link></div></div></section>
 <section className="section reveal"><SectionHeading eyebrow="ALESE CU GRIJĂ" title="Un dar, o emoție, o poveste" link="/magazin" label="Descoperă magazinul"/><div className="product-grid">{recommended.map(p=><ProductCard key={p.id} p={p}/>)}</div></section>
 <section className="occasions section reveal"><span className="eyebrow">FIECARE MOMENT MERITĂ FLORI</span><h2>Pentru toate felurile de <em>„te iubesc”.</em></h2><div>{[['Aniversări','aranjamente-florale'],['Ziua nunții','nunta'],['Bun venit pe lume','botez'],['Un simplu „mulțumesc”','cadouri-accesorii']].map(([name,slug])=><Link to={'/categorie/'+slug} key={slug}>{name}<ArrowRight size={17}/></Link>)}</div></section>
 <section className="story section reveal"><div className="editorial-copy"><span className="eyebrow">POVESTEA NOASTRĂ</span><h2>Mai mult decât un atelier.<br/><em>Un loc pentru frumos.</em></h2><p>{story}</p><Link className="text-link" to="/despre-noi">Cunoaște-ne<ArrowRight size={18}/></Link><div className="story-number">2017<span>De atunci, înflorim povești.</span></div></div><Image src={settings.gallery[23]?.url||settings.gallery[0]?.url} alt="Creație florală din atelierul Floralis"/></section>
