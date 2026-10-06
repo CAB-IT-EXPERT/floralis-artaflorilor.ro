@@ -127,20 +127,21 @@
   .footer-nav-grid h3{min-height:0;margin-bottom:18px;font-size:10px;line-height:1.45;letter-spacing:.11em}
   .footer-nav-grid>div>a{width:auto;margin-bottom:13px;justify-content:center;font-size:13px;line-height:1.45}
   .footer-nav-grid a svg{display:none}
-  .footer-social{display:grid;margin:35px 0 16px;padding:24px 15px;text-align:center}
+  .footer-social{display:grid;grid-template-columns:minmax(0,1fr);margin:35px 0 16px;padding:24px 15px;justify-content:stretch;justify-items:center;text-align:center}
   .footer-social .eyebrow{font-size:9px}
   .footer-social h3{font-size:24px}
-  .footer-social-links{display:grid;grid-template-columns:1fr 1fr;width:100%}
+  .footer-social-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:min(100%,310px);margin-inline:auto;justify-self:center}
   .footer-social-links a{min-width:0;width:100%;height:54px;padding:0 13px;justify-content:center;font-size:12px}
   .footer-social-links a>svg:last-child{display:none}
-  .footer-trust{display:grid;padding:20px 13px;justify-items:center}
-  .footer-payments{width:100%;align-items:center}
+  .footer-trust{display:grid;grid-template-columns:minmax(0,1fr);padding:20px 13px;justify-content:stretch;justify-items:center}
+  .footer-payments{width:100%;align-items:center;justify-content:center}
   .footer-payment-title{justify-content:center;text-align:left}
   .footer-payment-title strong{font-size:12px}
   .footer-payment-title small{font-size:10px}
-  .footer-payment-badges{justify-content:center;gap:7px}
+  .footer-payment-badges{width:min(100%,360px);margin-inline:auto;justify-content:center;align-self:center;gap:7px}
   .payment-badge{width:57px;height:36px;border-radius:10px}
   .payment-image img{width:35px;height:23px}
+  .footer-anpc{justify-self:center;margin-inline:auto}
   .footer-anpc img{width:190px}
   .footer-bottom{display:flex;padding-top:21px;align-items:center;flex-direction:column;gap:16px;text-align:center;font-size:11px}
   .footer-credit strong{font-size:12px}
