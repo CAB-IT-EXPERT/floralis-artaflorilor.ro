@@ -1,6 +1,6 @@
 import React,{useEffect,useRef,useState} from 'react';
 import {Link} from 'react-router-dom';
-import {ArrowRight,ChevronLeft,ChevronRight,Leaf,Heart,Diamond,Star,Quote,Sparkles,Baby,Gift,Flower2} from 'lucide-react';
+import {ArrowRight,ChevronLeft,ChevronRight,Leaf,Heart,Diamond,Sparkles,Baby,Gift,Flower2,MapPin,Phone,Navigation} from 'lucide-react';
 import {useStore} from './context';
 import {api} from './api';
 import {Image,SectionHeading,Newsletter} from './components';
@@ -25,23 +25,25 @@ function useSwipeRail(){
   const rail=ref.current,start=gesture.current;
   gesture.current=null;
   rail?.classList.remove('is-dragging');
-  if(start&&Math.abs((event?.clientX??start.x)-start.x)>8){
+  if(start?.dragged){
    const cards=[...rail.children],target=card=>card.offsetLeft-rail.offsetLeft,closest=cards.reduce((best,card)=>Math.abs(target(card)-rail.scrollLeft)<Math.abs(target(best)-rail.scrollLeft)?card:best,cards[0]);
    if(closest)rail.scrollTo({left:target(closest),behavior:'smooth'});
   }
+  if(start?.captured)rail?.releasePointerCapture?.(start.pointerId);
   if(suppressClick.current)window.setTimeout(()=>{suppressClick.current=false;},0);
  };
  return {ref,onPointerDown:event=>{
   if(event.pointerType==='mouse'&&event.button!==0)return;
   const rail=ref.current;
-  gesture.current={x:event.clientX,y:event.clientY,left:rail.scrollLeft,pointerId:event.pointerId};
-  rail.classList.add('is-dragging');
-  rail.setPointerCapture?.(event.pointerId);
+  gesture.current={x:event.clientX,y:event.clientY,left:rail.scrollLeft,pointerId:event.pointerId,dragged:false,captured:false};
  },onPointerMove:event=>{
   const start=gesture.current,rail=ref.current;
   if(!start||start.pointerId!==event.pointerId)return;
   const dx=event.clientX-start.x,dy=event.clientY-start.y;
-  if(Math.abs(dx)>5&&Math.abs(dx)>Math.abs(dy)){event.preventDefault();suppressClick.current=true;rail.scrollLeft=start.left-dx;}
+  if(start.dragged||(Math.abs(dx)>12&&Math.abs(dx)>Math.abs(dy)*1.15)){
+   if(!start.dragged){start.dragged=true;start.captured=true;rail.classList.add('is-dragging');rail.setPointerCapture?.(event.pointerId);}
+   event.preventDefault();suppressClick.current=true;rail.scrollLeft=start.left-dx;
+  }
  },onPointerUp:end,onPointerCancel:end,onDragStart:event=>event.preventDefault(),onClickCapture:event=>{if(suppressClick.current){event.preventDefault();event.stopPropagation();suppressClick.current=false;}}};
 }
 function DecorVideoCarousel(){
@@ -91,4 +93,4 @@ return <><Hero/>
 <section className="story-home section reveal"><span className="story-home-orbit story-home-orbit-one" aria-hidden="true"/><span className="story-home-orbit story-home-orbit-two" aria-hidden="true"/><div className="story-home-copy"><span className="eyebrow">POVESTEA NOASTRĂ</span><h2>Mai mult decât un atelier.<br/><em>Un loc pentru frumos.</em></h2><p>{story}</p><div className="story-home-values"><span><Leaf size={16}/>Flori alese cu grijă</span><span><Heart size={16}/>Creații cu suflet</span></div><Link className="story-home-cta" to="/despre-noi"><span>Cunoaște povestea Floralis</span><ArrowRight size={18}/></Link></div><div className="story-home-visual"><div className="story-home-frame"><Image src="/assets/floralis/export-bb030fca2f37.webp" alt="Interiorul atelierului Floralis, plin de flori și creații florale"/><span className="story-home-caption">ATELIER FLORAL · TUNARI</span></div><div className="story-home-year"><strong>2017</strong><span>De atunci,<br/>înflorim povești.</span></div><div className="story-home-signature"><i/><span>flori pentru suflet</span></div></div></section>
 <section className="why-floralis section reveal"><span className="why-bloom why-bloom-one" aria-hidden="true"/><span className="why-bloom why-bloom-two" aria-hidden="true"/><SectionHeading eyebrow="PROMISIUNEA NOASTRĂ" title="Cu grijă. Cu pasiune. Cu suflet."/><div className="values">{[[Leaf,'Prospețime în fiecare petală','Alegem cu grijă florile, texturile și combinațiile cromatice.'],[Diamond,'Atenție la fiecare detaliu','Fiecare creație are un aer natural, rafinat și armonios.'],[Heart,'Emoții care rămân','Fiecare comandă spune o poveste și merită creată cu suflet.']].map(([Icon,title,text],index)=><article key={title}><span className="why-index">0{index+1}</span><span className="why-icon"><Icon strokeWidth={1}/><i aria-hidden="true"/></span><h3>{title}</h3><p>{text}</p><span className="why-line" aria-hidden="true"/></article>)}</div></section>
 <HomeGallery images={settings.gallery}/>
-<section className="testimonials section reveal"><Quote size={30} strokeWidth={1}/><span className="eyebrow">POVEȘTI CARE NE BUCURĂ</span>{s.data.reviews.length?<div className="reviews">{s.data.reviews.map((r,i)=><blockquote key={i}><div>{Array.from({length:r.rating},(_,n)=><Star key={n} size={14}/>)}</div><p>„{r.body}”</p><cite>{r.name}</cite></blockquote>)}</div>:<><h2>Ai o poveste cu Floralis?</h2><p>Ne bucurăm să aflăm ce au însemnat florile noastre pentru tine.</p><Link className="text-link" to="/cont?tab=recenzie">Împărtășește experiența ta<ArrowRight size={17}/></Link></>}</section><Newsletter/></>;}
+<section className="visit-home section reveal"><span className="visit-orbit visit-orbit-one" aria-hidden="true"/><span className="visit-orbit visit-orbit-two" aria-hidden="true"/><div className="visit-copy"><span className="eyebrow">NE GĂSEȘTI ÎN TUNARI</span><h2>Vino la florăria<br/><em>{settings.store_name||'Floralis — arta florilor'}</em></h2><p className="visit-lead">Descoperă florile de aproape, culorile sezonului și creațiile pregătite în atelierul nostru.</p><div className="visit-address"><span><MapPin size={21}/></span><div><small>ADRESA FLORĂRIEI</small><strong>{settings.address}</strong></div></div><div className="visit-actions"><a className="visit-directions" href="https://www.google.com/maps/search/?api=1&query=Floralis+Tunari+Calea+Bucuresti+9" target="_blank" rel="noreferrer"><Navigation size={18}/><span>Vino la Floralis</span><ArrowRight size={17}/></a><a className="visit-phone" href={'tel:'+settings.phone}><Phone size={18}/><span><small>Contactează-ne</small><strong>{settings.phone}</strong></span></a></div><span className="visit-note"><i/>Te așteptăm cu flori, idei și multă bucurie.</span></div><div className="visit-map-shell"><span className="visit-map-label"><MapPin size={15}/>{settings.store_name||'Floralis — arta florilor'}</span><div className="visit-map-frame"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2843.4348774679634!2d26.13912747656769!3d44.547202494152565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b21d1e0d2b134d%3A0xd33ec2f79d2c1b85!2sFloralis%20-%20arta%20florilor!5e0!3m2!1sro!2sro!4v1791296794566!5m2!1sro!2sro" title={'Hartă '+(settings.store_name||'Floralis — arta florilor')} allowFullScreen loading="lazy" referrerPolicy="strict-origin-when-cross-origin"/></div><span className="visit-map-caption">CALEA BUCUREȘTI · TUNARI</span></div></section><Newsletter/></>;}

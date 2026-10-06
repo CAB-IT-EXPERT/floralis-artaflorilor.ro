@@ -90,17 +90,18 @@ export default function RecommendedCarousel({products,categories}){
  };
  const pointerDown=event=>{
   if(event.pointerType==='mouse'&&event.button!==0)return;
-  gestureRef.current={x:event.clientX,y:event.clientY,pointerId:event.pointerId};
-  event.currentTarget.setPointerCapture?.(event.pointerId);
+  gestureRef.current={x:event.clientX,y:event.clientY,pointerId:event.pointerId,dragged:false,captured:false};
   setPaused(true);
  };
  const pointerMove=event=>{
   const start=gestureRef.current;
   if(!start||start.pointerId!==event.pointerId)return;
   const dx=event.clientX-start.x,dy=event.clientY-start.y;
-  if(Math.abs(dx)>34&&Math.abs(dx)>Math.abs(dy)*1.12){
+  if(!start.dragged&&Math.abs(dx)>34&&Math.abs(dx)>Math.abs(dy)*1.12){
    event.preventDefault();
-   gestureRef.current=null;
+   start.dragged=true;
+   start.captured=true;
+   event.currentTarget.setPointerCapture?.(event.pointerId);
    suppressClickRef.current=true;
    move(dx<0?1:-1);
    pauseBriefly();
@@ -108,6 +109,8 @@ export default function RecommendedCarousel({products,categories}){
  };
  const pointerUp=event=>{
   pointerMove(event);
+  const start=gestureRef.current;
+  if(start?.captured)event.currentTarget.releasePointerCapture?.(start.pointerId);
   gestureRef.current=null;
   pauseBriefly();
   if(suppressClickRef.current)window.setTimeout(()=>{suppressClickRef.current=false;},0);
@@ -115,7 +118,7 @@ export default function RecommendedCarousel({products,categories}){
  if(!products.length)return <div className="recommended-empty"><Sparkles/><h3>Selecția este în pregătire</h3><p>Bifează „Recomandat pe prima pagină” la produsele dorite din panoul de administrare.</p></div>;
  return <div className="recommended-carousel" onMouseEnter={()=>setPaused(true)} onMouseLeave={()=>setPaused(false)} onFocusCapture={()=>setPaused(true)} onBlurCapture={()=>setPaused(false)}>
   <div className="recommended-category-ribbon" aria-label="Categorii recomandate">{represented.map((category,index)=><React.Fragment key={category.id}><span>{category.name}</span>{index<represented.length-1&&<i/>}</React.Fragment>)}</div>
-  <div ref={viewportRef} className="recommended-viewport" style={{opacity:step?1:0}} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={()=>{gestureRef.current=null;suppressClickRef.current=false;pauseBriefly();}} onDragStart={event=>event.preventDefault()} onClickCapture={event=>{if(suppressClickRef.current){event.preventDefault();event.stopPropagation();suppressClickRef.current=false;}}}>
+  <div ref={viewportRef} className="recommended-viewport" style={{opacity:step?1:0}} onPointerDown={pointerDown} onPointerMove={pointerMove} onPointerUp={pointerUp} onPointerCancel={event=>{const start=gestureRef.current;if(start?.captured)event.currentTarget.releasePointerCapture?.(start.pointerId);gestureRef.current=null;suppressClickRef.current=false;pauseBriefly();}} onDragStart={event=>event.preventDefault()} onClickCapture={event=>{if(suppressClickRef.current){event.preventDefault();event.stopPropagation();suppressClickRef.current=false;}}}>
    <div className="recommended-track" style={{transform:`translate3d(${-position*step}px,0,0)`,transition:animated?'transform .78s cubic-bezier(.2,.74,.22,1)':'none'}} onTransitionEnd={normalize}>
     {extended.map((product,index)=><div className="recommended-slide" key={`${product.id}-${index}`} ref={index===0?firstRef:null} aria-hidden={enabled&&(index<position||index>=position+visible)}><ProductCard p={product}/></div>)}
    </div>
