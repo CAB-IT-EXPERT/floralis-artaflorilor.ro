@@ -51,10 +51,11 @@ test('customer registration preserves cart, favorite/profile/address state and i
  const r=await customer.api('/auth/register',{method:'POST',body:{name:'Client QA',email:'client-qa@example.test',password:'Floralis-customer-2026'}});assert.equal(r.user.role,'customer');assert.notEqual(customer.cookie,old);
  assert.equal((await customer.api('/cart')).items.length,1);
  assert.equal((await customer.request('/api/admin/products')).status,403);
- await customer.api('/account/profile',{method:'PATCH',body:{name:'Client QA nou',phone:'0720000000'}});
+ await customer.api('/account/profile',{method:'PATCH',body:{name:'Client QA nou',phone:'0720000000',email:'client-renewed@example.test'}});
  await customer.api('/account/favorites',{method:'PUT',body:{ids:[sample.id]}});
  await customer.api('/account/addresses',{method:'POST',body:{name:'Client QA',phone:'0720000000',street:'Strada Test 10',city:'Tunari',county:'Ilfov',postal_code:'077180'}});
- const a=await customer.api('/account');assert.equal(a.user.name,'Client QA nou');assert.equal(a.addresses.length,1);assert.deepEqual(a.favorites,[sample.id]);
+ await customer.api('/account/addresses',{method:'POST',body:{name:'Client QA',phone:'0720000000',street:'Strada Atelier 12',city:'Tunari',county:'Ilfov',postal_code:'077180',identity_type:'pj',company_name:'Floralis QA SRL',cui:'RO12345678',registration_number:'J23/123/2026'}});
+ const a=await customer.api('/account');assert.equal(a.user.name,'Client QA nou');assert.equal(a.user.email,'client-renewed@example.test');assert.equal(a.addresses.length,2);assert.equal(a.addresses.find(address=>address.identity_type==='pj').company_name,'Floralis QA SRL');assert.deepEqual(a.favorites,[sample.id]);
 });
 test('admin product CRUD, duplicate, archive and category hierarchy update storefront',async()=>{
  created=await admin.api('/admin/products',{method:'POST',body:{name:'Produs QA',slug:'produs-qa',sku:'QA-1',status:'publish',price_cents:10000,regular_price_cents:10000,sale_price_cents:null,stock:5,manage_stock:1,stock_status:'instock',categories:[cat.id],images:[{url:sample.images[0].url,alt:'Imagine QA'}],seo:{title:'Titlu produs QA',description:'Descriere SEO QA'}}});
@@ -157,12 +158,12 @@ test('uploads validate actual content, re-encode images and protect imported ori
  await admin.api('/admin/media/'+u.id,{method:'DELETE'});
 });
 test('password reset invalidates old sessions and is single-use',async()=>{
- await guest.api('/auth/forgot',{method:'POST',body:{email:'client-qa@example.test'}});
+ await guest.api('/auth/forgot',{method:'POST',body:{email:'client-renewed@example.test'}});
  const message=(await admin.api('/admin/outbox')).find(m=>m.subject.includes('Resetare')),resetUrl=message.body.match(/https?:\/\/\S+/)[0],token=new URL(resetUrl).searchParams.get('token');
  await guest.api('/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}});
  assert.equal((await customer.request('/api/account')).status,401);
  assert.equal((await guest.request('/api/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}})).status,400);
- await guest.api('/auth/login',{method:'POST',body:{email:'client-qa@example.test',password:'QA-new-password-2026'}});
+ await guest.api('/auth/login',{method:'POST',body:{email:'client-renewed@example.test',password:'QA-new-password-2026'}});
  assert.equal((await guest.api('/account')).user.role,'customer');
 });
 test('Stripe signed events validate amount/currency and cannot duplicate fulfillment',async()=>{
@@ -175,8 +176,10 @@ test('Stripe signed events validate amount/currency and cannot duplicate fulfill
  assert.equal(await webhook(event),200);assert.equal((await admin.api('/admin/orders/'+order.id)).history.length,first.history.length);
 });
 test('Stripe payload takes exact order snapshot prices, shipping and fixed discount',async()=>{
- const result=JSON.parse(execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/stripe.php'; $o=one('SELECT * FROM orders WHERE id=?',[${order.id}]); echo j(stripeCheckoutPayload($o,all('SELECT * FROM order_items WHERE order_id=?',[$o['id']]),'qa@example.test','coupon_qa'));`],{cwd:root,env,encoding:'utf8'}));
- assert.equal(result.line_items[0].price_data.unit_amount,12000);assert.equal(result.line_items[0].quantity,2);assert.equal(result.shipping_options[0].shipping_rate_data.fixed_amount.amount,0);assert.equal(result.discounts[0].coupon,'coupon_qa');assert.equal(result.line_items[0].price_data.currency,'ron');
+ const result=JSON.parse(execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/stripe.php'; $o=one('SELECT * FROM orders WHERE id=?',[${order.id}]); $items=all('SELECT * FROM order_items WHERE order_id=?',[$o['id']]); $saleOrder=$o;$saleOrder['subtotal_cents']=18000;$saleOrder['discount_cents']=3000;$saleOrder['shipping_cents']=5000;$saleOrder['total_cents']=20000;$saleItem=$items[0];$saleItem['price_cents']=9000;$saleItem['quantity']=2;$saleItem['total_cents']=18000;echo j(['standard'=>stripeCheckoutPayload($o,$items,'qa@example.test','coupon_qa'),'sale'=>stripeCheckoutPayload($saleOrder,[$saleItem],'qa@example.test','coupon_sale')]);`],{cwd:root,env,encoding:'utf8'}));
+ assert.equal(result.standard.line_items[0].price_data.unit_amount,12000);assert.equal(result.standard.line_items[0].quantity,2);assert.equal(result.standard.shipping_options[0].shipping_rate_data.fixed_amount.amount,0);assert.equal(result.standard.discounts[0].coupon,'coupon_qa');assert.equal(result.standard.line_items[0].price_data.currency,'ron');
+ assert.equal(result.sale.line_items[0].price_data.unit_amount,9000);assert.equal(result.sale.shipping_options[0].shipping_rate_data.fixed_amount.amount,5000);assert.equal(result.sale.discounts[0].coupon,'coupon_sale');assert.equal(result.sale.metadata.subtotal_cents,'18000');assert.equal(result.sale.metadata.discount_cents,'3000');assert.equal(result.sale.metadata.shipping_cents,'5000');assert.equal(result.sale.metadata.total_cents,'20000');assert.deepEqual(result.sale.payment_intent_data.metadata,result.sale.metadata);
+ const invalid=execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/stripe.php'; $o=one('SELECT * FROM orders WHERE id=?',[${order.id}]);$o['total_cents']=1;try{stripeCheckoutPayload($o,all('SELECT * FROM order_items WHERE order_id=?',[$o['id']]),'qa@example.test');}catch(Throwable $e){echo $e->getMessage();}`],{cwd:root,env,encoding:'utf8'});assert.match(invalid,/nu sunt coerente/);
 });
 test('category visibility, permanent product deletion and content editors remain connected',async()=>{
  await admin.api('/admin/categories/'+cat.id+'/visibility',{method:'PATCH',body:{visible:0}});

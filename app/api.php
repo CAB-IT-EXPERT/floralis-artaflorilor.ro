@@ -24,7 +24,16 @@ try {
  }
  function favoriteIds(?array $u): array {return $u?array_column(all('SELECT product_id FROM favorites WHERE user_id=?',[$u['id']]),'product_id'):[];}
  function cartItems(string $key): array {return array_map('product',all('SELECT p.*,ci.quantity FROM cart_items ci JOIN products p ON p.id=ci.product_id WHERE ci.session_hash=?'.(driver()==='mysql'&&db()->inTransaction()?' FOR UPDATE':''),[$key]));}
- function addressInput(array $a): array {$r=[];foreach(['name'=>[2,100],'phone'=>[7,20],'street'=>[5,250],'city'=>[2,100],'county'=>[2,100],'postal_code'=>[0,12]] as $k=>$range)$r[$k]=text($a,$k,...$range);if(!preg_match('/^[+\d\s()-]{7,20}$/',$r['phone']))abortApi('Telefon invalid.');return $r;}
+ function addressInput(array $a): array {
+  $r=[];foreach(['name'=>[2,100],'phone'=>[7,20],'street'=>[5,250],'city'=>[2,100],'county'=>[2,100],'postal_code'=>[0,12]] as $k=>$range)$r[$k]=text($a,$k,...$range);
+  if(!preg_match('/^[+\d\s()-]{7,20}$/',$r['phone']))abortApi('Telefon invalid.');
+  $r['identity_type']=enumValue($a['identity_type']??'pf',['pf','pj']);
+  $r['company_name']=text($a,'company_name',$r['identity_type']==='pj'?2:0,180);
+  $r['cui']=text($a,'cui',$r['identity_type']==='pj'?2:0,40);
+  $r['registration_number']=text($a,'registration_number',0,80);
+  if($r['identity_type']==='pj'&&!preg_match('/^[A-Za-z0-9 .\/-]{2,40}$/',$r['cui']))abortApi('CUI / CIF invalid.');
+  return $r;
+ }
  function quote(string $key,array $a): array {
   $items=cartItems($key);if(!$items)abortApi('Coșul este gol.');$subtotal=0;
   foreach($items as $p){if($p['status']!=='publish'||$p['price_cents']===null||$p['stock_status']!=='instock'||($p['manage_stock']&&$p['quantity']>$p['stock']))abortApi('Produs indisponibil: '.$p['name']);$subtotal+=$p['price_cents']*$p['quantity'];}
@@ -108,8 +117,19 @@ try {
  if($route==='/auth/forgot'&&$method==='POST'){$mail=email($input);$u=one('SELECT * FROM users WHERE email=? AND active=1',[$mail]);if($u){$token=bin2hex(random_bytes(32));sql('DELETE FROM password_resets WHERE user_id=?',[$u['id']]);sql('INSERT INTO password_resets VALUES(?,?,?)',[hash('sha256',$token),$u['id'],(int)(microtime(true)*1000)+3600000]);$resetUrl=rtrim(env('APP_URL','http://localhost:5173'),'/').'/cont/resetare?token='.$token;queueMail($mail,'Resetare parolă Floralis',"Bună, ".$u['name']."!\n\nAm primit o solicitare de resetare a parolei contului tău Floralis. Linkul este valabil timp de o oră:\n".$resetUrl."\n\nDacă nu ai cerut schimbarea parolei, poți ignora acest mesaj în siguranță.");}respond(['message'=>'Dacă există un cont, instrucțiunile de resetare au fost trimise.']);}
  if($route==='/auth/reset'&&$method==='POST'){$token=text($input,'token',20,100);$pass=text($input,'password',10,128);$r=one('SELECT * FROM password_resets WHERE token_hash=? AND expires_at>?',[hash('sha256',$token),(int)(microtime(true)*1000)]);if(!$r)abortApi('Link invalid sau expirat.');tx(function()use($r,$pass){sql('UPDATE users SET password_hash=? WHERE id=?',[password_hash($pass,PASSWORD_DEFAULT),$r['user_id']]);sql('DELETE FROM password_resets WHERE user_id=?',[$r['user_id']]);sql('DELETE FROM sessions WHERE user_id=?',[$r['user_id']]);});respond(['ok'=>true]);}
  if($route==='/account'&&$method==='GET')respond(['user'=>safeUser($user),'addresses'=>all('SELECT * FROM addresses WHERE user_id=?',[$user['id']]),'orders'=>all('SELECT * FROM orders WHERE user_id=? ORDER BY id DESC',[$user['id']]),'favorites'=>favoriteIds($user)]);
- if($route==='/account/profile'&&$method==='PATCH'){sql('UPDATE users SET name=?,phone=? WHERE id=?',[text($input,'name',2,100),text($input,'phone',0,20),$user['id']]);respond(['ok'=>true]);}
- if($route==='/account/addresses'&&$method==='POST'){$a=addressInput($input);sql('INSERT INTO addresses(user_id,name,phone,street,city,county,postal_code) VALUES(?,?,?,?,?,?,?)',array_merge([$user['id']],array_values($a)));respond(['ok'=>true]);}
+ if($route==='/account/profile'&&$method==='PATCH'){
+  $name=text($input,'name',2,100);$phone=text($input,'phone',0,20);$mail=array_key_exists('email',$input)?email($input):$user['email'];
+  if($phone!==''&&!preg_match('/^[+\d\s()-]{7,20}$/',$phone))abortApi('Telefon invalid.');
+  tx(function()use($name,$phone,$mail,$user){
+   if(one('SELECT id FROM users WHERE email=? AND id<>?',[$mail,$user['id']]))abortApi('Există deja un cont cu această adresă de email.',409);
+   $customer=one('SELECT id FROM customers WHERE user_id=?',[$user['id']]);
+   if($customer&&one('SELECT id FROM customers WHERE email=? AND id<>?',[$mail,$customer['id']]))abortApi('Adresa de email este deja asociată unui alt client.',409);
+   sql('UPDATE users SET name=?,phone=?,email=? WHERE id=?',[$name,$phone,$mail,$user['id']]);
+   if($customer)sql('UPDATE customers SET name=?,phone=?,email=? WHERE id=?',[$name,$phone,$mail,$customer['id']]);
+  });
+  respond(['ok'=>true,'user'=>safeUser(one('SELECT * FROM users WHERE id=?',[$user['id']]))]);
+ }
+ if($route==='/account/addresses'&&$method==='POST'){$a=addressInput($input);sql('INSERT INTO addresses(user_id,name,phone,street,city,county,postal_code,identity_type,company_name,cui,registration_number) VALUES(?,?,?,?,?,?,?,?,?,?,?)',array_merge([$user['id']],array_values($a)));respond(['ok'=>true]);}
  if(preg_match('~^/account/addresses/(\d+)$~',$route,$m)&&$method==='DELETE'){sql('DELETE FROM addresses WHERE id=? AND user_id=?',[$m[1],$user['id']]);respond(['ok'=>true]);}
  if($route==='/account/favorites'&&$method==='PUT'){$ids=$input['ids']??[];if(!is_array($ids)||count($ids)>100)abortApi('Favorite invalide.');tx(function()use($ids,$user){sql('DELETE FROM favorites WHERE user_id=?',[$user['id']]);foreach($ids as $id){$id=integer($id,1);if(one('SELECT id FROM products WHERE id=?',[$id]))sql('INSERT OR IGNORE INTO favorites VALUES(?,?)',[$user['id'],$id]);}});respond(['ids'=>favoriteIds($user)]);}
  if($route==='/account/reviews'&&$method==='POST'){sql('INSERT INTO reviews(user_id,product_id,name,rating,body) VALUES(?,?,?,?,?)',[$user['id'],$input['product_id']??null,$user['name'],integer($input['rating']??null,1,5),text($input,'body',10,2000)]);respond(['ok'=>true]);}

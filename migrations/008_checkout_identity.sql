@@ -1,0 +1,4 @@
+ALTER TABLE addresses ADD COLUMN identity_type TEXT NOT NULL DEFAULT 'pf';
+ALTER TABLE addresses ADD COLUMN company_name TEXT NOT NULL DEFAULT '';
+ALTER TABLE addresses ADD COLUMN cui TEXT NOT NULL DEFAULT '';
+ALTER TABLE addresses ADD COLUMN registration_number TEXT NOT NULL DEFAULT '';
