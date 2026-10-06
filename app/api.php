@@ -4,6 +4,7 @@ require_once __DIR__.'/bootstrap.php';
 require_once __DIR__.'/google.php';
 require_once __DIR__.'/stripe.php';
 require_once __DIR__.'/email.php';
+require_once __DIR__.'/recommendations.php';
 header('Cache-Control: no-store');
 $method=$_SERVER['REQUEST_METHOD'];$route=substr(parse_url($_SERVER['REQUEST_URI'],PHP_URL_PATH),4);
 $rawBody=file_get_contents('php://input');$input=json_decode($rawBody,true)??[];
@@ -81,7 +82,7 @@ try {
  if($route==='/bootstrap'&&$method==='GET')respond(['csrf'=>$session['csrf'],'user'=>safeUser($user),'google'=>googleStatus(),'stripe'=>['configured'=>stripeConfigured(),'mode'=>'test'],'settings'=>settingAll(),'has_posts'=>(int)one("SELECT COUNT(*) n FROM pages WHERE type='post' AND status='publish'")['n']>0,'categories'=>categories(),'admin_categories'=>($user['role']??'')==='admin'?categories(true):[],'favorites'=>favoriteIds($user),'shipping'=>all('SELECT * FROM shipping_methods WHERE enabled=1'),'payments'=>paymentMethods(),'reviews'=>all('SELECT name,rating,body,reply,replied_at FROM reviews WHERE approved=1 ORDER BY id DESC LIMIT 12')]);
  if($route==='/categories')respond(categories());
  if($route==='/products'&&$method==='GET')respond(listProducts());
- if(preg_match('~^/products/([^/]+)$~',$route,$m)){$p=one("SELECT * FROM products WHERE slug=? AND status='publish'",[$m[1]]);if(!$p)abortApi('Produsul nu a fost găsit.',404);respond(product($p));}
+ if(preg_match('~^/products/([^/]+)$~',$route,$m)){$p=one("SELECT * FROM products WHERE slug=? AND status='publish'",[$m[1]]);if(!$p)abortApi('Produsul nu a fost găsit.',404);$p=product($p);if(!empty($_GET['related']))$p['related_products']=relatedProducts($p,4);respond($p);}
  if($route==='/search'&&$method==='GET'){
   $query=substr(trim((string)($_GET['q']??'')),0,120);if(strlen(searchNormalize($query))<2)respond(['items'=>[],'query'=>$query]);$items=[];$seen=[];
   $add=function(array $item)use(&$items,&$seen){if(isset($seen[$item['url']]))return false;$seen[$item['url']]=true;$items[]=$item;return true;};
@@ -148,9 +149,8 @@ try {
  if(preg_match('~^/admin/categories/(\d+)/visibility$~',$route,$m)&&$method==='PATCH'){sql('UPDATE categories SET visible=? WHERE id=?',[integer($input['visible']??1,0,1),$m[1]]);respond(['ok'=>true]);}
  if($route==='/admin/email/settings'&&$method==='GET')respond(mailConfig());
  if($route==='/admin/email/settings'&&$method==='PUT'){saveMailConfig($input);respond(['ok'=>true]);}
- if($route==='/admin/email/test'&&$method==='POST'){$recipient=email($input);$id=queueMail($recipient,'Test SMTP Floralis',"Configurarea SMTP Floralis funcționează corect.\n\nExpeditor: ".mailConfig(true)['from_email']."\nServer: ".mailConfig(true)['host'].':'.mailConfig(true)['port'],false);sendMailRow(one('SELECT * FROM outbox WHERE id=?',[$id]));respond(['ok'=>true]);}
- if(preg_match('~^/admin/outbox/(\d+)/send$~',$route,$m)&&$method==='POST'){$row=one('SELECT * FROM outbox WHERE id=?',[$m[1]]);if(!$row)abortApi('Mesaj inexistent.',404);sendMailRow($row);respond(['ok'=>true]);}
- if(preg_match('~^/admin/newsletter/(\d+)$~',$route,$m)&&$method==='DELETE'){sql('DELETE FROM newsletter WHERE id=?',[$m[1]]);respond(['ok'=>true]);}
+ if($route==='/admin/email/test'&&$method==='POST'){$recipient=email($input);$delivery=queueMail($recipient,'Test SMTP Floralis',"Configurarea SMTP Floralis funcționează corect.\n\nExpeditor: ".mailConfig(true)['from_email']."\nServer: ".mailConfig(true)['host'].':'.mailConfig(true)['port']);if($delivery['status']!=='sent')abortApi($delivery['error']?:'Emailul de test nu a putut fi trimis.',502);respond(['ok'=>true]);}
+  if(preg_match('~^/admin/newsletter/(\d+)$~',$route,$m)&&$method==='DELETE'){sql('DELETE FROM newsletter WHERE id=?',[$m[1]]);respond(['ok'=>true]);}
 
  if($route==='/admin/dashboard'&&$method==='GET'){$days=(int)($_GET['days']??30);if(!in_array($days,[7,30,90,365]))$days=30;$period='-'.$days.' days';$eligible="status NOT IN ('cancelled','returned')";$stats=one("SELECT COUNT(*) orders,COALESCE(SUM(total_cents),0) revenue FROM orders WHERE $eligible AND created_at>=datetime('now',?)",[$period]);$stats['customers']=one('SELECT COUNT(*) n FROM customers')['n'];$stats['products']=one("SELECT COUNT(*) n FROM products WHERE status!='archived'")['n'];$stats['low_stock']=one('SELECT COUNT(*) n FROM products WHERE manage_stock=1 AND stock<=?',[settingAll()['low_stock_threshold']??5])['n'];respond(['stats'=>$stats,'series'=>all("SELECT date(created_at) day,SUM(total_cents) revenue FROM orders WHERE $eligible AND created_at>=datetime('now',?) GROUP BY date(created_at) ORDER BY day",[$period]),'statuses'=>all('SELECT status,COUNT(*) count FROM orders GROUP BY status'),'recent'=>all('SELECT o.*,c.name customer_name,c.email FROM orders o JOIN customers c ON c.id=o.customer_id ORDER BY o.id DESC LIMIT 8'),'top'=>all("SELECT i.name,SUM(i.quantity) quantity,SUM(i.total_cents) total FROM order_items i JOIN orders o ON o.id=i.order_id WHERE o.$eligible AND o.created_at>=datetime('now',?) GROUP BY i.product_id,i.name ORDER BY total DESC LIMIT 5",[$period])]);}
  if($route==='/admin/products/availability'&&$method==='GET'){$field=(string)($_GET['field']??'');if(!in_array($field,['name','slug','sku'],true))abortApi('Câmp invalid.',422);$value=trim(substr((string)($_GET['value']??''),0,$field==='name'?250:200));if($value==='')respond(['available'=>true]);$exclude=max(0,(int)($_GET['exclude_id']??0));$found=$exclude?one("SELECT id FROM products WHERE lower($field)=lower(?) AND id<>?",[$value,$exclude]):one("SELECT id FROM products WHERE lower($field)=lower(?)",[$value]);respond(['available'=>!$found]);}
@@ -200,22 +200,22 @@ try {
   $rows=all('SELECT m.*,(SELECT COUNT(*) FROM message_replies r WHERE r.message_id=m.id) reply_count FROM messages m ORDER BY m.id DESC');
   $rows=array_values(array_filter($rows,fn($message)=>($status===''||$message['status']===$status)&&smartSearchMatch(implode(' ',[$message['name'],$message['email'],$message['phone'],$message['subject'],$message['body']]),$query)));
   $total=count($rows);$limit=min(50,max(5,(int)($_GET['limit']??10)));$page=max(1,(int)($_GET['page']??1));$pages=max(1,(int)ceil($total/$limit));$page=min($page,$pages);$items=array_slice($rows,($page-1)*$limit,$limit);
-  $items=array_map(function($message){$message['replies']=all('SELECT r.*,o.status delivery_status,o.error FROM message_replies r LEFT JOIN outbox o ON o.id=r.outbox_id WHERE r.message_id=? ORDER BY r.id',[$message['id']]);return $message;},$items);
+  $items=array_map(function($message){$message['replies']=all('SELECT r.* FROM message_replies r WHERE r.message_id=? ORDER BY r.id',[$message['id']]);return $message;},$items);
   $counts=one("SELECT COUNT(*) total,SUM(CASE WHEN status='new' THEN 1 ELSE 0 END) unread,SUM(CASE WHEN status='resolved' THEN 1 ELSE 0 END) resolved FROM messages");respond(['items'=>$items,'total'=>$total,'page'=>$page,'pages'=>$pages,'counts'=>$counts]);
  }
  if(preg_match('~^/admin/messages/(\d+)/reply$~',$route,$m)&&$method==='POST'){
   $message=one('SELECT * FROM messages WHERE id=?',[$m[1]]);if(!$message)abortApi('Mesaj inexistent.',404);$subject=text($input,'subject',2,200);$body=text($input,'body',2,5000);
-  $mailBody="Bună, ".$message['name']."!\n\nÎți mulțumim că ne-ai scris despre «".($message['subject']?:'mesajul tău')."».\n\n".$body."\n\nCu drag,\nEchipa Floralis";$outboxId=queueMail($message['email'],'Răspuns Floralis · '.$subject,$mailBody);
-  sql('INSERT INTO message_replies(message_id,outbox_id,subject,body) VALUES(?,?,?,?)',[$message['id'],$outboxId,$subject,$body]);sql("UPDATE messages SET status='resolved' WHERE id=?",[$message['id']]);respond(['ok'=>true,'delivery'=>one('SELECT status,error FROM outbox WHERE id=?',[$outboxId])]);
+  $mailBody="Bună, ".$message['name']."!\n\nÎți mulțumim că ne-ai scris despre «".($message['subject']?:'mesajul tău')."».\n\n".$body."\n\nCu drag,\nEchipa Floralis";$delivery=queueMail($message['email'],'Răspuns Floralis · '.$subject,$mailBody);
+  sql('INSERT INTO message_replies(message_id,outbox_id,subject,body,delivery_status,error) VALUES(?,?,?,?,?,?)',[$message['id'],null,$subject,$body,$delivery['status'],$delivery['error']]);$replyId=(int)db()->lastInsertId();sql("UPDATE messages SET status='resolved' WHERE id=?",[$message['id']]);respond(['ok'=>true,'delivery'=>one('SELECT delivery_status status,error FROM message_replies WHERE id=?',[$replyId])]);
  }
- if(preg_match('~^/admin/messages/(\d+)$~',$route,$m)&&$method==='GET'){$message=one('SELECT m.*,(SELECT COUNT(*) FROM message_replies r WHERE r.message_id=m.id) reply_count FROM messages m WHERE m.id=?',[$m[1]]);if(!$message)abortApi('Mesaj inexistent.',404);$message['replies']=all('SELECT r.*,o.status delivery_status,o.error FROM message_replies r LEFT JOIN outbox o ON o.id=r.outbox_id WHERE r.message_id=? ORDER BY r.id',[$message['id']]);respond($message);}
+ if(preg_match('~^/admin/messages/(\d+)$~',$route,$m)&&$method==='GET'){$message=one('SELECT m.*,(SELECT COUNT(*) FROM message_replies r WHERE r.message_id=m.id) reply_count FROM messages m WHERE m.id=?',[$m[1]]);if(!$message)abortApi('Mesaj inexistent.',404);$message['replies']=all('SELECT r.* FROM message_replies r WHERE r.message_id=? ORDER BY r.id',[$message['id']]);respond($message);}
  if($route==='/admin/newsletter'&&$method==='GET'){
   $query=substr(trim((string)($_GET['q']??'')),0,150);$rows=all('SELECT * FROM newsletter ORDER BY id DESC');$filtered=array_values(array_filter($rows,fn($subscriber)=>smartSearchMatch($subscriber['email'],$query)));
   $total=count($filtered);$limit=min(50,max(5,(int)($_GET['limit']??10)));$page=max(1,(int)($_GET['page']??1));$pages=max(1,(int)ceil($total/$limit));$page=min($page,$pages);$now=time();$today=date('Y-m-d');
   $counts=['total'=>count($rows),'recent'=>count(array_filter($rows,fn($subscriber)=>strtotime($subscriber['consent_at'])>=$now-30*86400)),'today'=>count(array_filter($rows,fn($subscriber)=>str_starts_with($subscriber['consent_at'],$today)))];
   respond(['items'=>array_slice($filtered,($page-1)*$limit,$limit),'total'=>$total,'page'=>$page,'pages'=>$pages,'counts'=>$counts]);
  }
- if(preg_match('~^/admin/(reviews|outbox)$~',$route,$m)&&$method==='GET')respond(all('SELECT * FROM '.$m[1].' ORDER BY id DESC LIMIT 1000'));
+ if($route==='/admin/reviews'&&$method==='GET')respond(all('SELECT * FROM reviews ORDER BY id DESC LIMIT 1000'));
  if(preg_match('~^/admin/messages/(\d+)$~',$route,$m)&&$method==='PATCH'){sql('UPDATE messages SET status=? WHERE id=?',[enumValue($input['status']??'',['new','read','resolved']),$m[1]]);respond(['ok'=>true]);}
  if(preg_match('~^/admin/reviews/(\d+)$~',$route,$m)&&$method==='PATCH'){sql('UPDATE reviews SET approved=? WHERE id=?',[integer($input['approved']??0,0,1),$m[1]]);if(isset($input['reply']))sql("UPDATE reviews SET reply=?,replied_at=datetime('now') WHERE id=?",[text($input,'reply',0,3000),$m[1]]);respond(['ok'=>true]);}
  if(preg_match('~^/admin/reviews/(\d+)$~',$route,$m)&&$method==='DELETE'){sql('DELETE FROM reviews WHERE id=?',[$m[1]]);respond(['ok'=>true]);}

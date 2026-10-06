@@ -5,9 +5,10 @@ import {mkdtempSync,rmSync,readFileSync,existsSync} from 'node:fs';
 import {join,resolve} from 'node:path';
 import {randomUUID,createHmac} from 'node:crypto';
 import {phpCommand,root} from '../scripts/php-runtime.mjs';
-const p=phpCommand(),folder=mkdtempSync(join(root,'data','floralis-test-'));
-const env={...process.env,DATABASE_PATH:join(folder,'test.sqlite'),RATE_LIMIT_PATH:join(folder,'rate-limits'),EMAIL_CONFIG_FILE:join(folder,'email-private.json'),ADMIN_EMAIL:'qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-password-2026',APP_URL:'http://127.0.0.1:5191',GOOGLE_LOCAL_CALLBACK_ENABLED:'0',SESSION_COOKIE:'floralis_integration_session',STRIPE_ENABLED:'0',STRIPE_WEBHOOK_SECRET:'whsec_qa_fixture_secret',DB_DRIVER:process.env.TEST_DB_DRIVER||'sqlite'};
+const p=phpCommand(),folder=mkdtempSync(join(root,'data','floralis-test-')),mailCapturePath=join(folder,'mail-capture.ndjson');
+const env={...process.env,DATABASE_PATH:join(folder,'test.sqlite'),RATE_LIMIT_PATH:join(folder,'rate-limits'),EMAIL_CONFIG_FILE:join(folder,'email-private.json'),MAIL_CAPTURE_PATH:mailCapturePath,ADMIN_EMAIL:'qa@floralis.local',ADMIN_PASSWORD:'Floralis-QA-password-2026',APP_URL:'http://127.0.0.1:5191',GOOGLE_LOCAL_CALLBACK_ENABLED:'0',SESSION_COOKIE:'floralis_integration_session',STRIPE_ENABLED:'0',STRIPE_WEBHOOK_SECRET:'whsec_qa_fixture_secret',DB_DRIVER:process.env.TEST_DB_DRIVER||'sqlite'};
 const base='http://127.0.0.1:5191';let server,logs='',sample,cat,created,order;const uploads=[];
+const capturedMail=()=>existsSync(mailCapturePath)?readFileSync(mailCapturePath,'utf8').trim().split(/\r?\n/).filter(Boolean).map(line=>JSON.parse(line)):[];
 class Client{
  cookie='';csrf='';
  async request(path,{method='GET',body,raw=false,csrf=true,origin}={}){
@@ -87,6 +88,10 @@ test('checkout uses server prices, coupons, shipping, stock and idempotency',asy
  assert.equal((await guest.api('/cart')).items.length,0);assert.equal((await admin.api('/admin/products/'+created.id)).stock,3);
  assert.equal((await customer.request('/api/orders/'+order.number)).status,404);
  assert.equal((await guest.api('/orders/'+order.number+'?token='+order.token)).items[0].price_cents,12000);
+ const catalogBefore=await admin.api('/admin/products/'+created.id),snapshotBefore=await admin.api('/admin/orders/'+order.id);
+ await admin.api('/admin/products/'+created.id,{method:'PUT',body:{...catalogBefore,price_cents:18900,regular_price_cents:18900,categories:catalogBefore.categories.map(category=>category.id)}});
+ const snapshotAfter=await admin.api('/admin/orders/'+order.id);assert.equal(snapshotAfter.items[0].price_cents,snapshotBefore.items[0].price_cents);assert.equal(snapshotAfter.items[0].total_cents,snapshotBefore.items[0].total_cents);assert.equal(snapshotAfter.subtotal_cents,snapshotBefore.subtotal_cents);assert.equal(snapshotAfter.total_cents,snapshotBefore.total_cents);
+ created=await admin.api('/admin/products/'+created.id,{method:'PUT',body:{...catalogBefore,categories:catalogBefore.categories.map(category=>category.id)}});
  await guest.api('/cart/'+created.id,{method:'PUT',body:{quantity:1}});
  assert.equal((await guest.request('/api/checkout/quote',{method:'POST',body})).status,400);
  assert.equal((await guest.request('/api/cart/'+created.id,{method:'PUT',body:{quantity:4}})).status,400);
@@ -144,9 +149,9 @@ test('contact, newsletter, reviews moderation and CSV export use actual persiste
  assert.equal((await guest.api('/bootstrap')).reviews.length,0);
  const review=(await admin.api('/admin/reviews'))[0];await admin.api('/admin/reviews/'+review.id,{method:'PATCH',body:{approved:1}});
  assert.equal((await guest.api('/bootstrap')).reviews.length,1);const inbox=await admin.api('/admin/messages');assert.equal(inbox.items.length,1);assert.equal(inbox.counts.unread,1);
- const contactMessage=inbox.items[0];const reply=await admin.api('/admin/messages/'+contactMessage.id+'/reply',{method:'POST',body:{subject:'Despre decorul tău',body:'Îți mulțumim pentru mesaj. Revenim cu propunerea potrivită.'}});assert.equal(reply.delivery.status,'pending');
+ const contactMessage=inbox.items[0];const reply=await admin.api('/admin/messages/'+contactMessage.id+'/reply',{method:'POST',body:{subject:'Despre decorul tău',body:'Îți mulțumim pentru mesaj. Revenim cu propunerea potrivită.'}});assert.equal(reply.delivery.status,'disabled');
  const repliedInbox=await admin.api('/admin/messages?status=resolved');assert.equal(repliedInbox.items[0].reply_count,1);assert.equal(repliedInbox.items[0].replies[0].body,'Îți mulțumim pentru mesaj. Revenim cu propunerea potrivită.');
- const replyMail=(await admin.api('/admin/outbox')).find(m=>m.subject.includes('Răspuns Floralis'));assert.equal(replyMail.recipient,'contact@example.test');
+ const replyMail=capturedMail().find(message=>message.subject.includes('Răspuns Floralis'));assert.equal(replyMail.recipient,'contact@example.test');assert.equal((await admin.request('/api/admin/outbox')).status,404);
  const exported=await admin.request('/api/admin/export/newsletter',{raw:true});assert.ok(exported.data.includes('newsletter@example.test'));assert.ok(!exported.data.includes('password'));
 });
 test('uploads validate actual content, re-encode images and protect imported originals',async()=>{
@@ -159,7 +164,7 @@ test('uploads validate actual content, re-encode images and protect imported ori
 });
 test('password reset invalidates old sessions and is single-use',async()=>{
  await guest.api('/auth/forgot',{method:'POST',body:{email:'client-renewed@example.test'}});
- const message=(await admin.api('/admin/outbox')).find(m=>m.subject.includes('Resetare')),resetUrl=message.body.match(/https?:\/\/\S+/)[0],token=new URL(resetUrl).searchParams.get('token');
+ const message=capturedMail().find(mail=>mail.subject.includes('Resetare')),resetUrl=message.body.match(/https?:\/\/\S+/)[0],token=new URL(resetUrl).searchParams.get('token');
  await guest.api('/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}});
  assert.equal((await customer.request('/api/account')).status,401);
  assert.equal((await guest.request('/api/auth/reset',{method:'POST',body:{token,password:'QA-new-password-2026'}})).status,400);
@@ -198,10 +203,10 @@ test('category visibility, permanent product deletion and content editors remain
  const post=await guest.request('/blog/articol-public-qa',{raw:true});assert.equal(post.status,200);assert.match(post.data,/<title>Titlu SEO articol QA<\/title>/);
  assert.match((await guest.request('/sitemap.xml',{raw:true})).data,/\/blog\/articol-public-qa/);
  assert.ok((await guest.api('/search?q=publc%20qa')).items.some(item=>item.url==='/articol-public-qa'));
- const announcements=(await admin.api('/admin/outbox')).filter(message=>message.template==='newsletter_product'||message.template==='newsletter_post');assert.equal(announcements.length,22);assert.equal(announcements.filter(message=>message.template==='newsletter_product').length,11);assert.equal(announcements.filter(message=>message.template==='newsletter_post').length,11);
+ const announcements=capturedMail().filter(message=>message.template==='newsletter_product'||message.template==='newsletter_post');assert.equal(announcements.length,22);assert.equal(announcements.filter(message=>message.template==='newsletter_product').length,11);assert.equal(announcements.filter(message=>message.template==='newsletter_post').length,11);
  const productAnnouncement=announcements.find(message=>message.template==='newsletter_product');assert.equal(productAnnouncement.recipient.includes(','),false);assert.equal(JSON.parse(productAnnouncement.template_data).url,base+'/produs/pret-la-cerere-qa');
- const renderedNewsletter=execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/email.php'; migrate(); echo mailHtml(one('SELECT * FROM outbox WHERE id=?',[${productAnnouncement.id}]));`],{cwd:root,env,encoding:'utf8'});assert.match(renderedNewsletter,/O creație nouă/);assert.match(renderedNewsletter,/href="http:\/\/127\.0\.0\.1:5191\/produs\/pret-la-cerere-qa"/);assert.match(renderedNewsletter,/Primești acest mesaj pentru că te-ai abonat/);
- const savedPost=(await admin.api('/admin/pages')).find(p=>p.slug==='articol-public-qa');await admin.api('/admin/pages/'+savedPost.id,{method:'PUT',body:{...savedPost,body:savedPost.body+' Text editat fără retrimitere.'}});assert.equal((await admin.api('/admin/outbox')).filter(message=>message.template==='newsletter_post').length,11);await admin.api('/admin/pages/'+savedPost.id+'/permanent',{method:'DELETE'});
+ const encodedAnnouncement=Buffer.from(JSON.stringify(productAnnouncement)).toString('base64'),renderedNewsletter=execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/email.php'; migrate(); echo mailHtml(json_decode(base64_decode('${encodedAnnouncement}'),true));`],{cwd:root,env,encoding:'utf8'});assert.match(renderedNewsletter,/O creație nouă/);assert.match(renderedNewsletter,/href="http:\/\/127\.0\.0\.1:5191\/produs\/pret-la-cerere-qa"/);assert.match(renderedNewsletter,/Primești acest mesaj pentru că te-ai abonat/);
+ const savedPost=(await admin.api('/admin/pages')).find(p=>p.slug==='articol-public-qa');await admin.api('/admin/pages/'+savedPost.id,{method:'PUT',body:{...savedPost,body:savedPost.body+' Text editat fără retrimitere.'}});assert.equal(capturedMail().filter(message=>message.template==='newsletter_post').length,11);await admin.api('/admin/pages/'+savedPost.id+'/permanent',{method:'DELETE'});
  assert.ok(!(await admin.api('/admin/pages')).some(p=>p.id===savedPost.id));assert.equal((await guest.request('/blog/articol-public-qa',{raw:true})).status,404);
  assert.equal((await guest.request('/categorie/categorie-care-nu-exista',{raw:true})).status,404);
  assert.equal((await admin.request('/api/admin/settings',{method:'PUT',body:{phone:{invalid:true}}})).status,400);
