@@ -1,0 +1,11 @@
+# PHP must already be enabled by the host (PHP-FPM, FastCGI or mod_php).
+# Change paths and ServerName for your local Apache installation.
+<VirtualHost *:80>
+    ServerName floralis.local
+    DocumentRoot "D:/CAB IT/clienti/floralis-artaflorilor.ro"
+    <Directory "D:/CAB IT/clienti/floralis-artaflorilor.ro">
+        Options +FollowSymLinks -Indexes
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>

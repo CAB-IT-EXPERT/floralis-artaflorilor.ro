@@ -12,10 +12,10 @@ Data: 6 octombrie 2026. Director: proiectul curent. Fără deploy, DNS sau modif
 
 ## Arhitectură independentă
 - React + Vite pentru storefront și admin; React Router, Lucide, fonturi locale Cormorant Garamond și Inter.
-- PHP 8.2+ pentru API, autentificare și punctul de intrare Apache. SQLite nouă `data/floralis_local.sqlite`, PDO, SQL parametrizat și migrations proprii. Node este folosit exclusiv pentru pregătirea imaginilor și compilarea interfeței; runtime-ul final este PHP.
+- PHP 8.2+ pentru API, autentificare și punctul de intrare Apache. SQLite nouă `data/floralis_local.sqlite`, suport PDO MySQL, SQL parametrizat și migrations proprii. Node este folosit exclusiv pentru pregătirea imaginilor și compilarea interfeței; runtime-ul final este PHP.
 - Sesiuni opace HttpOnly/SameSite, parole `password_hash`, CSRF, verificare server-side rol admin, validare PHP, rate limits. Register/login/logout/reset, profil, adrese, comenzi și favorite. La cererea ulterioară se adaugă Google OAuth cu credentialele proprii Floralis; callback-ul local necesită înregistrare în Google Cloud.
 - Coș persistent în DB pentru sesiunea locală. Checkout calculează prețurile server-side, validează disponibilitatea, cupoanele și livrarea; tranzacție atomică, idempotency și mișcări de stoc.
-- Ramburs funcțional local; card dezactivat până la integrare separată. Emailurile și resetările sunt în outbox local, fără SMTP.
+- Ramburs funcțional local; Stripe test integrat independent cu cheile Floralis primite ulterior. Catalogul, prețurile și transportul se sincronizează la modificare. Checkout, webhook, anulare și rambursare verificate în sandbox. Emailurile și resetările sunt în outbox; modul SMTP propriu este configurabil în admin.
 - Upload-uri locale validate și re-encodate ca imagini, fără SVG executabil. Originalele exportate rămân intacte.
 
 ## Rute
@@ -26,7 +26,7 @@ Admin: `/admin/login`, `/admin`, `/admin/produse`, `/admin/categorii`, `/admin/c
 API: `/api/bootstrap`, `/api/products`, `/api/categories`, `/api/cart`, `/api/checkout/quote`, `/api/orders`, `/api/auth/*`, `/api/account/*`, `/api/admin/*`.
 
 ## Admin / design
-Reimplementare conceptuală a UX-ului inspectat, cu logo real Floralis, ivory, champagne, gold și charcoal. Funcții CRUD, duplicate, stoc/istoric, comenzi/istoric/export, conturi, cupoane, SEO, media, pagini, homepage și setări. Fără copiere de cod backend.
+La cererea ulterioară explicită a utilizatorului, CSS-ul admin SmileBaby este copiat local în `src/admin-reference`, cu adaptor pentru markup-ul propriu și logo Floralis. Funcții CRUD, duplicate, arhivare/ștergere, vizibilitate categorii, stoc/istoric, comenzi/istoric/export, conturi, cupoane, SEO, media, pagini, homepage, livrare, plăți, email și setări. Fără copiere de cod backend sau dependență runtime de proiectul vecin.
 
 Storefront urmează referința: header aerisit cu logo centrat, hero editorial cu fotografie reală, serif amplu, accente aurii, colecții, decor, produse, ocazii, poveste, galerie, recenzii reale și newsletter. Carousel mobil, bottom nav, animații discrete și reduced motion.
 
@@ -34,7 +34,7 @@ Storefront urmează referința: header aerisit cu logo centrat, hero editorial c
 Import idempotent cu source IDs. Nu suprascrie editările admin la o reseedare. Prețuri în bani, descrieri și taxe din sursă. Ierarhie categorii, galerii locale, alt text, mapare URL → asset local. Raport pentru imagini lipsă. Pagini legale lipsă primesc note locale explicite, editabile; nu se inventează condiții comerciale sau recenzii.
 
 ## Excluderi
-Personalizare produse, Stripe, date, API, storage, SMTP, credentials sau orice dependență runtime din SmileBaby. Google OAuth se construiește separat numai cu fișierul Floralis furnizat ulterior. Utilitarele de crawling și fișierele de backup/secrete nu intră în aplicație.
+Personalizare produse și orice date, API, storage, SMTP, credentials sau dependență runtime din SmileBaby. Stripe test și Google OAuth sunt construite separat numai cu credentialele Floralis furnizate ulterior. Datele de hosting sunt păstrate privat pentru configurarea viitoare; nu reprezintă o instrucțiune de deploy. Utilitarele de crawling și fișierele de backup/secrete nu intră în aplicație.
 
 ## Verificări
-Test API cu DB izolată: import idempotent, sesiuni/CSRF/roluri, CRUD produse/categorii, checkout, cupoane, stoc, comenzi, clienți, setări și upload. Build. Audit de independență. QA desktop/tablet/mobil/admin, două runde de polish, capturi salvate și raport final.
+13 teste API cu DB SQLite izolată și aceleași 13 teste cu MariaDB/PDO MySQL: import idempotent, sesiuni/CSRF/roluri, CRUD produse/categorii, checkout, cupoane, stoc, comenzi, clienți, setări, upload și Stripe. Apache 2.4 + PHP 8.4 + MariaDB verificate local pentru rute, autentificare, assets, SEO, video și protecția surselor. Stripe sandbox: catalog sincronizat, plată test 300 − 30 + 25 = 295 RON, confirmare server și rambursare. Build, audit de independență și credentiale. QA desktop/tablet/mobil/admin la 320/390/820/1440 px, două runde de polish, capturi și raport final. Bundle compilat în Git și arhivă Apache fără credentiale.

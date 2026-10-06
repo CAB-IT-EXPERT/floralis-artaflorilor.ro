@@ -1,0 +1,12 @@
+; Required extensions. Enable only modules not already built into your PHP.
+extension=pdo_sqlite
+extension=pdo_mysql
+extension=mbstring
+extension=gd
+extension=curl
+extension=openssl
+upload_max_filesize=8M
+post_max_size=9M
+display_errors=Off
+log_errors=On
+date.timezone=Europe/Bucharest

@@ -11,8 +11,11 @@
     "db:migrate": "node scripts/php-runtime.mjs tools/migrate.php",
     "db:seed": "node scripts/php-runtime.mjs tools/seed.php",
     "setup": "node scripts/setup.mjs",
-    "test": "node --test tests/*.test.mjs",
-    "audit:independence": "node scripts/audit-independence.mjs"
+    "test": "node --test tests/integration.test.mjs",
+    "audit:independence": "node scripts/audit-independence.mjs",
+    "stripe:listen": "node scripts/stripe-listen.mjs",
+    "stripe:sync": "node scripts/php-runtime.mjs tools/stripe-sync.php 100 0",
+    "test:stripe": "node scripts/stripe-qa.mjs"
   },
   "engines": {
     "node": ">=22.7.0"
