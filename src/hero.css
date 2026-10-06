@@ -3,47 +3,48 @@
   isolation: isolate;
   container-type: inline-size;
   overflow: hidden;
-  min-height: clamp(490px, 45vw, 864px);
+  height: clamp(500px, calc(100svh - var(--header-height)), 720px);
+  min-height: 0;
   background: #f8f5f0;
   color: #101316;
 }
 .floralis-hero-background { position: absolute; inset: 0; z-index: -1; }
 .floralis-hero-background img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
-.floralis-hero-content { padding: 6% 0 3.8% 5.7%; }
+.floralis-hero-content { padding: clamp(32px, 3.8%, 54px) 0 2.7% 5.7%; }
 .floralis-hero-eyebrow {
-  font: 400 clamp(10px, .96cqw, 18px)/1.65 var(--sans);
+  font: 400 clamp(9px, .64cqw, 12px)/1.65 var(--sans);
   letter-spacing: .25em;
   color: #27292b;
 }
 .floralis-hero h1 {
   max-width: 45%;
   margin: 1.8cqw 0 1.55cqw;
-  font: 500 clamp(60px, 5.5cqw, 106px)/.94 var(--serif);
+  font: 500 clamp(46px, 4.05cqw, 72px)/.94 var(--serif);
   letter-spacing: -.025em;
 }
 .floralis-hero h1 em { display: block; font-size: 1.06em; line-height: 1; color: #a07b24; white-space: nowrap; }
-.floralis-hero-description { max-width: 33cqw; font: 400 clamp(16px, 1.35cqw, 26px)/1.25 Georgia, serif; color: #292929; }
+.floralis-hero-description { max-width: 31cqw; font: 400 clamp(14px, .96cqw, 18px)/1.3 Georgia, serif; color: #292929; }
 .floralis-hero-button {
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
   gap: 2.4cqw;
   margin-top: 1.85cqw;
-  padding: 1.15cqw 2.2cqw;
-  min-height: 48px;
+  padding: clamp(10px, .75cqw, 14px) clamp(20px, 1.5cqw, 28px);
+  min-height: 44px;
   border: 1px solid #a17d2c;
   border-radius: 60px;
   background: linear-gradient(110deg, #a78431, #a17e2b 65%, #aa893a);
   color: #fffdf8;
-  font: 400 clamp(18px, 1.65cqw, 31px)/1.1 var(--serif);
+  font: 400 clamp(16px, 1.04cqw, 20px)/1.1 var(--serif);
 }
-.floralis-hero-button svg { width: 1.7cqw; min-width: 20px; height: auto; stroke-width: 1.15; }
+.floralis-hero-button svg { width: clamp(18px, 1.15cqw, 22px); min-width: 18px; height: auto; stroke-width: 1.15; }
 .floralis-hero-button:hover { background: #927024; color: white; transform: translateY(-2px); }
-.floralis-hero-benefits { display: flex; gap: 2.8cqw; margin: 2.7cqw 0 0; padding: 0; list-style: none; }
+.floralis-hero-benefits { display: flex; gap: clamp(24px, 2.2cqw, 42px); margin: clamp(22px, 2cqw, 38px) 0 0; padding: 0; list-style: none; }
 .floralis-hero-benefits li { display: flex; align-items: center; gap: 1.05cqw; }
-.floralis-hero-benefits svg { flex: 0 0 auto; width: 2.6cqw; height: 2.6cqw; color: #a47723; }
-.floralis-hero-benefits span { font: 400 clamp(14px, 1.24cqw, 24px)/1.15 var(--serif); }
-.floralis-hero-signature { position: absolute; right: 3%; bottom: 2.7%; font: 400 clamp(9px, .85cqw, 16px)/1.9 var(--sans); letter-spacing: .26em; color: #956916; }
+.floralis-hero-benefits svg { flex: 0 0 auto; width: clamp(24px, 1.65cqw, 32px); height: clamp(24px, 1.65cqw, 32px); color: #a47723; }
+.floralis-hero-benefits span { font: 400 clamp(12px, .84cqw, 16px)/1.15 var(--serif); }
+.floralis-hero-signature { position: absolute; right: 3%; bottom: 2.7%; font: 400 clamp(8px, .68cqw, 13px)/1.9 var(--sans); letter-spacing: .26em; color: #956916; }
 .floralis-hero-signature span { display: block; width: 1px; height: 3.3cqw; margin-top: .75cqw; background: #a17d2c; }
 
 @media (min-width: 768px) and (max-width: 1100px) {
@@ -55,7 +56,7 @@
   .floralis-hero-signature { right: 2.5%; }
 }
 @media (max-width: 767px) {
-  .floralis-hero { min-height: 0; }
+  .floralis-hero { height: auto; min-height: 0; }
   .floralis-hero-background img { position: absolute; top: -19cqw; right: -12%; width: 112%; max-width: none; height: auto; }
   .floralis-hero-background::after {
     content: '';
