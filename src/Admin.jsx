@@ -203,7 +203,7 @@ function OrderEditor({id,onSaved}){
  </section>;
 }
 function ProductCatalog({initialRecord=null,onEditorClose}){
- const s=useStore(),[deleteMode,setDeleteMode]=useState('archive'),[q,setQ]=useState(''),[page,setPage]=useState(1),[status,setStatus]=useState(''),[category,setCategory]=useState(''),[sort,setSort]=useState('recommended'),[version,setVersion]=useState(0),[editing,setEditing]=useState(initialRecord),[deleting,setDeleting]=useState(null),[duplicating,setDuplicating]=useState(null);
+ const s=useStore(),[deleteMode,setDeleteMode]=useState('archive'),[q,setQ]=useState(''),[page,setPage]=useState(1),[status,setStatus]=useState(''),[category,setCategory]=useState(''),[sort,setSort]=useState('recommended'),[version,setVersion]=useState(0),[editing,setEditing]=useState(initialRecord),[deleting,setDeleting]=useState(null);
  const r=useRemote('/admin/products?limit=12&page='+page+'&q='+encodeURIComponent(q)+'&status='+status+'&category='+category+'&sort='+sort,version),rows=r.data?.items||[],total=r.data?.total||0,pages=Math.max(1,r.data?.pages||1),threshold=Number(s.data.settings?.low_stock_threshold||5);
  const refresh=()=>{setVersion(value=>value+1);s.refresh();};
  const published=rows.filter(product=>product.status==='publish').length,drafts=rows.filter(product=>product.status==='draft').length,stockAlerts=rows.filter(product=>Number(product.manage_stock)&&Number(product.stock)<=threshold).length;
@@ -253,7 +253,6 @@ function ProductCatalog({initialRecord=null,onEditorClose}){
      <td data-label="Status"><Badge status={product.status}/></td>
      <td data-label="Acțiuni"><div className="products-row-actions">
       <button type="button" data-tooltip="Editează informațiile, prețul, stocul și imaginile" aria-label={'Editează '+product.name} onClick={()=>setEditing(product)}><Pencil/></button>
-      <button type="button" data-tooltip="Creează o copie nouă salvată ca ciornă" aria-label={'Duplică '+product.name} disabled={duplicating===product.id} onClick={async()=>{setDuplicating(product.id);try{await api('/admin/products/'+product.id+'/duplicate',{method:'POST'});refresh();s.notify('Copia a fost creată ca ciornă.');}catch(error){s.notify(error.message,'error');}finally{setDuplicating(null);}}}><Copy/></button>
       <button type="button" data-tooltip="Mută produsul în arhivă; îl poți recupera ulterior" aria-label={'Arhivează '+product.name} onClick={()=>{setDeleteMode('archive');setDeleting(product);}}><Archive/></button>
       <button type="button" className="danger" data-tooltip="Șterge definitiv produsul dacă nu apare în comenzi" aria-label={'Șterge definitiv '+product.name} onClick={()=>{setDeleteMode('permanent');setDeleting(product);}}><Trash2/></button>
      </div></td>
