@@ -44,9 +44,12 @@ function metaText(string $value): string {return trim(preg_replace('/\s+/u',' ',
 function metaExcerpt(string $value,int $limit): string {
  $value=metaText($value);if($value===''||mb_strlen($value)<=$limit)return $value;$cut=mb_substr($value,0,$limit-1);$space=mb_strrpos($cut,' ');if($space!==false&&$space>(int)($limit*.68))$cut=mb_substr($cut,0,$space);return rtrim($cut," \t\n\r\0\x0B,.;:!?").'…';
 }
+function productMetaTitle(string $name): string {
+ $suffix=' | Floralis';$budget=60-mb_strlen($suffix);if(mb_strlen($name)<=$budget)return $name.$suffix;$words=preg_split('/\s+/u',$name,-1,PREG_SPLIT_NO_EMPTY);$tailCount=count($words)>2?2:1;$tail=implode(' ',array_slice($words,-$tailCount));if(mb_strlen($tail)>20){$tailCount=1;$tail=end($words);}$headSource=implode(' ',array_slice($words,0,-$tailCount));if($headSource==='')return metaExcerpt($name,$budget).$suffix;$head=metaExcerpt($headSource,max(18,$budget-mb_strlen($tail)-1));return $head.' '.$tail.$suffix;
+}
 function productSeoDefaults(array $p,?array $seo=null): array {
  $seo=is_array($seo)?$seo:decoded((string)($p['seo']??''));$name=metaText((string)($p['name']??'Produs Floralis'));$automatic=!empty($seo['auto'])||(trim((string)($seo['title']??''))===''&&trim((string)($seo['description']??''))==='');
- if($automatic||trim((string)($seo['title']??''))===''){$suffix=' | Floralis';$seo['title']=metaExcerpt($name,60-mb_strlen($suffix)).$suffix;}
+ if($automatic||trim((string)($seo['title']??''))==='')$seo['title']=productMetaTitle($name);
  if($automatic||trim((string)($seo['description']??''))===''){$source=metaText((string)(($p['short_description']??'')?:($p['description']??'')));$copy='Descoperă '.$name.' la Floralis.'.($source!==''?' '.$source:' Creație florală pregătită cu grijă, disponibilă pentru comandă online.');$seo['description']=metaExcerpt($copy,160);}
  $seo['canonical']=trim((string)($seo['canonical']??''));$seo['og_image']=trim((string)($seo['og_image']??''));$seo['noindex']=false;$seo['auto']=$automatic;return $seo;
 }

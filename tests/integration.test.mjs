@@ -38,6 +38,7 @@ after(async()=>{
 test('catalog import is complete, idempotent and local',async()=>{
  const list=await guest.api('/products?limit=100');assert.equal(list.total,83);assert.equal((await guest.api('/categories')).length,12);
  for(const x of list.items){assert.equal(x.stock,null);assert.equal(x.manage_stock,0);assert.ok(x.images.length);assert.match(x.seo.title,/Floralis/);assert.ok(x.seo.description.length>40);assert.equal(x.seo.noindex,false);for(const i of x.images)assert.ok(existsSync(join(root,'public',i.url)));}
+ assert.equal(new Set(list.items.map(product=>product.seo.title)).size,list.total);
  const detail=await guest.api('/products/'+sample.slug+'?related=1');assert.equal(detail.related_products.length,4);assert.ok(detail.related_products.every(product=>product.id!==sample.id));assert.equal(new Set(detail.related_products.map(product=>product.id)).size,4);
  const boot=await guest.api('/bootstrap');assert.equal(boot.google.enabled,false);assert.ok(boot.payments.find(p=>p.code==='card').enabled===0);
 });
