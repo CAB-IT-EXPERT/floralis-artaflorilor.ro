@@ -15,3 +15,27 @@
 @media(max-width:1120px){.orders-premium-hero{grid-template-columns:1fr;gap:2rem}.orders-premium-stats{max-width:36rem}.orders-premium-toolbar{grid-template-columns:1fr auto}.orders-premium-toolbar>label{grid-column:1/-1;grid-row:2;width:100%}.orders-premium-table-head,.orders-premium-row{grid-template-columns:minmax(175px,.8fr) minmax(190px,1fr) 105px 100px 95px 18px}}
 @media(max-width:760px){.orders-premium-page{gap:.85rem}.orders-premium-hero{min-height:0;padding:2.2rem 1.25rem;border-radius:22px}.orders-premium-intro h1{font-size:2.65rem!important}.orders-premium-intro p{font-size:.66rem}.orders-premium-stats article{padding:.85rem .35rem}.orders-premium-stats small{font-size:.4rem}.orders-premium-stats strong{font-size:1.28rem}.orders-premium-stats span{font-size:.38rem}.orders-premium-card{border-radius:20px}.orders-premium-toolbar{display:flex;align-items:stretch;flex-direction:column;padding:1rem}.orders-premium-toolbar>select{width:100%}.orders-premium-table{display:grid;gap:.7rem;padding:.2rem .8rem 1rem}.orders-premium-table-head{display:none}.orders-premium-row{display:grid;grid-template-columns:1fr auto;gap:.78rem;margin:0;padding:1rem}.orders-premium-number{grid-column:1}.orders-premium-row .badge{grid-column:2;grid-row:1}.orders-premium-client{grid-column:1/-1;padding-top:.72rem;border-top:1px solid rgba(113,82,60,.08)}.orders-premium-date{grid-column:1;grid-row:3}.orders-premium-value{grid-column:2;grid-row:3}.orders-premium-row>svg{display:none}.orders-premium-pagination{align-items:flex-start;flex-direction:column;gap:.75rem;padding:0 1rem 1rem}.orders-premium-pagination>div{width:100%;overflow:auto}.orders-premium-pagination>div button:first-child,.orders-premium-pagination>div button:last-child{flex:1}.orders-premium-empty{min-height:20rem;padding:2rem 1rem}.orders-premium-empty h3{font-size:1.75rem}}
 @media(prefers-reduced-motion:reduce){.orders-premium-hero,.orders-premium-card,.orders-premium-orbit,.orders-premium-row{animation:none!important;transition-duration:.01ms!important}}
+
+/* Readable order rows across desktop and mobile. */
+.orders-premium-table-head{font-size:.68rem}
+.orders-premium-row{padding:1rem 1.05rem}
+.orders-premium-number{gap:.85rem}
+.orders-premium-number>i{width:3rem;height:3rem}
+.orders-premium-number>i svg{width:1.1rem}
+.orders-premium-number strong{font-size:.92rem;line-height:1.35}
+.orders-premium-number small{margin-top:.3rem;font-size:.74rem;line-height:1.4}
+.orders-premium-client strong{font-size:.9rem;line-height:1.35}
+.orders-premium-client small{margin-top:.3rem;font-size:.74rem;line-height:1.4}
+.orders-premium-date{font-size:.74rem;line-height:1.45}
+.orders-premium-row .badge{padding:.5rem .75rem;font-size:.68rem}
+.orders-premium-value{font-size:.92rem;line-height:1.4}
+.orders-premium-row>svg{width:1rem}
+
+@media(max-width:760px){
+  .orders-premium-row{padding:1.05rem}
+  .orders-premium-number strong,.orders-premium-client strong{font-size:.96rem}
+  .orders-premium-number small,.orders-premium-client small{font-size:.76rem}
+  .orders-premium-date{font-size:.78rem}
+  .orders-premium-row .badge{font-size:.72rem}
+  .orders-premium-value{font-size:.98rem}
+}
