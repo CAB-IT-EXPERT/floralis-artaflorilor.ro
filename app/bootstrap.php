@@ -40,7 +40,17 @@ function integer(mixed $v,int $min=0,int $max=PHP_INT_MAX): int {if(filter_var($
 function email(array $a): string {$e=strtolower(text($a,'email',3,200));if(!filter_var($e,FILTER_VALIDATE_EMAIL))abortApi('Email invalid.');return $e;}
 function enumValue(mixed $v,array $allowed): string {if(!in_array($v,$allowed,true))abortApi('Valoare invalidă.');return (string)$v;}
 function safeUser(?array $u): ?array {return $u?array_intersect_key($u,array_flip(['id','email','name','phone','role','active'])):null;}
-function product(array $p): array {$p['seo']=decoded($p['seo']);$p['source_fields']=decoded($p['source_fields']);$p['images']=all('SELECT * FROM product_images WHERE product_id=? ORDER BY sort_order,id',[$p['id']]);$p['categories']=all('SELECT c.* FROM categories c JOIN product_categories pc ON pc.category_id=c.id WHERE pc.product_id=?',[$p['id']]);$p['price']=$p['price_cents']===null?null:$p['price_cents']/100;return $p;}
+function metaText(string $value): string {return trim(preg_replace('/\s+/u',' ',html_entity_decode(strip_tags($value),ENT_QUOTES|ENT_HTML5,'UTF-8')));}
+function metaExcerpt(string $value,int $limit): string {
+ $value=metaText($value);if($value===''||mb_strlen($value)<=$limit)return $value;$cut=mb_substr($value,0,$limit-1);$space=mb_strrpos($cut,' ');if($space!==false&&$space>(int)($limit*.68))$cut=mb_substr($cut,0,$space);return rtrim($cut," \t\n\r\0\x0B,.;:!?").'…';
+}
+function productSeoDefaults(array $p,?array $seo=null): array {
+ $seo=is_array($seo)?$seo:decoded((string)($p['seo']??''));$name=metaText((string)($p['name']??'Produs Floralis'));$automatic=!empty($seo['auto'])||(trim((string)($seo['title']??''))===''&&trim((string)($seo['description']??''))==='');
+ if($automatic||trim((string)($seo['title']??''))===''){$suffix=' | Floralis';$seo['title']=metaExcerpt($name,60-mb_strlen($suffix)).$suffix;}
+ if($automatic||trim((string)($seo['description']??''))===''){$source=metaText((string)(($p['short_description']??'')?:($p['description']??'')));$copy='Descoperă '.$name.' la Floralis.'.($source!==''?' '.$source:' Creație florală pregătită cu grijă, disponibilă pentru comandă online.');$seo['description']=metaExcerpt($copy,160);}
+ $seo['canonical']=trim((string)($seo['canonical']??''));$seo['og_image']=trim((string)($seo['og_image']??''));$seo['noindex']=false;$seo['auto']=$automatic;return $seo;
+}
+function product(array $p): array {$p['seo']=productSeoDefaults($p,decoded($p['seo']));$p['source_fields']=decoded($p['source_fields']);$p['images']=all('SELECT * FROM product_images WHERE product_id=? ORDER BY sort_order,id',[$p['id']]);$p['categories']=all('SELECT c.* FROM categories c JOIN product_categories pc ON pc.category_id=c.id WHERE pc.product_id=?',[$p['id']]);$p['price']=$p['price_cents']===null?null:$p['price_cents']/100;return $p;}
 function categories(bool $admin=false): array {
  $rows=all("SELECT c.*,(SELECT COUNT(*) FROM product_categories pc JOIN products p ON p.id=pc.product_id WHERE pc.category_id=c.id AND p.status='publish') product_count FROM categories c ORDER BY sort_order,id");$byId=array_column($rows,null,'id');
  if(!$admin)$rows=array_values(array_filter($rows,function($c)use($byId){$seen=[];while($c){if(!$c['visible']||in_array($c['id'],$seen))return false;$seen[]=$c['id'];$c=$byId[$c['parent_id']]??null;}return true;}));

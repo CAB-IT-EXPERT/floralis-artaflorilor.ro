@@ -37,7 +37,7 @@ after(async()=>{
 });
 test('catalog import is complete, idempotent and local',async()=>{
  const list=await guest.api('/products?limit=100');assert.equal(list.total,83);assert.equal((await guest.api('/categories')).length,12);
- for(const x of list.items){assert.equal(x.stock,null);assert.equal(x.manage_stock,0);assert.ok(x.images.length);for(const i of x.images)assert.ok(existsSync(join(root,'public',i.url)));}
+ for(const x of list.items){assert.equal(x.stock,null);assert.equal(x.manage_stock,0);assert.ok(x.images.length);assert.match(x.seo.title,/Floralis/);assert.ok(x.seo.description.length>40);assert.equal(x.seo.noindex,false);for(const i of x.images)assert.ok(existsSync(join(root,'public',i.url)));}
  const detail=await guest.api('/products/'+sample.slug+'?related=1');assert.equal(detail.related_products.length,4);assert.ok(detail.related_products.every(product=>product.id!==sample.id));assert.equal(new Set(detail.related_products.map(product=>product.id)).size,4);
  const boot=await guest.api('/bootstrap');assert.equal(boot.google.enabled,false);assert.ok(boot.payments.find(p=>p.code==='card').enabled===0);
 });
@@ -146,7 +146,7 @@ test('stock adjustments, CMS, SEO, shipping and payment settings are connected',
  await admin.api('/admin/pages',{method:'POST',body:{slug:'pagina-qa',title:'Pagina QA',body:'Conținut QA real editabil.',type:'page',status:'publish',seo:{title:'SEO QA'}}});
  assert.equal((await guest.api('/pages/pagina-qa')).title,'Pagina QA');
  const html=(await guest.request('/pagina-qa',{raw:true})).data;assert.ok(html.includes('<title>SEO QA</title>'));assert.ok(html.includes('Conținut QA real editabil.'));
- const seo=(await guest.request('/produs/produs-qa',{raw:true})).data;assert.ok(seo.includes('Titlu produs QA'));assert.ok(seo.includes('application/ld+json'));assert.ok(seo.includes('InStock'));
+ const seo=(await guest.request('/produs/produs-qa',{raw:true})).data;assert.ok(seo.includes('Titlu produs QA'));assert.ok(seo.includes('application/ld+json'));assert.ok(seo.includes('InStock'));assert.match(seo,/<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">/);assert.match(seo,/<meta property="og:type" content="product">/);assert.ok(seo.includes(`<meta property="og:image" content="${base}${created.images[0].url}">`));assert.ok(seo.includes(`<meta name="twitter:image" content="${base}${created.images[0].url}">`));assert.ok(seo.includes(`<link rel="canonical" href="${base}/produs/produs-qa">`));
  await admin.api('/admin/shipping',{method:'POST',body:{name:'Livrare QA',price_cents:2500,zones:'Ilfov',enabled:1}});
  assert.ok((await guest.api('/bootstrap')).shipping.some(s=>s.name==='Livrare QA'));
  await admin.api('/admin/payments/cod',{method:'PUT',body:{enabled:0}});assert.equal((await guest.api('/bootstrap')).payments.find(p=>p.code==='cod').enabled,0);
@@ -217,13 +217,13 @@ test('category visibility, permanent product deletion and content editors remain
  assert.equal((await admin.request('/api/admin/products/'+created.id+'/permanent',{method:'DELETE'})).status,409);
  const about=(await admin.api('/admin/pages')).find(p=>p.slug==='despre-noi');await admin.api('/admin/pages/'+about.id,{method:'PUT',body:{...about,body:'Floralis — text actualizat din editorul paginii.'}});
  assert.equal((await guest.api('/bootstrap')).settings.story,'Floralis — text actualizat din editorul paginii.');
- const unpriced=await admin.api('/admin/products',{method:'POST',body:{name:'Preț la cerere QA',slug:'pret-la-cerere-qa',price_cents:null,status:'publish'}});
+ const unpriced=await admin.api('/admin/products',{method:'POST',body:{name:'Preț la cerere QA',slug:'pret-la-cerere-qa',price_cents:null,status:'publish'}});assert.equal(unpriced.seo.auto,true);assert.match(unpriced.seo.title,/Preț la cerere QA/);assert.match(unpriced.seo.description,/Preț la cerere QA/);
  const html=await guest.request('/produs/pret-la-cerere-qa',{raw:true});assert.equal(html.status,200);assert.match(html.data,/Preț la cerere/);
  const jsonld=[...html.data.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map(m=>JSON.parse(m[1]));assert.ok(!('offers' in jsonld.find(v=>v['@type']==='Product')));
  await admin.api('/admin/products/'+unpriced.id+'/permanent',{method:'DELETE'});
  await admin.api('/admin/pages',{method:'POST',body:{title:'Articol public QA',slug:'articol-public-qa',body:'Floralis — articol public de verificare.',type:'post',status:'publish',seo:{title:'Titlu SEO articol QA'}}});
  const post=await guest.request('/blog/articol-public-qa',{raw:true});assert.equal(post.status,200);assert.match(post.data,/<title>Titlu SEO articol QA<\/title>/);
- assert.match((await guest.request('/sitemap.xml',{raw:true})).data,/\/blog\/articol-public-qa/);
+ const sitemap=(await guest.request('/sitemap.xml',{raw:true})).data;assert.match(sitemap,/\/blog\/articol-public-qa/);assert.match(sitemap,/xmlns:image="http:\/\/www\.google\.com\/schemas\/sitemap-image\/1\.1"/);assert.match(sitemap,/<image:image><image:loc>http:\/\/127\.0\.0\.1:5191\/assets\/floralis\//);
  assert.ok((await guest.api('/search?q=publc%20qa')).items.some(item=>item.url==='/articol-public-qa'));
  const announcements=capturedMail().filter(message=>message.template==='newsletter_product'||message.template==='newsletter_post');assert.equal(announcements.length,22);assert.equal(announcements.filter(message=>message.template==='newsletter_product').length,11);assert.equal(announcements.filter(message=>message.template==='newsletter_post').length,11);
  const productAnnouncement=announcements.find(message=>message.template==='newsletter_product');assert.equal(productAnnouncement.recipient.includes(','),false);assert.equal(JSON.parse(productAnnouncement.template_data).url,base+'/produs/pret-la-cerere-qa');
