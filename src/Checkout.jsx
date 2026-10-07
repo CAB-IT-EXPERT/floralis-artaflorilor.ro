@@ -1,5 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
-import {Link,useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {ArrowRight,Building2,Check,CreditCard,Gift,MapPin,PackageCheck,ReceiptText,ShieldCheck,Sparkles,Truck,UserRound,WalletCards} from 'lucide-react';
 import {api,money} from './api';
 import {useStore} from './context';
@@ -7,6 +7,8 @@ import {Empty,Image} from './components';
 import './checkout-premium.css';
 
 const emptyFields={first_name:'',last_name:'',email:'',phone:'',street:'',city:'',county:'',postal_code:'',company_name:'',cui:'',registration_number:''};
+const checkoutDraftKey='floralis-checkout-draft';
+const readCheckoutDraft=()=>{try{return JSON.parse(localStorage.getItem(checkoutDraftKey)||'{}')||{};}catch{return {};}};
 
 function splitName(name=''){
  const parts=name.trim().split(/\s+/).filter(Boolean);
@@ -18,16 +20,16 @@ function Field({label,name,fields,setFields,type='text',required=false,autoCompl
 }
 
 export default function Checkout(){
- const store=useStore(),navigate=useNavigate(),profileApplied=useRef(false);
- const [quote,setQuote]=useState(null),[coupon,setCoupon]=useState(''),[applied,setApplied]=useState('');
- const [shipping,setShipping]=useState(''),[payment,setPayment]=useState(''),[identity,setIdentity]=useState('pf');
- const [fields,setFields]=useState(emptyFields),[account,setAccount]=useState(null),[selectedAddress,setSelectedAddress]=useState('manual');
- const [consent,setConsent]=useState(false),[busy,setBusy]=useState(false),[error,setError]=useState(''),[idem,setIdem]=useState(()=>crypto.randomUUID());
+ const store=useStore(),draft=useRef(readCheckoutDraft()).current,profileApplied=useRef(false);
+ const [quote,setQuote]=useState(null),[coupon,setCoupon]=useState(draft.coupon||''),[applied,setApplied]=useState(draft.applied||'');
+ const [shipping,setShipping]=useState(draft.shipping||''),[payment,setPayment]=useState(draft.payment||''),[identity,setIdentity]=useState(draft.identity==='pj'?'pj':'pf');
+ const [fields,setFields]=useState({...emptyFields,...(draft.fields||{})}),[account,setAccount]=useState(null),[selectedAddress,setSelectedAddress]=useState(draft.selectedAddress||'manual');
+ const [notes,setNotes]=useState(draft.notes||''),[consent,setConsent]=useState(Boolean(draft.consent)),[busy,setBusy]=useState(false),[error,setError]=useState(''),[idem,setIdem]=useState(()=>crypto.randomUUID());
 
  useEffect(()=>{
   if(!store.data?.user||profileApplied.current)return;
   profileApplied.current=true;
-  setFields(current=>({...current,...splitName(store.data.user.name),email:store.data.user.email||'',phone:store.data.user.phone||''}));
+  const person=splitName(store.data.user.name);setFields(current=>({...current,first_name:current.first_name||person.first_name,last_name:current.last_name||person.last_name,email:current.email||store.data.user.email||'',phone:current.phone||store.data.user.phone||''}));
  },[store.data?.user]);
  useEffect(()=>{
   if(!store.data?.user){setAccount(null);return;}
@@ -35,8 +37,9 @@ export default function Checkout(){
   api('/account').then(data=>{if(active)setAccount(data);}).catch(()=>{});
   return()=>{active=false;};
  },[store.data?.user?.id]);
- useEffect(()=>{if(!shipping&&store.data?.shipping?.length)setShipping(String(store.data.shipping[0].id));},[store.data?.shipping,shipping]);
- useEffect(()=>{const first=store.data?.payments?.find(method=>Number(method.enabled));if(first&&!payment)setPayment(first.code);},[store.data?.payments,payment]);
+ useEffect(()=>{if(store.data?.shipping?.length&&!store.data.shipping.some(method=>String(method.id)===String(shipping)))setShipping(String(store.data.shipping[0].id));},[store.data?.shipping,shipping]);
+ useEffect(()=>{const enabled=store.data?.payments?.filter(method=>Number(method.enabled))||[],first=enabled[0];if(first&&!enabled.some(method=>method.code===payment))setPayment(first.code);},[store.data?.payments,payment]);
+ useEffect(()=>{try{localStorage.setItem(checkoutDraftKey,JSON.stringify({fields,identity,selectedAddress,shipping,payment,coupon,applied,notes,consent}));}catch{}},[fields,identity,selectedAddress,shipping,payment,coupon,applied,notes,consent]);
  useEffect(()=>{
   if(!shipping||!store.cart.length)return;
   let active=true;
@@ -69,10 +72,10 @@ export default function Checkout(){
   try{
    const name=[fields.first_name,fields.last_name].filter(Boolean).join(' ').trim();
    const address={name,phone:fields.phone,street:fields.street,city:fields.city,county:fields.county,postal_code:fields.postal_code,identity_type:identity,company_name:identity==='pj'?fields.company_name:'',cui:identity==='pj'?fields.cui:'',registration_number:identity==='pj'?fields.registration_number:''};
-   const order=await api('/orders',{method:'POST',body:{address,email:fields.email,shipping_id:Number(shipping),payment_method:payment,coupon:applied,notes:new FormData(event.currentTarget).get('notes')||'',consent,idempotency_key:idem}});
+   const order=await api('/orders',{method:'POST',body:{address,email:fields.email,shipping_id:Number(shipping),payment_method:payment,coupon:applied,notes,consent,idempotency_key:idem}});
    await store.refresh();
    if(order.checkout_url){window.location.assign(order.checkout_url);return;}
-   navigate('/comanda/'+order.number+'?token='+order.token);
+   localStorage.removeItem(checkoutDraftKey);window.location.assign(order.tracking_url);
   }catch(reason){setError(reason.message);setIdem(crypto.randomUUID());await store.refresh();}
   finally{setBusy(false);}
  };
@@ -127,7 +130,7 @@ export default function Checkout(){
      <div className="checkout-options">{store.data?.shipping?.map(method=><label className={Number(shipping)===Number(method.id)?'selected':''} key={method.id}><input type="radio" name="shipping" value={method.id} checked={Number(shipping)===Number(method.id)} onChange={()=>setShipping(String(method.id))}/><span className="option-icon"><Truck/></span><span><b>{method.name}</b><small>{method.free_threshold_cents?`Gratuit peste ${money(method.free_threshold_cents)}`:'Pregătită cu grijă din atelier'}</small></span><strong>{money(method.price_cents)}</strong><i><Check/></i></label>)}</div>
      <h3 className="checkout-option-title">Metoda de plată</h3>
      <div className="checkout-options payment-options">{enabledPayments.map(method=><label className={payment===method.code?'selected':''} key={method.code}><input type="radio" name="payment_method" value={method.code} checked={payment===method.code} onChange={()=>setPayment(method.code)}/><span className="option-icon">{method.code==='card'?<CreditCard/>:<WalletCards/>}</span><span><b>{method.name}</b><small>{method.code==='card'?'Plată securizată online':'Plătești la primirea comenzii'}</small></span>{method.code==='card'&&<em>RECOMANDAT</em>}<i><Check/></i></label>)}</div>
-     <label className="checkout-notes"><span>Un detaliu pentru atelier <small>opțional</small></span><textarea name="notes" maxLength={2000} placeholder="Mesaj pentru destinatar, interval preferat sau alte detalii utile…"/></label>
+     <label className="checkout-notes"><span>Un detaliu pentru atelier <small>opțional</small></span><textarea name="notes" maxLength={2000} value={notes} onChange={event=>setNotes(event.target.value)} placeholder="Mesaj pentru destinatar, interval preferat sau alte detalii utile…"/></label>
     </section>
    </div>
 
