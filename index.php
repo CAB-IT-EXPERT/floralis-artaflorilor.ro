@@ -142,6 +142,7 @@ if(!$snapshot&&!$private&&(in_array($path,['/','/magazin'],true)||$categoryData)
 if(!$snapshot&&!$private&&$path==='/blog'){$snapshot='<main><h1>Din atelierul Floralis</h1><p>'.escape(metaText($description)).'</p>';foreach(all("SELECT * FROM pages WHERE type='post' AND status='publish' ORDER BY id DESC") as $post)$snapshot.='<article><a href="/blog/'.escape($post['slug']).'"><h2>'.escape($post['title']).'</h2></a><p>'.escape(metaExcerpt($post['body'],180)).'</p></article>';$snapshot.='</main>';}
 
 $organizationId=$base.'/#organization';$websiteId=$base.'/#website';
+$primaryNavigation=[['name'=>'Acasă','url'=>$base.'/'],['name'=>'Magazin','url'=>$base.'/magazin'],['name'=>'Decoruri florale','url'=>$base.'/decor-floral'],['name'=>'Despre noi','url'=>$base.'/despre-noi'],['name'=>'Contact','url'=>$base.'/contact'],['name'=>'Livrare','url'=>$base.'/transport-si-livrare'],['name'=>'Modalități de plată','url'=>$base.'/modalitati-de-plata']];
 $social=[];foreach(($settings['social']??[]) as $profile)if(is_array($profile)&&filter_var($profile['url']??'',FILTER_VALIDATE_URL))$social[]=$profile['url'];
 $organization=[
  '@context'=>'https://schema.org','@type'=>['Florist','OnlineStore'],'@id'=>$organizationId,'name'=>$storeName,'legalName'=>'Floralis Arta Florilor SRL','url'=>$base.'/','logo'=>absoluteUrl($base,'/assets/floralis/logo.png'),'image'=>absoluteUrl($base,$image),'description'=>'Atelier floral și florărie online din Tunari, Ilfov, cu flori, aranjamente și decoruri pentru evenimente.','foundingDate'=>'2017','taxID'=>'RO37782470','vatID'=>'RO37782470',
@@ -149,7 +150,10 @@ $organization=[
 ];
 if($social)$organization['sameAs']=$social;
 if(in_array($path,['/','/despre-noi','/contact'],true))$structured[]=$organization;
-if($path==='/')$structured[]=['@context'=>'https://schema.org','@type'=>'WebSite','@id'=>$websiteId,'url'=>$base.'/','name'=>$storeName,'inLanguage'=>'ro-RO','publisher'=>['@id'=>$organizationId]];
+if($path==='/'){
+ $structured[]=['@context'=>'https://schema.org','@type'=>'WebSite','@id'=>$websiteId,'url'=>$base.'/','name'=>'Floralis','alternateName'=>['Floralis — arta florilor','Floralis Arta Florilor'],'inLanguage'=>'ro-RO','publisher'=>['@id'=>$organizationId],'hasPart'=>array_map(fn($item)=>['@type'=>'WebPage','@id'=>$item['url'].'#webpage','url'=>$item['url'],'name'=>$item['name']],$primaryNavigation)];
+ $structured[]=['@context'=>'https://schema.org','@graph'=>array_map(fn($item,$index)=>['@type'=>'SiteNavigationElement','@id'=>$base.'/#navigation-'.($index+1),'name'=>$item['name'],'url'=>$item['url']],$primaryNavigation,array_keys($primaryNavigation))];
+}
 
 if(!$private){
  $webType=$path==='/despre-noi'?'AboutPage':($path==='/contact'?'ContactPage':($path==='/magazin'||$categoryData?'CollectionPage':($contentData&&$contentData['type']==='post'?'Article':'WebPage')));
