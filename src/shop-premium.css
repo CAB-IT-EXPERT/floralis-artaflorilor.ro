@@ -105,8 +105,10 @@
 .catalog-category-shortcuts-head { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 0 3px 9px; color: #9b7a3c; font-size: 8px; font-weight: 600; letter-spacing: .17em; }
 .catalog-category-shortcuts-head small { display: inline-flex; align-items: center; gap: 5px; color: #a69882; font-size: 9px; font-weight: 400; letter-spacing: 0; }
 .catalog-category-shortcuts-head svg { color: #aa8748; }
-.catalog-category-rail { position: relative; z-index: 1; display: flex; gap: 8px; padding: 1px 3px 5px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x proximity; scroll-padding-inline: 3px; scrollbar-width: none; touch-action: pan-x; -webkit-overflow-scrolling: touch; }
+.catalog-category-rail { position: relative; z-index: 1; display: flex; gap: 8px; padding: 1px 3px 5px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x proximity; scroll-padding-inline: 3px; scrollbar-width: none; touch-action: pan-x; cursor: grab; -webkit-overflow-scrolling: touch; }
 .catalog-category-rail::-webkit-scrollbar { display: none; }
+.catalog-category-rail.is-dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; }
+.catalog-category-rail.is-dragging .catalog-category-shortcut { pointer-events: none; }
 .catalog-category-shortcut { --category-accent:#ac8b4c; position: relative; display: grid; grid-template-columns: 39px minmax(85px,1fr) auto; flex: 0 0 auto; align-items: center; gap: 9px; min-width: 174px; min-height: 58px; padding: 7px 10px 7px 7px; border: 1px solid #e6dac7; border-radius: 13px; background: #fffdfaf2; color: #615647; box-shadow: 0 3px 12px #5f452308; scroll-snap-align: start; -webkit-tap-highlight-color: transparent; transition: border-color .35s,background .35s,color .35s,box-shadow .35s,transform .4s var(--catalog-ease); }
 .catalog-category-shortcut:hover { border-color: #ccb17e; background: #fffaf0; color: #765824; box-shadow: 0 8px 20px #6e4e1d13; transform: translateY(-2px); }
 .catalog-category-shortcut:focus-visible { outline: 2px solid #9d7732; outline-offset: 2px; }

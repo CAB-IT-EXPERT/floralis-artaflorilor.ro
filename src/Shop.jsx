@@ -55,7 +55,7 @@ export default function Shop({category}) {
   const [priceError, setPriceError] = useState('');
   const [result, setResult] = useState({data: null, loading: true, error: ''});
   const [retry, setRetry] = useState(0);
-  const controlsRef = useRef(null), gridRef = useRef(null), searchRef = useRef(null);
+  const controlsRef = useRef(null), gridRef = useRef(null), searchRef = useRef(null), categoryRailRef = useRef(null), categoryDragRef = useRef(null), categoryDraggedRef = useRef(false);
   const categories = store.data?.categories || [];
   const selectedCategory = categories.find(c => c.slug === category);
   const q = params.get('q') || '', min = params.get('min') || '', max = params.get('max') || '';
@@ -109,6 +109,37 @@ export default function Shop({category}) {
     return () => observer.disconnect();
   }, [result.data, result.loading]);
 
+  const finishCategoryDrag = event => {
+    const rail = categoryRailRef.current, drag = categoryDragRef.current;
+    if (!rail || !drag || (event && drag.pointerId !== event.pointerId)) return;
+    if (drag.captured && rail.hasPointerCapture?.(drag.pointerId)) rail.releasePointerCapture(drag.pointerId);
+    rail.classList.remove('is-dragging');
+    categoryDragRef.current = null;
+    if (drag.dragged) window.setTimeout(() => {categoryDraggedRef.current = false;}, 0);
+  };
+  const categoryDragHandlers = {
+    onPointerDown: event => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      const rail = categoryRailRef.current;
+      categoryDragRef.current = {x: event.clientX, y: event.clientY, left: rail.scrollLeft, pointerId: event.pointerId, dragged: false, captured: false};
+    },
+    onPointerMove: event => {
+      const rail = categoryRailRef.current, drag = categoryDragRef.current;
+      if (!rail || !drag || drag.pointerId !== event.pointerId) return;
+      const deltaX = event.clientX - drag.x, deltaY = event.clientY - drag.y;
+      if (!drag.dragged && (Math.abs(deltaX) < 7 || Math.abs(deltaX) <= Math.abs(deltaY))) return;
+      event.preventDefault();
+      if (!drag.dragged) {
+        drag.dragged = true; drag.captured = true; categoryDraggedRef.current = true;
+        rail.setPointerCapture?.(event.pointerId); rail.classList.add('is-dragging');
+      }
+      rail.scrollLeft = drag.left - deltaX;
+    },
+    onPointerUp: finishCategoryDrag,
+    onPointerCancel: finishCategoryDrag,
+    onDragStart: event => event.preventDefault(),
+    onClickCapture: event => {if (categoryDraggedRef.current) {event.preventDefault(); event.stopPropagation(); categoryDraggedRef.current = false;}}
+  };
   const scrollToCatalog = () => window.requestAnimationFrame(() => controlsRef.current?.scrollIntoView({block: 'start', behavior: prefersReducedMotion() ? 'instant' : 'smooth'}));
   const updateParams = (values, scroll = false) => {
     setParams(previous => {
@@ -179,14 +210,14 @@ export default function Shop({category}) {
             <button className="catalog-search-submit" type="submit"><span>Caută</span><ArrowRight size={17}/></button>
           </form>
           <div className="catalog-category-shortcuts">
-            <div className="catalog-category-shortcuts-head"><span>COLECȚII RAPIDE</span><small>Glisează și alege <ArrowRight size={12}/></small></div>
-            <nav className="catalog-category-rail" aria-label="Categorii principale">
-              <Link className={'catalog-category-shortcut catalog-category-all' + (!category ? ' is-active' : '')} style={{'--category-index': 0}} to={categoryHref()} onClick={scrollToCatalog} aria-current={!category ? 'page' : undefined}><span className="catalog-category-visual"><Sparkles size={19}/></span><span className="catalog-category-copy"><small>ÎNTREGUL MAGAZIN</small><strong>Toate creațiile</strong></span><i aria-hidden="true"><ArrowRight size={11}/></i></Link>
-              {primaryCategories.map((item, index) => <Link className={'catalog-category-shortcut' + (activePrimaryCategory === item.slug ? ' is-active' : '')} style={{'--category-index': index + 1}} key={item.id} to={categoryHref(item.slug)} onClick={scrollToCatalog} aria-current={activePrimaryCategory === item.slug ? 'page' : undefined}>
+            <div className="catalog-category-shortcuts-head"><span>COLECȚII RAPIDE</span><small>Trage sau glisează <ArrowRight size={12}/></small></div>
+            <nav ref={categoryRailRef} className="catalog-category-rail" aria-label="Categorii principale" {...categoryDragHandlers}>
+              {primaryCategories.map((item, index) => <Link className={'catalog-category-shortcut' + (activePrimaryCategory === item.slug ? ' is-active' : '')} style={{'--category-index': index}} key={item.id} to={categoryHref(item.slug)} onClick={scrollToCatalog} aria-current={activePrimaryCategory === item.slug ? 'page' : undefined}>
                 <span className="catalog-category-visual">{item.image ? <img src={item.image} alt="" loading="lazy" decoding="async"/> : <Flower2 size={19}/>}</span>
                 <span className="catalog-category-copy"><small>COLECȚIE</small><strong>{item.name === 'Nunta' ? 'Nuntă' : item.name === 'Craciun' ? 'Crăciun' : item.name}</strong></span>
                 <i aria-label={countLabel(Number(item.product_count) || 0)}>{Number(item.product_count) || 0}</i>
               </Link>)}
+              <Link className={'catalog-category-shortcut catalog-category-all' + (!category ? ' is-active' : '')} style={{'--category-index': primaryCategories.length}} to={categoryHref()} onClick={scrollToCatalog} aria-current={!category ? 'page' : undefined}><span className="catalog-category-visual"><Sparkles size={19}/></span><span className="catalog-category-copy"><small>ÎNTREGUL MAGAZIN</small><strong>Toate creațiile</strong></span><i aria-hidden="true"><ArrowRight size={11}/></i></Link>
             </nav>
           </div>
         </div>
