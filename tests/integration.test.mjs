@@ -82,7 +82,8 @@ test('checkout uses server prices, coupons, shipping, stock and idempotency',asy
  await guest.api('/cart/'+created.id,{method:'PUT',body:{quantity:2}});
  const ship=(await guest.api('/bootstrap')).shipping[0].id;
  const body={email:'guest-qa@example.test',address:{name:'Oaspete QA',phone:'0720000000',street:'Strada Test 10',city:'Tunari',county:'Ilfov'},shipping_id:ship,payment_method:'cod',coupon:'QA10',consent:true,idempotency_key:randomUUID(),total_cents:1};
- const quote=await guest.api('/checkout/quote',{method:'POST',body});assert.equal(quote.total_cents,21600);
+ const quote=await guest.api('/checkout/quote',{method:'POST',body});assert.equal(quote.total_cents,21600);body.expected_total_cents=quote.total_cents;body.expected_discount_cents=quote.discount_cents;
+ assert.equal((await guest.request('/api/orders',{method:'POST',body:{...body,idempotency_key:randomUUID(),expected_total_cents:quote.total_cents+1}})).status,409);
  assert.equal((await guest.request('/api/orders',{method:'POST',body:{...body,payment_method:'card'}})).status,400);
  order=await guest.api('/orders',{method:'POST',body});assert.equal(order.total_cents,21600);
  const orderNotifications=await admin.api('/admin/notifications');assert.equal(orderNotifications.orders,1);assert.equal(orderNotifications.messages,0);
@@ -93,6 +94,7 @@ test('checkout uses server prices, coupons, shipping, stock and idempotency',asy
  const tracking=await guest.request(order.tracking_url.replace(base,''),{raw:true});assert.equal(tracking.status,200);assert.match(tracking.data,/Urmărire comandă Floralis/);assert.match(tracking.data,/Am primit comanda ta\./);assert.match(tracking.data,/Buchet cu trandafir Quasar QA/);assert.match(tracking.data,/Pagina este protejată prin tokenul unic/);
  assert.equal((await guest.request('/api/orders/'+order.number+'/tracking?token=invalid',{raw:true})).status,404);
  assert.equal((await guest.api('/orders',{method:'POST',body})).id,order.id);
+ assert.equal((await guest.request('/api/orders',{method:'POST',body:{...body,coupon:'',expected_total_cents:quote.subtotal_cents+quote.shipping_cents,expected_discount_cents:0}})).status,409);
  assert.equal((await guest.api('/cart')).items.length,0);assert.equal((await admin.api('/admin/products/'+created.id)).stock,3);
  assert.equal((await customer.request('/api/orders/'+order.number)).status,404);
  assert.equal((await guest.api('/orders/'+order.number+'?token='+order.token)).items[0].price_cents,12000);

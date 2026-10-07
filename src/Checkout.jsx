@@ -25,6 +25,8 @@ export default function Checkout(){
  const [shipping,setShipping]=useState(draft.shipping||''),[payment,setPayment]=useState(draft.payment||''),[identity,setIdentity]=useState(draft.identity==='pj'?'pj':'pf');
  const [fields,setFields]=useState({...emptyFields,...(draft.fields||{})}),[account,setAccount]=useState(null),[selectedAddress,setSelectedAddress]=useState(draft.selectedAddress||'manual');
  const [notes,setNotes]=useState(draft.notes||''),[consent,setConsent]=useState(Boolean(draft.consent)),[busy,setBusy]=useState(false),[error,setError]=useState(''),[idem,setIdem]=useState(()=>crypto.randomUUID());
+ const quoteReady=quote&&String(quote.shipping?.id)===String(shipping)&&(quote.coupon?.code||'')===applied;
+ const attemptFingerprint=quoteReady?[shipping,payment,quote.subtotal_cents,quote.discount_cents,quote.shipping_cents,quote.total_cents,quote.coupon?.code||'',...store.cart.flatMap(item=>[item.id,item.quantity])].join('|'):'';
 
  useEffect(()=>{
   if(!store.data?.user||profileApplied.current)return;
@@ -40,6 +42,7 @@ export default function Checkout(){
  useEffect(()=>{if(store.data?.shipping?.length&&!store.data.shipping.some(method=>String(method.id)===String(shipping)))setShipping(String(store.data.shipping[0].id));},[store.data?.shipping,shipping]);
  useEffect(()=>{const enabled=store.data?.payments?.filter(method=>Number(method.enabled))||[],first=enabled[0];if(first&&!enabled.some(method=>method.code===payment))setPayment(first.code);},[store.data?.payments,payment]);
  useEffect(()=>{try{localStorage.setItem(checkoutDraftKey,JSON.stringify({fields,identity,selectedAddress,shipping,payment,coupon,applied,notes,consent}));}catch{}},[fields,identity,selectedAddress,shipping,payment,coupon,applied,notes,consent]);
+ useEffect(()=>{if(attemptFingerprint)setIdem(crypto.randomUUID());},[attemptFingerprint]);
  useEffect(()=>{
   if(!shipping||!store.cart.length)return;
   let active=true;
@@ -63,16 +66,17 @@ export default function Checkout(){
  };
 
  const applyCoupon=async()=>{
-  try{const data=await api('/checkout/quote',{method:'POST',body:{shipping_id:Number(shipping),coupon:coupon.trim()}});setApplied(coupon.trim());setQuote(data);setError('');}
+  try{const data=await api('/checkout/quote',{method:'POST',body:{shipping_id:Number(shipping),coupon:coupon.trim()}}),canonical=data.coupon?.code||'';setCoupon(canonical);setApplied(canonical);setQuote(data);setError('');}
   catch(reason){setError(reason.message);}
  };
 
  const submit=async event=>{
   event.preventDefault();setBusy(true);setError('');
   try{
+   if(!quoteReady)throw new Error('Totalul se recalculează. Încearcă din nou imediat.');
    const name=[fields.first_name,fields.last_name].filter(Boolean).join(' ').trim();
    const address={name,phone:fields.phone,street:fields.street,city:fields.city,county:fields.county,postal_code:fields.postal_code,identity_type:identity,company_name:identity==='pj'?fields.company_name:'',cui:identity==='pj'?fields.cui:'',registration_number:identity==='pj'?fields.registration_number:''};
-   const order=await api('/orders',{method:'POST',body:{address,email:fields.email,shipping_id:Number(shipping),payment_method:payment,coupon:applied,notes,consent,idempotency_key:idem}});
+   const order=await api('/orders',{method:'POST',body:{address,email:fields.email,shipping_id:Number(shipping),payment_method:payment,coupon:quote.coupon?.code||'',expected_total_cents:quote.total_cents,expected_discount_cents:quote.discount_cents,notes,consent,idempotency_key:idem}});
    await store.refresh();
    if(order.checkout_url){window.location.assign(order.checkout_url);return;}
    localStorage.removeItem(checkoutDraftKey);window.location.assign(order.tracking_url);
@@ -127,7 +131,7 @@ export default function Checkout(){
     <section className="checkout-card" style={{'--checkout-delay':'180ms'}}>
      <div className="checkout-card-heading"><span><Truck/></span><div><small>03 · LIVRARE ȘI PLATĂ</small><h2>Alege cum continuăm.</h2><p>Costurile și disponibilitatea sunt actualizate direct din setările magazinului.</p></div></div>
      <h3 className="checkout-option-title">Metoda de livrare</h3>
-     <div className="checkout-options">{store.data?.shipping?.map(method=><label className={Number(shipping)===Number(method.id)?'selected':''} key={method.id}><input type="radio" name="shipping" value={method.id} checked={Number(shipping)===Number(method.id)} onChange={()=>setShipping(String(method.id))}/><span className="option-icon"><Truck/></span><span><b>{method.name}</b><small>{method.free_threshold_cents?`Gratuit peste ${money(method.free_threshold_cents)}`:'Pregătită cu grijă din atelier'}</small></span><strong>{money(method.price_cents)}</strong><i><Check/></i></label>)}</div>
+     <div className="checkout-options">{store.data?.shipping?.map(method=><label className={Number(shipping)===Number(method.id)?'selected':''} key={method.id}><input type="radio" name="shipping" value={method.id} checked={Number(shipping)===Number(method.id)} onChange={()=>{setQuote(null);setShipping(String(method.id));}}/><span className="option-icon"><Truck/></span><span><b>{method.name}</b><small>{method.free_threshold_cents?`Gratuit peste ${money(method.free_threshold_cents)}`:'Pregătită cu grijă din atelier'}</small></span><strong>{money(method.price_cents)}</strong><i><Check/></i></label>)}</div>
      <h3 className="checkout-option-title">Metoda de plată</h3>
      <div className="checkout-options payment-options">{enabledPayments.map(method=><label className={payment===method.code?'selected':''} key={method.code}><input type="radio" name="payment_method" value={method.code} checked={payment===method.code} onChange={()=>setPayment(method.code)}/><span className="option-icon">{method.code==='card'?<CreditCard/>:<WalletCards/>}</span><span><b>{method.name}</b><small>{method.code==='card'?'Plată securizată online':'Plătești la primirea comenzii'}</small></span>{method.code==='card'&&<em>RECOMANDAT</em>}<i><Check/></i></label>)}</div>
      <label className="checkout-notes"><span>Un detaliu pentru atelier <small>opțional</small></span><textarea name="notes" maxLength={2000} value={notes} onChange={event=>setNotes(event.target.value)} placeholder="Mesaj pentru destinatar, interval preferat sau alte detalii utile…"/></label>
@@ -142,7 +146,7 @@ export default function Checkout(){
     <div className="checkout-totals" aria-live="polite"><div><span>Subtotal</span><b>{quote?money(quote.subtotal_cents):'Se calculează…'}</b></div><div><span>Livrare</span><b>{quote?money(quote.shipping_cents):'—'}</b></div>{quote?.discount_cents>0&&<div className="discount"><span>Reducere</span><b>−{money(quote.discount_cents)}</b></div>}<div className="total"><span>Total <small>TVA inclus</small></span><b>{quote?money(quote.total_cents):'—'}</b></div></div>
     <label className={'checkout-consent '+(consent?'checked':'')}><input name="consent" type="checkbox" required checked={consent} onChange={event=>setConsent(event.target.checked)}/><span className="checkout-consent-switch" aria-hidden="true"><i><Check/></i></span><span><b>Am citit și sunt de acord</b><small>Accept <Link to="/termeni-si-conditii">Termenii și condițiile</Link> și <Link to="/confidentialitate">Politica de confidențialitate</Link>.</small></span></label>
     {error&&<p className="checkout-error" role="alert">{error}</p>}
-    <button className="checkout-submit" type="submit" disabled={busy||!quote||!payment}><span>{busy?'Pregătim comanda…':'Plasează comanda'}</span><ArrowRight/></button>
+    <button className="checkout-submit" type="submit" disabled={busy||!quoteReady||!payment}><span>{busy?'Pregătim comanda…':'Plasează comanda'}</span><ArrowRight/></button>
     <div className="checkout-assurances"><span><ShieldCheck/><b>Plată protejată</b></span><span><PackageCheck/><b>Pregătire atentă</b></span></div>
     <p className="checkout-fine-print"><ShieldCheck/>Datele tale sunt transmise în siguranță și folosite doar pentru procesarea comenzii.</p>
    </aside>
