@@ -1,9 +1,16 @@
 <?php
 declare(strict_types=1);
 // Floralis owns these mappings and credentials. No shared store or catalog.
-function stripeConfigured(): bool {return env('STRIPE_ENABLED','0')==='1'&&str_starts_with(env('STRIPE_SECRET_KEY'),'sk_test_')&&str_starts_with(env('STRIPE_PUBLISHABLE_KEY'),'pk_test_');}
+function stripeMode(): string {
+ $secret=env('STRIPE_SECRET_KEY');$publishable=env('STRIPE_PUBLISHABLE_KEY');
+ if(str_starts_with($secret,'sk_live_')&&str_starts_with($publishable,'pk_live_'))return 'live';
+ if(str_starts_with($secret,'sk_test_')&&str_starts_with($publishable,'pk_test_'))return 'test';
+ return 'disabled';
+}
+function stripeConfigured(): bool {return env('STRIPE_ENABLED','0')==='1'&&stripeMode()!=='disabled';}
+function stripeLivemode(): bool {return stripeMode()==='live';}
 function stripeRequest(string $method,string $path,array $data=[],string $idempotency=''): array {
- if(!stripeConfigured()||!function_exists('curl_init'))abortApi('Stripe test nu este configurat sau extensia cURL lipsește.',503);
+ if(!stripeConfigured()||!function_exists('curl_init'))abortApi('Stripe nu este configurat sau extensia cURL lipsește.',503);
  $url='https://api.stripe.com/v1'.$path;if($method==='GET'&&$data)$url.='?'.http_build_query($data);
  $c=curl_init($url);$headers=['Authorization: Bearer '.env('STRIPE_SECRET_KEY'),'Stripe-Version: 2024-06-20'];if($idempotency)$headers[]='Idempotency-Key: '.$idempotency;
  $opts=[CURLOPT_RETURNTRANSFER=>true,CURLOPT_TIMEOUT=>25,CURLOPT_CONNECTTIMEOUT=>10,CURLOPT_HTTPHEADER=>$headers,CURLOPT_SSL_VERIFYPEER=>true,CURLOPT_SSL_VERIFYHOST=>2,CURLOPT_CUSTOMREQUEST=>$method];
@@ -12,7 +19,7 @@ function stripeRequest(string $method,string $path,array $data=[],string $idempo
  if(env('CURL_CA_BUNDLE'))$opts[CURLOPT_CAINFO]=env('CURL_CA_BUNDLE');curl_setopt_array($c,$opts);$raw=curl_exec($c);$status=curl_getinfo($c,CURLINFO_RESPONSE_CODE);curl_close($c);
  if($raw===false)abortApi('Conexiunea Stripe nu este disponibilă. Reîncearcă sincronizarea.',502);
  $result=json_decode($raw,true);if($status<200||$status>=300){$message=$result['error']['message']??'Cerere Stripe respinsă.';$message=preg_replace('/(?:sk|pk|rk)_(?:test|live)_[a-zA-Z0-9]+/','[secret]',$message);abortApi('Stripe: '.substr($message,0,400),502);}
- if(!is_array($result)||!empty($result['livemode']))abortApi('Răspuns Stripe test invalid.',502);return $result;
+ if(!is_array($result)||(array_key_exists('livemode',$result)&&(bool)$result['livemode']!==stripeLivemode()))abortApi('Răspuns Stripe incompatibil cu modul magazinului.',502);return $result;
 }
 function stripeSyncProduct(int $id): void {
  $p=one('SELECT * FROM products WHERE id=?',[$id]);if(!$p)abortApi('Produs inexistent.',404);
@@ -49,7 +56,7 @@ function stripeQueueRequired(string $entity,int $id): void {
  $sync=one('SELECT status,error FROM stripe_sync WHERE entity=? AND local_id=?',[$entity,$id]);
  if(!$sync||$sync['status']!=='synced')abortApi('Sincronizarea catalogului Stripe a eșuat. Modificarea locală a fost păstrată și trebuie reîncercată. '.substr((string)($sync['error']??''),0,240),502);
 }
-function stripeStatus(): array {return ['configured'=>stripeConfigured(),'mode'=>'test','webhook_configured'=>str_starts_with(env('STRIPE_WEBHOOK_SECRET'),'whsec_'),'synced'=>one("SELECT COUNT(*) n FROM stripe_sync WHERE status='synced'")['n'],'pending'=>all("SELECT entity,local_id,status,error FROM stripe_sync WHERE status!='synced' ORDER BY updated_at LIMIT 100")];}
+function stripeStatus(): array {return ['configured'=>stripeConfigured(),'mode'=>stripeMode(),'webhook_configured'=>str_starts_with(env('STRIPE_WEBHOOK_SECRET'),'whsec_'),'synced'=>one("SELECT COUNT(*) n FROM stripe_sync WHERE status='synced'")['n'],'pending'=>all("SELECT entity,local_id,status,error FROM stripe_sync WHERE status!='synced' ORDER BY updated_at LIMIT 100")];}
 function stripeAssertOrderTotals(array $o,array $items): void {
  $subtotal=0;
  foreach($items as $item){$line=(int)$item['price_cents']*(int)$item['quantity'];if(isset($item['total_cents'])&&(int)$item['total_cents']!==$line)abortApi('Detaliile produselor nu corespund totalului comenzii.',409);$subtotal+=$line;}
@@ -82,7 +89,7 @@ function stripeDiscardUnpaidOrder(array $o): void {
  sql('DELETE FROM orders WHERE id=?',[$o['id']]);
 }
 function stripeApplySession(array $s): void {
- if(($s['metadata']['application']??'')!=='floralis'||!empty($s['livemode']))return;
+ if(($s['metadata']['application']??'')!=='floralis'||(bool)($s['livemode']??false)!==stripeLivemode())return;
  $confirmed=null;tx(function()use($s,&$confirmed){$o=one('SELECT * FROM orders WHERE id=?',[(int)($s['metadata']['local_order_id']??0)]);if(!$o||$o['stripe_session_id']!==($s['id']??'')||$o['payment_method']!=='card')return;
   if(($s['currency']??'')!=='ron'||($s['amount_total']??null)!==$o['total_cents'])abortApi('Valoare Stripe invalidă.',400);
   if((($s['payment_status']??'')==='paid'||(($s['payment_status']??'')==='no_payment_required'&&$o['total_cents']===0))&&!in_array($o['status'],['cancelled','returned'])&&$o['payment_status']!=='paid'){
@@ -93,7 +100,7 @@ function stripeApplySession(array $s): void {
 function stripeReconcile(array $o): ?array {if($o['stripe_session_id']&&$o['payment_status']==='unpaid'&&$o['status']!=='cancelled'&&stripeConfigured()){try{stripeApplySession(stripeRequest('GET','/checkout/sessions/'.$o['stripe_session_id']));$o=one('SELECT * FROM orders WHERE id=?',[$o['id']]);}catch(Throwable $e){error_log('Floralis Stripe reconciliation unavailable.');}}return $o;}
 function stripeWebhook(string $raw,string $signature): never {
  try{$secret=env('STRIPE_WEBHOOK_SECRET');if(!str_starts_with($secret,'whsec_'))abortApi('Webhook neconfigurat.',503);$t=0;$signs=[];foreach(explode(',',$signature) as $part){$v=explode('=',trim($part),2);if(count($v)!==2)continue;if($v[0]==='t')$t=(int)$v[1];if($v[0]==='v1')$signs[]=$v[1];}$expected=hash_hmac('sha256',$t.'.'.$raw,$secret);$valid=false;foreach($signs as $sign)if(hash_equals($expected,$sign))$valid=true;if(!$valid||abs(time()-$t)>300)abortApi('Semnătură Stripe invalidă.',400);
-  $event=json_decode($raw,true);if(!is_array($event)||empty($event['id'])||empty($event['type'])||!empty($event['livemode']))abortApi('Eveniment Stripe test invalid.',400);if(one('SELECT id FROM stripe_events WHERE id=?',[$event['id']]))respond(['received'=>true]);
+  $event=json_decode($raw,true);if(!is_array($event)||empty($event['id'])||empty($event['type'])||(bool)($event['livemode']??false)!==stripeLivemode())abortApi('Eveniment Stripe incompatibil cu modul magazinului.',400);if(one('SELECT id FROM stripe_events WHERE id=?',[$event['id']]))respond(['received'=>true]);
   if(in_array($event['type'],['checkout.session.completed','checkout.session.async_payment_succeeded','checkout.session.expired']))stripeApplySession($event['data']['object']??[]);
   sql('INSERT OR IGNORE INTO stripe_events(id,type) VALUES(?,?)',[$event['id'],$event['type']]);respond(['received'=>true]);
  }catch(Throwable $e){respond(['error'=>$e->getCode()===400?'Eveniment Stripe respins.':'Webhook indisponibil.'],in_array($e->getCode(),[400,503])?$e->getCode():500);}
