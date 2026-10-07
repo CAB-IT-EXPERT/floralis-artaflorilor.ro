@@ -4,6 +4,7 @@ import {ArrowDownWideNarrow, ArrowLeft, ArrowRight, Check, ChevronDown, ChevronL
 import {useStore} from './context';
 import {api} from './api';
 import {Dialog, ProductCard} from './components';
+import {analyticsItem,pushEcommerce,pushEvent} from './analytics';
 import './shop-premium.css';
 
 const priceRanges = [
@@ -55,7 +56,7 @@ export default function Shop({category}) {
   const [priceError, setPriceError] = useState('');
   const [result, setResult] = useState({data: null, loading: true, error: ''});
   const [retry, setRetry] = useState(0);
-  const controlsRef = useRef(null), gridRef = useRef(null), searchRef = useRef(null), categoryRailRef = useRef(null), categoryDragRef = useRef(null), categoryDraggedRef = useRef(false);
+  const controlsRef = useRef(null), gridRef = useRef(null), searchRef = useRef(null), categoryRailRef = useRef(null), categoryDragRef = useRef(null), categoryDraggedRef = useRef(false), analyticsListRef=useRef('');
   const categories = store.data?.categories || [];
   const selectedCategory = categories.find(c => c.slug === category);
   const q = params.get('q') || '', min = params.get('min') || '', max = params.get('max') || '';
@@ -108,6 +109,17 @@ export default function Shop({category}) {
     cards.forEach(card => {card.classList.add('catalog-card-ready'); observer.observe(card);});
     return () => observer.disconnect();
   }, [result.data, result.loading]);
+
+  useEffect(()=>{
+    const items=result.data?.items||[];
+    if(result.loading||!items.length)return;
+    const key=queryString+'|'+items.map(item=>item.id).join(',');
+    if(analyticsListRef.current===key)return;
+    analyticsListRef.current=key;
+    const listName=selectedCategory?.name||'Magazin Floralis';
+    pushEcommerce('view_item_list',{item_list_id:category||'magazin',item_list_name:listName,items:items.map((item,index)=>analyticsItem(item,1,index))});
+    if(q)pushEvent('search',{search_term:q});
+  },[result.data,result.loading,queryString,category,q,selectedCategory?.name]);
 
   const finishCategoryDrag = event => {
     const rail = categoryRailRef.current, drag = categoryDragRef.current;

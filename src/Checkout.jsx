@@ -4,6 +4,7 @@ import {ArrowRight,Building2,Check,Clock3,CreditCard,Gift,MapPin,PackageCheck,Re
 import {api,money} from './api';
 import {useStore} from './context';
 import {Empty,Image} from './components';
+import {analyticsItem,pushEcommerce} from './analytics';
 import './checkout-premium.css';
 
 const emptyFields={first_name:'',last_name:'',email:'',phone:'',street:'',city:'',county:'',postal_code:'',company_name:'',cui:'',registration_number:''};
@@ -21,7 +22,7 @@ function Field({label,name,fields,setFields,type='text',required=false,autoCompl
 }
 
 export default function Checkout(){
- const store=useStore(),draft=useRef(readCheckoutDraft()).current,profileApplied=useRef(false);
+ const store=useStore(),draft=useRef(readCheckoutDraft()).current,profileApplied=useRef(false),beginCheckoutRef=useRef('');
  const [quote,setQuote]=useState(null),[coupon,setCoupon]=useState(draft.coupon||''),[applied,setApplied]=useState(draft.applied||'');
  const [shipping,setShipping]=useState(draft.shipping||''),[payment,setPayment]=useState(draft.payment||''),[deliveryTimeSlot,setDeliveryTimeSlot]=useState(draft.deliveryTimeSlot||''),[identity,setIdentity]=useState(draft.identity==='pj'?'pj':'pf');
  const [fields,setFields]=useState({...emptyFields,...(draft.fields||{})}),[account,setAccount]=useState(null),[selectedAddress,setSelectedAddress]=useState(draft.selectedAddress||'manual');
@@ -50,6 +51,13 @@ export default function Checkout(){
   api('/checkout/quote',{method:'POST',body:{shipping_id:Number(shipping),coupon:applied}}).then(data=>{if(active){setQuote(data);setError('');}}).catch(reason=>{if(active)setError(reason.message);});
   return()=>{active=false;};
  },[shipping,applied,store.cart]);
+ useEffect(()=>{
+  if(!quoteReady||!store.cart.length)return;
+  const key=store.cart.map(item=>item.id+':'+item.quantity).join('|')+'|'+(quote.coupon?.code||'');
+  if(beginCheckoutRef.current===key)return;
+  beginCheckoutRef.current=key;
+  pushEcommerce('begin_checkout',{currency:'RON',value:Number(quote.total_cents||0)/100,coupon:quote.coupon?.code||undefined,items:store.cart.map(item=>analyticsItem(item,item.quantity))});
+ },[quoteReady,quote,store.cart]);
 
  const chooseAddress=id=>{
   setSelectedAddress(String(id));
@@ -78,6 +86,9 @@ export default function Checkout(){
    if(!deliveryTimeSlot)throw new Error('Alege intervalul orar în care dorești să fie livrate florile.');
    const name=[fields.first_name,fields.last_name].filter(Boolean).join(' ').trim();
    const address={name,phone:fields.phone,street:fields.street,city:fields.city,county:fields.county,postal_code:fields.postal_code,identity_type:identity,company_name:identity==='pj'?fields.company_name:'',cui:identity==='pj'?fields.cui:'',registration_number:identity==='pj'?fields.registration_number:''};
+   const ecommerce={currency:'RON',value:Number(quote.total_cents||0)/100,coupon:quote.coupon?.code||undefined,items:store.cart.map(item=>analyticsItem(item,item.quantity))};
+   pushEcommerce('add_shipping_info',{...ecommerce,shipping_tier:quote.shipping?.name||String(shipping)});
+   pushEcommerce('add_payment_info',{...ecommerce,payment_type:payment==='card'?'Card online':'Ramburs / ridicare'});
    const order=await api('/orders',{method:'POST',body:{address,email:fields.email,shipping_id:Number(shipping),payment_method:payment,delivery_time_slot:deliveryTimeSlot,coupon:quote.coupon?.code||'',expected_total_cents:quote.total_cents,expected_discount_cents:quote.discount_cents,notes,consent,idempotency_key:idem}});
    await store.refresh();
    if(order.checkout_url){window.location.assign(order.checkout_url);return;}

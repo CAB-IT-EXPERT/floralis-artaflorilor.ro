@@ -4,6 +4,7 @@ import {ArrowRight,ChevronLeft,ChevronRight,Heart,Leaf,Plus,ShieldCheck,Shopping
 import {useStore} from './context';
 import {api,money} from './api';
 import {Empty,Image,ProductCard,Quantity} from './components';
+import {analyticsItem,pushEcommerce} from './analytics';
 import './product-page.css';
 
 const photoSizes='(max-width: 760px) calc(100vw - 32px), (max-width: 1280px) 52vw, 680px';
@@ -43,6 +44,7 @@ function ProductContent({product:p}){
  const move=direction=>setSelected(index=>(index+direction+images.length)%images.length);
  const related=p.related_products||[];
  const showStory=event=>{event.preventDefault();const story=document.getElementById('despre-creatie');if(!story)return;window.history.replaceState(null,'','#despre-creatie');story.scrollIntoView({behavior:'smooth',block:'start'});};
+ useEffect(()=>{pushEcommerce('view_item',{currency:'RON',value:Number(p.price_cents||0)/100,items:[analyticsItem(p)]});},[p.id]);
  useEffect(()=>{
   if(images.length<2||navigator.connection?.saveData)return;
   const preload=()=>{const image=new window.Image();image.src=thumbnailUrl(images[(selected+1)%images.length].url);};
