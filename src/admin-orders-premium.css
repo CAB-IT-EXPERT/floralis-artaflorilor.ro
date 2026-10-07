@@ -39,3 +39,7 @@
   .orders-premium-row .badge{font-size:.72rem}
   .orders-premium-value{font-size:.98rem}
 }
+
+.orders-premium-table-head,.orders-premium-row{grid-template-columns:minmax(190px,.8fr) minmax(210px,1fr) minmax(150px,.72fr) 110px 115px 20px}.orders-premium-schedule{display:grid;justify-items:start;gap:.34rem;min-width:0}.orders-premium-schedule strong{display:inline-flex;align-items:center;gap:.38rem;padding:.42rem .6rem;border:1px solid rgba(176,127,54,.23);border-radius:9px;background:#fbf1df;color:#76531d;font-size:.76rem;line-height:1.25;white-space:nowrap}.orders-premium-schedule strong svg{width:.86rem;height:.86rem;stroke-width:1.8}.orders-premium-schedule small{color:#998a80;font-size:.64rem;line-height:1.35}
+@media(max-width:1120px){.orders-premium-table-head,.orders-premium-row{grid-template-columns:minmax(175px,.8fr) minmax(180px,1fr) minmax(140px,.7fr) 100px 95px 18px}}
+@media(max-width:760px){.orders-premium-schedule{grid-column:1;grid-row:3}.orders-premium-schedule strong{font-size:.82rem}.orders-premium-schedule small{font-size:.7rem}}

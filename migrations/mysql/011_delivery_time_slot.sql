@@ -1,0 +1,1 @@
+ALTER TABLE orders ADD COLUMN delivery_time_slot VARCHAR(40) NOT NULL DEFAULT '';

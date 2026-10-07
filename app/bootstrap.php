@@ -31,7 +31,13 @@ function all(string $query,array $params=[]): array {return sql($query,$params)-
 function tx(callable $fn): mixed {if(driver()==='mysql')db()->beginTransaction();else db()->exec('BEGIN IMMEDIATE');try{$r=$fn();if(driver()==='mysql')db()->commit();else db()->exec('COMMIT');return $r;}catch(Throwable $e){if(driver()==='mysql'){if(db()->inTransaction())db()->rollBack();}else db()->exec('ROLLBACK');throw $e;}}
 function j(mixed $v): string {return json_encode($v,JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES|JSON_THROW_ON_ERROR);}
 function decoded(?string $v,mixed $default=[]): mixed {return $v===null?$default:(json_decode($v,true)??$default);}
-function settingAll(): array {$out=[];foreach(all('SELECT * FROM settings') as $s)$out[$s['key']]=decoded($s['value']);return $out;}
+function settingAll(): array {
+ $out=[];foreach(all('SELECT * FROM settings') as $s)$out[$s['key']]=decoded($s['value']);
+ if(($out['address']??'')==='Calea București Nr. 9, Tunari')$out['address']='Calea București Nr. 9, Tunari, Ilfov';
+ if(($out['seo_title']??'')==='Florărie online Tunari & București | Floralis')$out['seo_title']='Florărie online Tunari, Ilfov & București | Floralis';
+ if(($out['seo_description']??'')==='Flori, buchete și aranjamente florale create în atelierul Floralis din Tunari, cu livrare în Ilfov și București.')$out['seo_description']='Flori, buchete și aranjamente florale create în atelierul Floralis din Tunari, Ilfov, cu livrare în Ilfov și București.';
+ return $out;
+}
 function paymentMethods(): array {return all("SELECT * FROM payment_methods ORDER BY CASE WHEN code='card' AND enabled=1 THEN 0 WHEN code='cod' THEN 1 ELSE 2 END,code");}
 function abortApi(string $message,int $status=400): never {throw new RuntimeException($message,$status);}
 function respond(mixed $data,int $status=200): never {http_response_code($status);header('Content-Type: application/json; charset=utf-8');echo j($data);exit;}
@@ -56,14 +62,14 @@ function productSeoDefaults(array $p,?array $seo=null): array {
 function categorySeoDefaults(array $category,?array $seo=null): array {
  $seo=is_array($seo)?$seo:decoded((string)($category['seo']??''));$name=metaText((string)($category['name']??'Colecție florală'));$automatic=!empty($seo['auto'])||(trim((string)($seo['title']??''))===''&&trim((string)($seo['description']??''))==='');
  if($automatic||trim((string)($seo['title']??''))==='')$seo['title']=metaExcerpt($name,39).' | Colecții Floralis';
- if($automatic||trim((string)($seo['description']??''))===''){$source=metaText((string)($category['description']??''));$seo['description']=metaExcerpt('Descoperă '.$name.' la Floralis — flori și creații pregătite cu grijă în atelierul nostru din Tunari.'.($source!==''?' '.$source:''),160);}
+ if($automatic||trim((string)($seo['description']??''))===''){$source=metaText((string)($category['description']??''));$seo['description']=metaExcerpt('Descoperă '.$name.' la Floralis — flori și creații pregătite cu grijă în atelierul nostru din Tunari, Ilfov.'.($source!==''?' '.$source:''),160);}
  $seo['canonical']=trim((string)($seo['canonical']??''));$seo['og_image']=trim((string)($seo['og_image']??''));$seo['noindex']=false;$seo['auto']=$automatic;return $seo;
 }
 function pageSeoDefaults(array $page,?array $seo=null): array {
  $seo=is_array($seo)?$seo:decoded((string)($page['seo']??''));$slug=(string)($page['slug']??'');$name=metaText((string)($page['title']??'Floralis'));$automatic=!empty($seo['auto'])||(trim((string)($seo['title']??''))===''&&trim((string)($seo['description']??''))==='');$defaults=[
-  'despre-noi'=>['Despre Floralis | Florărie și atelier floral Tunari','Descoperă povestea Floralis, atelierul floral din Tunari unde transformăm florile în gesturi memorabile, din 2017.'],
+  'despre-noi'=>['Despre Floralis | Florărie în Tunari, Ilfov','Descoperă povestea Floralis, atelierul floral din Tunari, Ilfov, unde transformăm florile în gesturi memorabile, din 2017.'],
   'decor-floral'=>['Decor floral pentru nunți și evenimente | Floralis','Decoruri florale personalizate pentru nunți, botezuri și evenimente în București și Ilfov, create atent de atelierul Floralis.'],
-  'contact'=>['Contact Floralis | Florărie în Tunari, Ilfov','Contactează florăria Floralis din Tunari pentru comenzi, livrare de flori și decoruri florale. Telefon, email, program și adresă.'],
+  'contact'=>['Contact Floralis | Florărie în Tunari, Ilfov','Contactează florăria Floralis din Tunari, Ilfov, pentru comenzi, livrare de flori și decoruri florale. Telefon, email, program și adresă.'],
   'transport-si-livrare'=>['Livrare flori în Tunari, Ilfov și București | Floralis','Află zonele, costurile și condițiile de livrare pentru florile și aranjamentele comandate online de la Floralis.'],
   'modalitati-de-plata'=>['Plată online sigură și ramburs | Floralis','Vezi metodele de plată disponibile la Floralis: card online procesat securizat și plata la livrare sau ridicare.'],
   'alergeni'=>['Alergeni și informații despre produse | Floralis','Informații utile despre alergeni, materiale și compoziția produselor disponibile în magazinul Floralis.'],
@@ -82,6 +88,9 @@ function categories(bool $admin=false): array {
  $rows=all("SELECT c.*,(SELECT COUNT(*) FROM product_categories pc JOIN products p ON p.id=pc.product_id WHERE pc.category_id=c.id AND p.status='publish') product_count FROM categories c ORDER BY sort_order,id");$byId=array_column($rows,null,'id');
  if(!$admin)$rows=array_values(array_filter($rows,function($c)use($byId){$seen=[];while($c){if(!$c['visible']||in_array($c['id'],$seen))return false;$seen[]=$c['id'];$c=$byId[$c['parent_id']]??null;}return true;}));
  return array_map(function($c){$c['seo']=categorySeoDefaults($c,decoded($c['seo']));return $c;},$rows);
+}
+function deliveryTimeSlots(): array {
+ return ['09:00 – 12:00','12:00 – 15:00','15:00 – 18:00'];
 }
 function migrate(): void {
  db()->exec(driver()==='mysql'?"CREATE TABLE IF NOT EXISTS migrations(name VARCHAR(190) PRIMARY KEY, applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)":"CREATE TABLE IF NOT EXISTS migrations(name TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT (datetime('now')))");
