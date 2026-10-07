@@ -7,10 +7,10 @@ import {Dialog, ProductCard} from './components';
 import './shop-premium.css';
 
 const priceRanges = [
-  {label: 'Sub 150 lei', min: '', max: '150'},
+  {label: 'Până la 150 lei', min: '', max: '150'},
   {label: '150 – 300 lei', min: '150', max: '300'},
   {label: '300 – 500 lei', min: '300', max: '500'},
-  {label: 'Peste 500 lei', min: '500', max: ''}
+  {label: 'De la 500 lei', min: '500', max: ''}
 ];
 const sortOptions = [['recommended', 'Recomandate'], ['price_asc', 'Preț crescător'], ['price_desc', 'Preț descrescător'], ['newest', 'Cele mai noi'], ['name', 'Nume A–Z']];
 const countLabel = count => `${count} ${count === 1 ? 'creație' : 'creații'}`;
@@ -69,7 +69,7 @@ export default function Shop({category}) {
     const controller = new AbortController();
     setResult(previous => ({...previous, loading: true, error: ''}));
     api('/products?' + queryString, {signal: controller.signal})
-      .then(data => setResult({data, loading: false, error: ''}))
+      .then(data => {if (!controller.signal.aborted) setResult({data, loading: false, error: ''});})
       .catch(error => {if (!controller.signal.aborted) setResult({data: null, loading: false, error: error.message});});
     return () => controller.abort();
   }, [queryString, retry]);
