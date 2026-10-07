@@ -44,6 +44,7 @@ test('catalog import is complete, idempotent and local',async()=>{
 test('private files, roles, CSRF and cross-origin mutations are protected',async()=>{
  for(const path of ['/.env','/data/google-client.json','/data/source-catalog.json','/tools/seed.php','/app/bootstrap.php','/package.json'])assert.equal((await guest.request(path,{raw:true})).status,404,path);
  assert.equal((await guest.request('/api/admin/dashboard')).status,401);
+ assert.equal((await guest.request('/api/admin/notifications')).status,401);
  assert.equal((await guest.request('/api/cart/'+sample.id,{method:'PUT',body:{quantity:1},csrf:false})).status,403);
  assert.equal((await guest.request('/api/cart/'+sample.id,{method:'PUT',body:{quantity:1},origin:'https://example.com'})).status,403);
 });
@@ -84,6 +85,7 @@ test('checkout uses server prices, coupons, shipping, stock and idempotency',asy
  const quote=await guest.api('/checkout/quote',{method:'POST',body});assert.equal(quote.total_cents,21600);
  assert.equal((await guest.request('/api/orders',{method:'POST',body:{...body,payment_method:'card'}})).status,400);
  order=await guest.api('/orders',{method:'POST',body});assert.equal(order.total_cents,21600);
+ const orderNotifications=await admin.api('/admin/notifications');assert.equal(orderNotifications.orders,1);assert.equal(orderNotifications.messages,0);
  assert.match(order.tracking_url,/\/api\/orders\/FL-\d+\/tracking\?token=/);
  const orderClientMail=capturedMail().find(message=>message.template==='order_client'&&message.subject.includes(order.number)),orderInternalMail=capturedMail().find(message=>message.template==='order_internal'&&message.subject.includes(order.number));assert.ok(orderClientMail);assert.ok(orderInternalMail);assert.equal(orderClientMail.recipient,'guest-qa@example.test');assert.equal(orderInternalMail.recipient,'alexie.popescu2019@yahoo.com');
  const orderMailData=JSON.parse(orderClientMail.template_data);assert.equal(orderMailData.payment_method,'cod');assert.equal(orderMailData.status,'received');assert.equal(orderMailData.items[0].name,'Buchet cu trandafir Quasar QA');assert.equal(orderMailData.items[0].price_cents,12000);assert.equal(orderMailData.subtotal_cents,24000);assert.equal(orderMailData.discount_cents,2400);assert.equal(orderMailData.shipping_cents,0);assert.equal(orderMailData.total_cents,21600);assert.equal(orderMailData.coupon,'QA10');
@@ -121,6 +123,7 @@ test('admin order status emails are optional, private and sent once per real tra
  const silent=await admin.api('/admin/orders/'+order.id,{method:'PATCH',body:{status:'confirmed',payment_status:'paid',admin_notes:'Confirmare QA',notify_customer:false}});assert.equal(silent.status_changed,true);assert.equal(silent.email_delivery,'not_requested');assert.equal(capturedMail().filter(message=>message.template==='order_status'&&message.subject.includes(order.number)).length,before);
  const detail=await admin.api('/admin/orders/'+order.id);assert.equal(detail.payment_status,'paid');assert.equal(detail.history.length,2);
  const notified=await admin.api('/admin/orders/'+order.id,{method:'PATCH',body:{status:'processing',payment_status:'paid',admin_notes:'NOTĂ INTERNĂ SECRETĂ',notify_customer:true}});assert.equal(notified.status_changed,true);assert.equal(notified.email_delivery,'disabled');
+ assert.equal((await admin.api('/admin/notifications')).orders,0);
  const statusMessages=capturedMail().filter(message=>message.template==='order_status'&&message.subject.includes(order.number));assert.equal(statusMessages.length,before+1);const statusMail=statusMessages.at(-1),statusData=JSON.parse(statusMail.template_data);assert.equal(statusMail.recipient,'guest-qa@example.test');assert.equal(statusData.status,'processing');assert.equal(statusData.items[0].price_cents,12000);assert.doesNotMatch(statusMail.body,/NOTĂ INTERNĂ SECRETĂ/);assert.doesNotMatch(statusMail.template_data,/NOTĂ INTERNĂ SECRETĂ/);
  const encodedStatusMail=Buffer.from(JSON.stringify(statusMail)).toString('base64'),renderedStatusMail=execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/email.php'; echo mailHtml(json_decode(base64_decode('${encodedStatusMail}'),true));`],{cwd:root,env,encoding:'utf8'});assert.match(renderedStatusMail,/Pregătim comanda ta\./);assert.match(renderedStatusMail,/În pregătire/);assert.match(renderedStatusMail,/Urmărește comanda ta/);assert.match(renderedStatusMail,/Buchet cu trandafir Quasar QA/);assert.doesNotMatch(renderedStatusMail,/NOTĂ INTERNĂ SECRETĂ/);
  const unchanged=await admin.api('/admin/orders/'+order.id,{method:'PATCH',body:{status:'processing',payment_status:'paid',admin_notes:'NOTĂ INTERNĂ SECRETĂ',notify_customer:true}});assert.equal(unchanged.status_changed,false);assert.equal(unchanged.email_delivery,'not_requested');assert.equal(capturedMail().filter(message=>message.template==='order_status'&&message.subject.includes(order.number)).length,before+1);
@@ -151,6 +154,7 @@ test('stock adjustments, CMS, SEO, shipping and payment settings are connected',
 });
 test('contact, newsletter, reviews moderation and CSV export use actual persisted data',async()=>{
  await guest.api('/contact',{method:'POST',body:{name:'Contact QA',email:'contact@example.test',subject:'Decor floral',body:'Doresc informații despre decor floral.',consent:true}});
+ const messageNotifications=await admin.api('/admin/notifications');assert.equal(messageNotifications.orders,0);assert.equal(messageNotifications.messages,1);
  await guest.api('/newsletter',{method:'POST',body:{email:'newsletter@example.test',consent:true}});
  for(let index=0;index<11;index++)await guest.api('/newsletter',{method:'POST',body:{email:`subscriber${index}@example.test`,consent:true}});
  const subscribers=await admin.api('/admin/newsletter?limit=5&page=2');assert.equal(subscribers.items.length,5);assert.equal(subscribers.pages,3);assert.equal(subscribers.counts.total,12);
@@ -161,6 +165,7 @@ test('contact, newsletter, reviews moderation and CSV export use actual persiste
  const review=(await admin.api('/admin/reviews'))[0];await admin.api('/admin/reviews/'+review.id,{method:'PATCH',body:{approved:1}});
  assert.equal((await guest.api('/bootstrap')).reviews.length,1);const inbox=await admin.api('/admin/messages');assert.equal(inbox.items.length,1);assert.equal(inbox.counts.unread,1);
  const contactMessage=inbox.items[0];const reply=await admin.api('/admin/messages/'+contactMessage.id+'/reply',{method:'POST',body:{subject:'Despre decorul tău',body:'Îți mulțumim pentru mesaj. Revenim cu propunerea potrivită.'}});assert.equal(reply.delivery.status,'disabled');
+ assert.equal((await admin.api('/admin/notifications')).messages,0);
  const repliedInbox=await admin.api('/admin/messages?status=resolved');assert.equal(repliedInbox.items[0].reply_count,1);assert.equal(repliedInbox.items[0].replies[0].body,'Îți mulțumim pentru mesaj. Revenim cu propunerea potrivită.');
  const replyMail=capturedMail().find(message=>message.subject.includes('Răspuns Floralis'));assert.equal(replyMail.recipient,'contact@example.test');assert.equal(replyMail.template,'message_reply');const encodedReply=Buffer.from(JSON.stringify(replyMail)).toString('base64'),renderedReply=execFileSync(p.binary,[...p.args,'-r',`require 'app/bootstrap.php'; require 'app/email.php'; echo mailHtml(json_decode(base64_decode('${encodedReply}'),true));`],{cwd:root,env,encoding:'utf8'});assert.match(renderedReply,/Un răspuns pregătit pentru tine/);assert.match(renderedReply,/Îți mulțumim pentru mesaj/);assert.match(renderedReply,/bgcolor="#FFFFFF"/);assert.match(renderedReply,/bgcolor="#FFFAF4"/);assert.equal((await admin.request('/api/admin/outbox')).status,404);
  const exported=await admin.request('/api/admin/export/newsletter',{raw:true});assert.ok(exported.data.includes('newsletter@example.test'));assert.ok(!exported.data.includes('password'));
