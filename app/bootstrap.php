@@ -53,11 +53,35 @@ function productSeoDefaults(array $p,?array $seo=null): array {
  if($automatic||trim((string)($seo['description']??''))===''){$source=metaText((string)(($p['short_description']??'')?:($p['description']??'')));$copy='Descoperă '.$name.' la Floralis.'.($source!==''?' '.$source:' Creație florală pregătită cu grijă, disponibilă pentru comandă online.');$seo['description']=metaExcerpt($copy,160);}
  $seo['canonical']=trim((string)($seo['canonical']??''));$seo['og_image']=trim((string)($seo['og_image']??''));$seo['noindex']=false;$seo['auto']=$automatic;return $seo;
 }
+function categorySeoDefaults(array $category,?array $seo=null): array {
+ $seo=is_array($seo)?$seo:decoded((string)($category['seo']??''));$name=metaText((string)($category['name']??'Colecție florală'));$automatic=!empty($seo['auto'])||(trim((string)($seo['title']??''))===''&&trim((string)($seo['description']??''))==='');
+ if($automatic||trim((string)($seo['title']??''))==='')$seo['title']=metaExcerpt($name,39).' | Colecții Floralis';
+ if($automatic||trim((string)($seo['description']??''))===''){$source=metaText((string)($category['description']??''));$seo['description']=metaExcerpt('Descoperă '.$name.' la Floralis — flori și creații pregătite cu grijă în atelierul nostru din Tunari.'.($source!==''?' '.$source:''),160);}
+ $seo['canonical']=trim((string)($seo['canonical']??''));$seo['og_image']=trim((string)($seo['og_image']??''));$seo['noindex']=false;$seo['auto']=$automatic;return $seo;
+}
+function pageSeoDefaults(array $page,?array $seo=null): array {
+ $seo=is_array($seo)?$seo:decoded((string)($page['seo']??''));$slug=(string)($page['slug']??'');$name=metaText((string)($page['title']??'Floralis'));$automatic=!empty($seo['auto'])||(trim((string)($seo['title']??''))===''&&trim((string)($seo['description']??''))==='');$defaults=[
+  'despre-noi'=>['Despre Floralis | Florărie și atelier floral Tunari','Descoperă povestea Floralis, atelierul floral din Tunari unde transformăm florile în gesturi memorabile, din 2017.'],
+  'decor-floral'=>['Decor floral pentru nunți și evenimente | Floralis','Decoruri florale personalizate pentru nunți, botezuri și evenimente în București și Ilfov, create atent de atelierul Floralis.'],
+  'contact'=>['Contact Floralis | Florărie în Tunari, Ilfov','Contactează florăria Floralis din Tunari pentru comenzi, livrare de flori și decoruri florale. Telefon, email, program și adresă.'],
+  'transport-si-livrare'=>['Livrare flori în Tunari, Ilfov și București | Floralis','Află zonele, costurile și condițiile de livrare pentru florile și aranjamentele comandate online de la Floralis.'],
+  'modalitati-de-plata'=>['Plată online sigură și ramburs | Floralis','Vezi metodele de plată disponibile la Floralis: card online procesat securizat și plata la livrare sau ridicare.'],
+  'alergeni'=>['Alergeni și informații despre produse | Floralis','Informații utile despre alergeni, materiale și compoziția produselor disponibile în magazinul Floralis.'],
+  'termeni-si-conditii'=>['Termeni și condiții magazin online | Floralis','Consultă termenii și condițiile aplicabile comenzilor, plăților și livrărilor realizate prin magazinul online Floralis.'],
+  'confidentialitate'=>['Politica de confidențialitate | Floralis','Află cum colectează, folosește și protejează Floralis datele personale furnizate prin magazinul online.'],
+  'cookies'=>['Politica de cookies | Floralis','Află ce cookie-uri utilizează site-ul Floralis, de ce sunt necesare și cum îți poți gestiona preferințele.'],
+  'retur'=>['Retur și retragere din comandă | Floralis','Consultă condițiile de retur, retragere și rambursare pentru produsele comandate din magazinul online Floralis.'],
+  'gdpr'=>['Protecția datelor personale și GDPR | Floralis','Informații despre drepturile tale GDPR și modul în care Floralis protejează datele personale.']
+ ];
+ if($automatic||trim((string)($seo['title']??''))==='')$seo['title']=$defaults[$slug][0]??metaExcerpt($name,47).' | Floralis';if($automatic||trim((string)($seo['description']??''))===''){$body=metaText((string)($page['body']??''));$seo['description']=$defaults[$slug][1]??metaExcerpt(($page['type']??'page')==='post'?$name.'. '.$body:'Descoperă '.$name.' la Floralis. '.$body,160);}
+ $seo['canonical']=trim((string)($seo['canonical']??''));$seo['og_image']=trim((string)($seo['og_image']??''));$seo['noindex']=false;$seo['auto']=$automatic;return $seo;
+}
 function product(array $p): array {$p['seo']=productSeoDefaults($p,decoded($p['seo']));$p['source_fields']=decoded($p['source_fields']);$p['images']=all('SELECT * FROM product_images WHERE product_id=? ORDER BY sort_order,id',[$p['id']]);$p['categories']=all('SELECT c.* FROM categories c JOIN product_categories pc ON pc.category_id=c.id WHERE pc.product_id=?',[$p['id']]);$p['price']=$p['price_cents']===null?null:$p['price_cents']/100;return $p;}
+function contentPage(array $p): array {$p['seo']=pageSeoDefaults($p,decoded($p['seo']));return $p;}
 function categories(bool $admin=false): array {
  $rows=all("SELECT c.*,(SELECT COUNT(*) FROM product_categories pc JOIN products p ON p.id=pc.product_id WHERE pc.category_id=c.id AND p.status='publish') product_count FROM categories c ORDER BY sort_order,id");$byId=array_column($rows,null,'id');
  if(!$admin)$rows=array_values(array_filter($rows,function($c)use($byId){$seen=[];while($c){if(!$c['visible']||in_array($c['id'],$seen))return false;$seen[]=$c['id'];$c=$byId[$c['parent_id']]??null;}return true;}));
- return array_map(function($c){$c['seo']=decoded($c['seo']);return $c;},$rows);
+ return array_map(function($c){$c['seo']=categorySeoDefaults($c,decoded($c['seo']));return $c;},$rows);
 }
 function migrate(): void {
  db()->exec(driver()==='mysql'?"CREATE TABLE IF NOT EXISTS migrations(name VARCHAR(190) PRIMARY KEY, applied_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP)":"CREATE TABLE IF NOT EXISTS migrations(name TEXT PRIMARY KEY, applied_at TEXT NOT NULL DEFAULT (datetime('now')))");
