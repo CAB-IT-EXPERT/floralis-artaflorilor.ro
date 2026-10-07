@@ -146,6 +146,8 @@ export default function Shop({category}) {
     updateParams({min: range.min, max: range.max}, !filtersOpen);
   };
   const filterProps = {categories, category, categoryHref, onCategory: () => setFiltersOpen(false), params, prices, setPrices, priceError, applyPrices, chooseRange, clearFilters, activeCount};
+  const primaryCategories = categories.filter(item => !item.parent_id);
+  const activePrimaryCategory = selectedCategory?.parent_id ? categories.find(item => Number(item.id) === Number(selectedCategory.parent_id))?.slug : category;
   const total = result.data?.total;
   const page = result.data?.page || 1, pages = result.data?.pages || 0;
   const priceLabel = min && max ? `${min} – ${max} lei` : min ? `De la ${min} lei` : `Până la ${max} lei`;
@@ -176,6 +178,17 @@ export default function Shop({category}) {
             {search && <button type="button" className="catalog-search-clear" aria-label="Șterge căutarea" onClick={() => {setSearch(''); updateParams({q: ''}); searchRef.current?.focus();}}><X size={16}/></button>}
             <button className="catalog-search-submit" type="submit"><span>Caută</span><ArrowRight size={17}/></button>
           </form>
+          <div className="catalog-category-shortcuts">
+            <div className="catalog-category-shortcuts-head"><span>COLECȚII RAPIDE</span><small>Glisează și alege <ArrowRight size={12}/></small></div>
+            <nav className="catalog-category-rail" aria-label="Categorii principale">
+              <Link className={'catalog-category-shortcut catalog-category-all' + (!category ? ' is-active' : '')} style={{'--category-index': 0}} to={categoryHref()} onClick={scrollToCatalog} aria-current={!category ? 'page' : undefined}><span className="catalog-category-visual"><Sparkles size={19}/></span><span className="catalog-category-copy"><small>ÎNTREGUL MAGAZIN</small><strong>Toate creațiile</strong></span><i aria-hidden="true"><ArrowRight size={11}/></i></Link>
+              {primaryCategories.map((item, index) => <Link className={'catalog-category-shortcut' + (activePrimaryCategory === item.slug ? ' is-active' : '')} style={{'--category-index': index + 1}} key={item.id} to={categoryHref(item.slug)} onClick={scrollToCatalog} aria-current={activePrimaryCategory === item.slug ? 'page' : undefined}>
+                <span className="catalog-category-visual">{item.image ? <img src={item.image} alt="" loading="lazy" decoding="async"/> : <Flower2 size={19}/>}</span>
+                <span className="catalog-category-copy"><small>COLECȚIE</small><strong>{item.name === 'Nunta' ? 'Nuntă' : item.name === 'Craciun' ? 'Crăciun' : item.name}</strong></span>
+                <i aria-label={countLabel(Number(item.product_count) || 0)}>{Number(item.product_count) || 0}</i>
+              </Link>)}
+            </nav>
+          </div>
         </div>
         <div className="catalog-controls" ref={controlsRef}>
           <div className="catalog-toolbar">
