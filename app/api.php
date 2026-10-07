@@ -223,7 +223,7 @@ try {
  }
  if(preg_match('~^/admin/messages/(\d+)/reply$~',$route,$m)&&$method==='POST'){
   $message=one('SELECT * FROM messages WHERE id=?',[$m[1]]);if(!$message)abortApi('Mesaj inexistent.',404);$subject=text($input,'subject',2,200);$body=text($input,'body',2,5000);
-  $mailBody="Bună, ".$message['name']."!\n\nÎți mulțumim că ne-ai scris despre «".($message['subject']?:'mesajul tău')."».\n\n".$body."\n\nCu drag,\nEchipa Floralis";$delivery=queueMail($message['email'],'Răspuns Floralis · '.$subject,$mailBody);
+  $inquirySubject=$message['subject']?:'mesajul tău';$mailBody="Bună, ".$message['name']."!\n\nÎți mulțumim că ne-ai scris despre «".$inquirySubject."».\n\n".$body."\n\nCu drag,\nEchipa Floralis";$delivery=queueMail($message['email'],'Răspuns Floralis · '.$subject,$mailBody,true,'message_reply',['name'=>$message['name'],'inquiry_subject'=>$inquirySubject,'reply_subject'=>$subject,'reply_body'=>$body]);
   sql('INSERT INTO message_replies(message_id,outbox_id,subject,body,delivery_status,error) VALUES(?,?,?,?,?,?)',[$message['id'],null,$subject,$body,$delivery['status'],$delivery['error']]);$replyId=(int)db()->lastInsertId();sql("UPDATE messages SET status='resolved' WHERE id=?",[$message['id']]);respond(['ok'=>true,'delivery'=>one('SELECT delivery_status status,error FROM message_replies WHERE id=?',[$replyId])]);
  }
  if(preg_match('~^/admin/messages/(\d+)$~',$route,$m)&&$method==='GET'){$message=one('SELECT m.*,(SELECT COUNT(*) FROM message_replies r WHERE r.message_id=m.id) reply_count FROM messages m WHERE m.id=?',[$m[1]]);if(!$message)abortApi('Mesaj inexistent.',404);$message['replies']=all('SELECT r.* FROM message_replies r WHERE r.message_id=? ORDER BY r.id',[$message['id']]);respond($message);}
