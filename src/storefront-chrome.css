@@ -23,14 +23,14 @@
   z-index: 40;
   transition: height .35s ease, box-shadow .35s ease, background-color .35s ease;
 }
-.store-header .desktop-nav { gap: clamp(3px, .35vw, 8px); font-size: clamp(14px, .84vw, 16px); }
+.store-header .desktop-nav { gap: clamp(5px, .5vw, 11px); font-size: clamp(17px, 1vw, 19px); }
 .store-header .desktop-nav a {
   position: relative;
   isolation: isolate;
   display: inline-flex;
   align-items: center;
   min-height: 38px;
-  padding: 8px clamp(10px,.7vw,15px);
+  padding: 9px clamp(12px,.85vw,18px);
   border-radius: 999px;
   color: #342f2a;
   letter-spacing: .01em;
@@ -121,7 +121,8 @@
 
 @media (min-width: 1101px) and (max-width: 1500px) {
   .store-header .logo { width: clamp(180px, 14vw, 195px); }
-  .store-header .desktop-nav { font-size: 15px; }
+  .store-header .desktop-nav { gap: 3px; font-size: 17px; }
+  .store-header .desktop-nav a { padding-right: 10px; padding-left: 10px; }
 }
 
 @media (min-width: 768px) {
