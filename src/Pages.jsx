@@ -171,7 +171,7 @@ function About(){
     </section>
 
     <section className="about-founder reveal">
-      <div className="about-founder-photo"><figure><Image src="/assets/floralis/export-b613330c87ff.webp" alt="Decor floral elegant realizat de echipa Floralis" sizes="(max-width: 767px) 92vw, 42vw"/></figure><span className="about-founder-bloom" aria-hidden="true"><i/><i/><i/><i/></span></div>
+      <div className="about-founder-photo"><figure><Image src="/assets/floralis/ana-smoaca-uhlov-floralis.webp" alt="Ana Smoaca Uhlov, designer floral și cofondatoarea Floralis, cu un buchet creat în atelier" sizes="(max-width: 767px) 92vw, 42vw"/></figure><span className="about-founder-bloom" aria-hidden="true"><i/><i/><i/><i/></span></div>
       <div className="about-founder-copy"><div className="about-section-index"><span>02</span><i/><small>OMUL DIN SPATELE FLORILOR</small></div><span className="eyebrow">BUNĂ, SUNT ANA</span><h2>Pasiune transformată<br/><em>într-un mod de a crea.</em></h2><p>{founder}</p><div className="about-founder-note"><span>Designer floral</span><i/><span>Co-fondator Floralis</span></div></div>
     </section>
 
